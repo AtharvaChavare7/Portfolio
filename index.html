@@ -1,0 +1,1107 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <script src="clock-favicon.js"></script>
+  <title>Atharva Chavare — Product Designer</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,800&family=Geist+Mono:wght@400;600&family=JetBrains+Mono:wght@400&family=Libre+Baskerville:ital,wght@0,500;1,500&family=Plus+Jakarta+Sans:wght@300;400;500;600&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/geist@1.3.1/dist/font.css">
+  <link rel="stylesheet" href="styles.css">
+  <link rel="stylesheet" href="agent-carousel.css">
+  <!-- AI orb loader for SpendTrack chat -->
+  <link rel="stylesheet" href="ai-loaders.css">
+  <link rel="stylesheet" href="screanime/wireframe-reveal-embed.css">
+  <link rel="stylesheet" href="screanime/whatsapp-chat-embed.css">
+  <link rel="stylesheet" href="assets/footer/atharva-reveal.css">
+  <link rel="stylesheet" href="site-nav.css">
+  <link rel="stylesheet" href="home-responsive.css">
+</head>
+<body id="top">
+  <div class="site-bg-transition" aria-hidden="true"></div>
+  <header class="site-nav" data-state="closed" aria-label="Site navigation">
+    <button
+      class="site-nav__menu"
+      type="button"
+      aria-label="Open menu"
+      aria-expanded="false"
+      aria-controls="site-nav-panel"
+    >
+      <span class="site-nav__menu-label" aria-hidden="true">
+        <span class="site-nav__menu-letter" style="--letter-index: 0">m</span>
+        <span class="site-nav__menu-letter" style="--letter-index: 1">e</span>
+        <span class="site-nav__menu-letter" style="--letter-index: 2">n</span>
+        <span class="site-nav__menu-letter" style="--letter-index: 3">u</span>
+      </span>
+      <span class="site-nav__menu-dot" aria-hidden="true"></span>
+    </button>
+    <div class="site-nav__panel" id="site-nav-panel" hidden>
+      <div class="site-nav__panel-close-row">
+        <button class="site-nav__close" type="button" aria-label="Close menu">
+          <span class="site-nav__close-label">close</span>
+          <span class="site-nav__close-icon" aria-hidden="true"></span>
+        </button>
+      </div>
+      <nav class="site-nav__links" aria-label="Primary">
+        <a class="site-nav__link" href="#work">works</a>
+        <a class="site-nav__link" href="interaction-library.html">playground</a>
+        <a class="site-nav__link" href="about.html">about</a>
+        <a class="site-nav__link" href="#">contact</a>
+      </nav>
+    </div>
+  </header>
+  <div class="site-nav__scrim" hidden aria-hidden="true"></div>
+  <main class="page">
+    <div class="hero-screen">
+      <section class="hero" aria-label="Introduction">
+        <div class="hero__container">
+          <header class="hero__intro">
+            <p class="hero__greeting"><span class="hero__greeting-time">Good morning</span>— I'm Atharva Chavare</p>
+            <p class="hero__role">A Product Designer</p>
+          </header>
+
+          <div class="hero__stage">
+            <h1 class="hero__title">
+              <span class="hero__line">
+                <span class="hero__word hero__word--sans">Crafting</span>
+                <span class="hero__word hero__word--serif">meaningful</span>
+              </span>
+              <span class="hero__line">
+                <span class="hero__word hero__word--sans">interfaces</span>
+                <span class="hero__word hero__word--serif">for</span>
+                <span class="hero__word hero__word--sans">millions</span>
+              </span>
+              <span class="hero__line hero__line--wide">
+                <span class="hero__word hero__word--serif">at</span>
+                <span class="hero__line hero__line--employer">
+                  <span class="hero__word hero__word--sans">Wongdoody.</span>
+                  <span class="hero__word hero__word--serif">previously at</span>
+                </span>
+              </span>
+              <span class="hero__line">
+                <span class="hero__word hero__word--sans">Makemytrip</span>
+                <span class="hero__word hero__word--serif">&amp;</span>
+                <span class="hero__word hero__word--sans">fiserv</span>
+              </span>
+            </h1>
+
+            <img
+              class="hero__pill hero__pill--animations"
+              src="assets/pill-patents.svg"
+              alt="Crafting animations"
+              width="277"
+              height="130"
+            >
+            <img
+              class="hero__pill hero__pill--shipping"
+              src="assets/pill-bilingual.svg"
+              alt="Shipping PRs"
+              width="208"
+              height="126"
+            >
+            <img
+              class="hero__pill hero__pill--detail"
+              src="assets/pill-detail.svg"
+              alt="Detail obsessed"
+              width="239"
+              height="133"
+            >
+            <img
+              class="hero__pill hero__pill--agent"
+              src="assets/pill-agent.svg"
+              alt="Agent workflow"
+              width="250"
+              height="132"
+            >
+            <img
+              class="hero__pill hero__pill--design-systems"
+              src="assets/pill-design-systems.svg"
+              alt="Design system nerd"
+              width="266"
+              height="127"
+            >
+          </div>
+        </div>
+      </section>
+      <a class="hero-scroll" href="#work" aria-label="Scroll to works">
+        <span class="hero-scroll__label">scroll to works</span>
+        <span class="hero-scroll__line" aria-hidden="true"></span>
+      </a>
+    </div>
+
+    <div class="work-area" id="work">
+      <nav class="work-nav" aria-label="Case studies" aria-hidden="true" data-state="hidden">
+        <ol class="work-nav__list">
+          <li class="work-nav__item">
+            <button
+              class="work-nav__button is-active"
+              type="button"
+              data-target="case-makemytrip"
+              aria-current="true"
+            >
+              <span class="work-nav__dot" aria-hidden="true"></span>
+              <span class="work-nav__label">MakeMyTrip • 2025</span>
+            </button>
+          </li>
+          <li class="work-nav__item">
+            <button
+              class="work-nav__button"
+              type="button"
+              data-target="case-wongdoody"
+              aria-current="false"
+            >
+              <span class="work-nav__dot" aria-hidden="true"></span>
+              <span class="work-nav__label">Fiserv • 2024</span>
+            </button>
+          </li>
+          <li class="work-nav__item">
+            <button
+              class="work-nav__button"
+              type="button"
+              data-target="case-fiserv"
+              aria-current="false"
+            >
+              <span class="work-nav__dot" aria-hidden="true"></span>
+              <span class="work-nav__label">Personal Project</span>
+            </button>
+          </li>
+        </ol>
+      </nav>
+
+    <section class="work-card case-study case-study--viewport" id="case-makemytrip" data-case-study aria-label="MakeMyTrip case study">
+      <div class="case-study__stage">
+      <div class="work-card__grid">
+        <div class="work-card__panel-wrap work-card__panel-wrap--main">
+          <article class="work-card__panel work-card__panel--main">
+            <img
+              class="work-card__phone-main"
+              src="assets/card/phone-main.png"
+              alt="MakeMyTrip exclusive gift modal on mobile"
+              width="344"
+              height="519"
+            >
+            <div class="work-card__banner-stage" aria-hidden="true"></div>
+          </article>
+          <img
+            class="work-card__badge"
+            src="assets/card/badge-checkin.png"
+            alt="Check-in guarantee badge"
+            width="127"
+            height="139"
+          >
+        </div>
+
+        <div class="work-card__column">
+          <article class="work-card__panel work-card__panel--phones">
+            <div class="work-card__gradient" aria-hidden="true"></div>
+            <div class="work-card__phones-scroll" tabindex="0" aria-label="Hotel booking flow screens">
+              <div class="work-card__phones-row">
+                <div class="work-card__phone-wrap work-card__phone-wrap--left">
+                  <img src="assets/card/phone-left.png" alt="Hotel booking flow screen one" width="231" height="529" draggable="false">
+                </div>
+                <img
+                  class="work-card__phone-center"
+                  src="assets/card/phone-center.png"
+                  alt="Hotel booking flow screen two"
+                  width="226"
+                  height="456"
+                  draggable="false"
+                >
+                <div class="work-card__phone-wrap work-card__phone-wrap--right">
+                  <img src="assets/card/phone-right.png" alt="Hotel booking flow screen three" width="228" height="529" draggable="false">
+                </div>
+              </div>
+            </div>
+          </article>
+
+          <article class="work-card__panel work-card__panel--gift" aria-label="Scratch coupon card">
+            <img
+              class="work-card__gift-bg"
+              src="assets/card/card-bg.png"
+              alt=""
+              aria-hidden="true"
+              width="588"
+              height="265"
+            >
+            <div class="work-card__gift-tilt">
+            <div class="work-card__gift-frame">
+              <img
+                class="work-card__gift-tag"
+                src="assets/card/gift-tag.svg"
+                alt=""
+                aria-hidden="true"
+                width="56"
+                height="14"
+              >
+              <div class="work-card__scratch-callout" aria-hidden="true">
+                <p class="work-card__scratch-hint">Scratch here</p>
+                <div class="work-card__scratch-arrow-field">
+                  <svg
+                    class="work-card__scratch-arrow"
+                    viewBox="0 0 118 52"
+                    fill="none"
+                    aria-hidden="true"
+                  >
+                    <defs>
+                      <clipPath id="scratch-arrow-outside">
+                        <rect x="0" y="0" width="90" height="52"></rect>
+                      </clipPath>
+                      <clipPath id="scratch-arrow-inside">
+                        <rect x="90" y="0" width="28" height="52"></rect>
+                      </clipPath>
+                    </defs>
+                    <path
+                      class="work-card__scratch-arrow-path work-card__scratch-arrow-path--outside"
+                      d="M 8 4 C 4 14, 8 26, 24 32 C 40 38, 60 32, 76 22 C 84 18, 90 16, 90 16"
+                      clip-path="url(#scratch-arrow-outside)"
+                    />
+                    <path
+                      class="work-card__scratch-arrow-path work-card__scratch-arrow-path--inside"
+                      d="M 90 16 C 98 14, 106 12, 112 14"
+                      clip-path="url(#scratch-arrow-inside)"
+                    />
+                    <path
+                      class="work-card__scratch-arrow-head"
+                      d="M 112 14 L 106 11 M 112 14 L 109 20"
+                      clip-path="url(#scratch-arrow-inside)"
+                    />
+                  </svg>
+                </div>
+              </div>
+              <div
+                class="work-card__scratch-wrap"
+                data-front="assets/card/gift-card.png"
+                data-back="assets/card/gift-card-back.png"
+                role="img"
+                aria-label="Scratch the card to reveal the coupon"
+                tabindex="0"
+              >
+                <div class="work-card__scratch-stage">
+                  <img
+                    class="work-card__scratch-back"
+                    src="assets/card/gift-card-back.png"
+                    alt="Flat 15% off on stays coupon"
+                    width="245"
+                    height="159"
+                  >
+                  <canvas class="work-card__scratch-surface" aria-hidden="true"></canvas>
+                </div>
+              </div>
+            </div>
+            </div>
+          </article>
+        </div>
+      </div>
+
+      <footer class="work-card__footer">
+        <p class="work-card__title">Increased Hotel Cross Selling by 4%</p>
+        <button
+          class="work-card__case-study-link"
+          type="button"
+          data-case-study-deck="cross-sell"
+          data-magnetic-button
+        >
+          <span class="work-card__case-study-link__fill" aria-hidden="true"></span>
+          <span class="work-card__case-study-link__label">Read Case Study</span>
+          <span class="work-card__case-study-link__icon" aria-hidden="true">
+            <img class="work-card__case-study-link__arrow work-card__case-study-link__arrow--default" src="assets/read-case-study-arrow-default.svg" alt="" width="19" height="19" decoding="async">
+            <img class="work-card__case-study-link__arrow work-card__case-study-link__arrow--hover" src="assets/read-case-study-arrow-hover.svg" alt="" width="19" height="19" decoding="async">
+          </span>
+        </button>
+      </footer>
+      </div>
+    </section>
+
+    <section
+      class="work-card case-study case-study--viewport case-study--dark"
+      id="case-wongdoody"
+      data-case-study
+      aria-label="Wongdoody case study"
+    >
+      <div class="case-study__stage">
+        <div class="work-card__grid work-card__grid--wongdoody">
+          <div class="work-card__column work-card__column--wongdoody">
+            <article class="work-card__panel work-card__panel--agent" aria-label="Agent status carousel">
+              <div class="agent-carousel-frame" data-agent-carousel>
+                <div class="agent-carousel-backdrop" data-agent-carousel-backdrop aria-hidden="true"></div>
+                <div class="carousel-viewport">
+                  <div class="carousel-track" data-agent-carousel-track>
+                    <div class="agent-card ghost" data-agent-card="left" aria-hidden="true"></div>
+                    <div class="agent-card active" data-agent-card="center"></div>
+                    <div class="agent-card ghost" data-agent-card="right" aria-hidden="true"></div>
+                  </div>
+                </div>
+              </div>
+            </article>
+
+            <article class="work-card__panel work-card__panel--phone-search" aria-label="SpendTrack AI mobile search">
+              <div class="phone-search__frame">
+                <img
+                  class="phone-search__art"
+                  src="assets/wongdoody/phone-search.png"
+                  alt="SpendTrack AI mobile search with suggested actions"
+                  width="621"
+                  height="349"
+                  draggable="false"
+                >
+              </div>
+            </article>
+          </div>
+
+          <article class="work-card__panel work-card__panel--chat" aria-label="SpendTrack AI payment conversation">
+            <img
+              class="spend-chat__bg"
+              src="assets/wongdoody/chat-gradient.png"
+              alt=""
+              aria-hidden="true"
+              width="621"
+              height="730"
+            >
+            <div class="spend-chat" data-spend-chat>
+              <div class="spend-chat__user-bubble spend-chat__user-bubble--1">
+                <p class="spend-chat__user-text">How much payment due for this account</p>
+              </div>
+
+              <div class="spend-chat__agent-block spend-chat__agent-block--1">
+                <div class="spend-chat__agent-line">
+                  <div class="ai-loader-host ai-loader-host--chat" aria-hidden="true">
+                    <div class="ai-loader ai-loader--ring-pulse" aria-hidden="true">
+                      <svg class="ai-loader__ring-svg" viewBox="0 0 30 30" aria-hidden="true" focusable="false">
+                        <circle class="ai-loader__ring" cx="15" cy="15" r="10.5" />
+                      </svg>
+                      <span class="ai-loader__ring-dot" aria-hidden="true"></span>
+                    </div>
+                  </div>
+                  <p class="spend-chat__agent-text">Here is the balance due for this account:</p>
+                </div>
+
+                <div class="spend-chat__card">
+                  <div class="spend-chat__card-body">
+                    <div class="spend-chat__card-top">
+                      <div class="spend-chat__card-heading">
+                        <div class="spend-chat__card-title-row">
+                          <img
+                            class="spend-chat__card-icon"
+                            src="assets/wongdoody/wallet-icon-figma.svg"
+                            alt=""
+                            width="25"
+                            height="25"
+                          >
+                          <p class="spend-chat__card-title">Payment Due</p>
+                        </div>
+                        <p class="spend-chat__card-subtitle">Your outstanding bill for this month is:</p>
+                      </div>
+                      <img
+                        class="spend-chat__card-divider"
+                        src="assets/wongdoody/card-divider-figma.svg"
+                        alt=""
+                        aria-hidden="true"
+                        width="329"
+                        height="1"
+                      >
+                    </div>
+                    <p class="spend-chat__card-amount">$219</p>
+                  </div>
+                  <button class="spend-chat__card-cta" type="button" tabindex="-1">
+                    <span class="spend-chat__card-cta-text">Pay now</span>
+                  </button>
+                </div>
+              </div>
+
+              <div class="spend-chat__user-bubble spend-chat__user-bubble--2">
+                <p class="spend-chat__user-text">Okay thank you so much!</p>
+              </div>
+
+              <div class="spend-chat__agent-line spend-chat__agent-line--2">
+                <div class="ai-loader-host ai-loader-host--chat" aria-hidden="true">
+                  <div class="ai-loader ai-loader--ring-pulse" aria-hidden="true">
+                    <svg class="ai-loader__ring-svg" viewBox="0 0 30 30" aria-hidden="true" focusable="false">
+                      <circle class="ai-loader__ring" cx="15" cy="15" r="10.5" />
+                    </svg>
+                    <span class="ai-loader__ring-dot" aria-hidden="true"></span>
+                  </div>
+                </div>
+                <p class="spend-chat__agent-text spend-chat__agent-text--wrap">Most welcome! Do you want help with anything else?</p>
+              </div>
+
+              <div class="spend-chat__composer">
+                <div class="spend-chat__search-row">
+                  <div class="spend-chat__search-field">
+                    <p class="spend-chat__placeholder">Ask SpendTrack AI or search</p>
+                  </div>
+                  <button class="spend-chat__search-submit" type="button" tabindex="-1" aria-label="Submit search">
+                    <img
+                      class="spend-chat__search-submit-icon"
+                      src="assets/wongdoody/search-submit-icon.svg"
+                      alt=""
+                      width="25"
+                      height="25"
+                    >
+                  </button>
+                </div>
+              </div>
+            </div>
+          </article>
+        </div>
+
+        <footer class="work-card__footer">
+          <p class="work-card__title">Designed SpendTrack AI for enterprise finance</p>
+          <button
+            class="work-card__case-study-link"
+            type="button"
+            data-case-study-deck="spendtrack"
+            data-magnetic-button
+          >
+            <span class="work-card__case-study-link__fill" aria-hidden="true"></span>
+            <span class="work-card__case-study-link__label">Read Case Study</span>
+            <span class="work-card__case-study-link__icon" aria-hidden="true">
+              <img class="work-card__case-study-link__arrow work-card__case-study-link__arrow--default" src="assets/read-case-study-arrow-default.svg" alt="" width="19" height="19" decoding="async">
+              <img class="work-card__case-study-link__arrow work-card__case-study-link__arrow--hover" src="assets/read-case-study-arrow-hover.svg" alt="" width="19" height="19" decoding="async">
+            </span>
+          </button>
+        </footer>
+      </div>
+    </section>
+
+    <section class="work-card case-study case-study--viewport" id="case-fiserv" data-case-study aria-label="Fiserv case study">
+      <div class="case-study__stage">
+        <div class="work-card__grid work-card__grid--fiserv">
+          <div class="work-card__column work-card__column--fiserv">
+            <article class="work-card__panel work-card__panel--fiserv-top" id="fiserv-wa-panel" aria-label="Fiserv WhatsApp chat">
+              <div
+                class="wa-demo"
+                data-wa-demo
+                data-wa-autoplay
+                data-wa-loop
+                data-defer-until-visible
+                data-defer-target="fiserv-wa-panel"
+                data-asset-base="screanime/"
+                aria-label="WhatsApp chat simulation"
+              >
+                <div class="wa-card">
+                  <div class="wa-phone">
+                    <div class="wa-chat-bg" aria-hidden="true"></div>
+
+                    <div class="wa-chat__viewport" data-wa-chat-viewport>
+                      <div class="wa-chat__track" data-wa-messages></div>
+                    </div>
+
+                    <div class="wa-bottom-bar" data-wa-composer>
+                      <img
+                        class="wa-bottom-bar__divider"
+                        src="screanime/whatsapp-assets/divider-line.png"
+                        alt=""
+                      >
+
+                      <img
+                        class="wa-bottom-bar__icon wa-bottom-bar__icon--plus"
+                        src="screanime/whatsapp-assets/UI/Icon/Plus.svg"
+                        alt=""
+                        width="24"
+                        height="24"
+                      >
+
+                      <div class="wa-bottom-bar__field">
+                        <span class="wa-bottom-bar__typed" data-wa-composer-text hidden></span>
+                        <img
+                          class="wa-bottom-bar__attach"
+                          src="screanime/whatsapp-assets/UI/Icon/Attachment.svg"
+                          alt=""
+                          width="24"
+                          height="24"
+                        >
+                      </div>
+
+                      <img
+                        class="wa-bottom-bar__icon wa-bottom-bar__icon--camera"
+                        src="screanime/whatsapp-assets/UI/Icon/Camera.svg"
+                        alt=""
+                        width="24"
+                        height="24"
+                      >
+
+                      <img
+                        class="wa-bottom-bar__icon wa-bottom-bar__icon--mic"
+                        data-wa-mic
+                        src="screanime/whatsapp-assets/UI/Icon/Microphone.svg"
+                        alt=""
+                        width="24"
+                        height="24"
+                      >
+
+                      <button
+                        class="wa-bottom-bar__icon wa-bottom-bar__icon--send"
+                        type="button"
+                        data-wa-send
+                        hidden
+                        aria-hidden="true"
+                      >
+                        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" aria-hidden="true">
+                          <path d="M22 2L11 13" stroke="#007AFF" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                          <path d="M22 2L15 22L11 13L2 9L22 2Z" stroke="#007AFF" stroke-width="2" stroke-linejoin="round"/>
+                        </svg>
+                      </button>
+
+                      <div class="wa-home-indicator" aria-hidden="true"></div>
+                    </div>
+
+                    <div class="wa-phone__frame" aria-hidden="true"></div>
+                  </div>
+                </div>
+              </div>
+            </article>
+            <article class="work-card__panel work-card__panel--fiserv-bottom" aria-label="Fiserv bottom left card">
+              <img
+                class="fiserv-bottom__art"
+                src="screanime/BottomLeftcard.svg"
+                alt="Fiserv payment card with WhatsApp integration"
+                width="621"
+                height="258"
+                draggable="false"
+              >
+            </article>
+          </div>
+          <article class="work-card__panel work-card__panel--fiserv-main" aria-label="Fiserv wireframe reveal">
+            <div
+              class="ui-reveal ui-reveal--embed"
+              data-ui-reveal
+              data-asset-base="screanime/"
+              data-defer-until-visible
+              data-loop
+            >
+              <div class="ui-reveal__card">
+                <div class="ui-reveal__stage">
+                  <div class="ui-reveal__viewport">
+                    <img
+                      class="ui-reveal__hifi"
+                      src="screanime/Hifi.png"
+                      alt="High fidelity mobile screen"
+                      width="397"
+                      height="856"
+                      draggable="false"
+                    >
+                    <div class="ui-reveal__wireframe-host" data-wireframe-host aria-hidden="true">
+                      <object
+                        class="ui-reveal__wireframe-object"
+                        data="screanime/wireframe1.svg"
+                        type="image/svg+xml"
+                        data-wireframe-object
+                        aria-hidden="true"
+                      ></object>
+                    </div>
+                    <svg class="ui-reveal__stroke-layer" data-stroke-layer viewBox="0 0 397 856" aria-hidden="true"></svg>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </article>
+        </div>
+
+        <footer class="work-card__footer">
+          <p class="work-card__title">Designed SnakeSafe, a snake encounter assistant</p>
+          <button
+            class="work-card__case-study-link"
+            type="button"
+            data-case-study-deck="snakesafe"
+            data-magnetic-button
+          >
+            <span class="work-card__case-study-link__fill" aria-hidden="true"></span>
+            <span class="work-card__case-study-link__label">Read Case Study</span>
+            <span class="work-card__case-study-link__icon" aria-hidden="true">
+              <img class="work-card__case-study-link__arrow work-card__case-study-link__arrow--default" src="assets/read-case-study-arrow-default.svg" alt="" width="19" height="19" decoding="async">
+              <img class="work-card__case-study-link__arrow work-card__case-study-link__arrow--hover" src="assets/read-case-study-arrow-hover.svg" alt="" width="19" height="19" decoding="async">
+            </span>
+          </button>
+        </footer>
+      </div>
+    </section>
+    </div>
+
+  </main>
+
+  <div class="demo-page" aria-label="Site footer">
+    <section class="footer-panel" aria-label="Footer links">
+      <div class="footer-panel__inner">
+        <div class="footer-panel__row">
+          <div class="footer-panel__hero">
+            <h2 class="footer-panel__headline">
+              <span class="footer-panel__headline-line">
+                Let’s BUILD
+                <button class="footer-panel__folder-wrap" type="button" aria-label="AI build tools: Claude, Cursor, Codex">
+                  <span class="footer-panel__folder-scene" aria-hidden="true">
+                    <img class="footer-panel__folder-back" src="assets/footer/v2/folder-back-tab.svg" alt="" width="78" height="55" decoding="async">
+                    <span class="footer-panel__folder-burst">
+                      <img class="footer-panel__tool footer-panel__tool--claude" src="assets/footer/v2/tool-claude.svg" alt="" width="21" height="21" decoding="async">
+                      <img class="footer-panel__tool footer-panel__tool--cursor" src="assets/footer/v2/tool-cursor.svg" alt="" width="21" height="21" decoding="async">
+                      <span class="footer-panel__tool footer-panel__tool--codex">
+                        <span class="footer-panel__tool-tile footer-panel__tool-tile--codex">
+                          <img src="assets/footer/v2/tool-codex.svg" alt="" width="12" height="12" decoding="async">
+                        </span>
+                      </span>
+                    </span>
+                    <img class="footer-panel__folder-front" src="assets/footer/v2/folder-front-body.svg" alt="" width="78" height="50" decoding="async">
+                    <img class="footer-panel__folder-mark" src="assets/footer/v2/folder-front-mark.svg" alt="" width="19" height="17" decoding="async">
+                  </span>
+                </button>
+              </span>
+              <span class="footer-panel__headline-line">something meaningful</span>
+            </h2>
+
+            <div class="footer-panel__actions">
+              <button class="footer-panel__btn footer-panel__btn--email" type="button" data-copy-email="chavareatharva@gmail.com" aria-label="Copy Email ID">
+                <span class="footer-panel__btn-label">
+                  <span class="footer-panel__btn-label-default">Copy Email ID</span>
+                  <span class="footer-panel__btn-label-success" role="status">Copied!</span>
+                </span>
+                <span class="footer-panel__copy-icon" aria-hidden="true">
+                  <svg class="footer-panel__copy-glyph" viewBox="0 0 20 20" fill="none">
+                    <rect x="6.5" y="6.5" width="9" height="9" rx="2" stroke="currentColor" stroke-width="1.6"/>
+                    <path d="M13.5 6.5V6A2.5 2.5 0 0 0 11 3.5H6A2.5 2.5 0 0 0 3.5 6v5A2.5 2.5 0 0 0 6 13.5h.5" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/>
+                  </svg>
+                  <svg class="footer-panel__check-glyph" viewBox="0 0 20 20" fill="none">
+                    <path d="m5 10.5 3.2 3.2L15.5 6.5" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/>
+                  </svg>
+                </span>
+              </button>
+              <a class="footer-panel__btn footer-panel__btn--resume" href="#" aria-label="Resume (coming soon)">
+                <span class="footer-panel__btn-label">Resume</span>
+                <img class="footer-panel__btn-arrow" src="assets/footer/v2/arrow-light.svg" alt="" width="19" height="19" decoding="async">
+              </a>
+            </div>
+          </div>
+
+          <nav class="footer-panel__links" aria-label="Links and social profiles">
+            <a class="footer-panel__link" href="interaction-library.html">
+              <span class="footer-panel__link-main">
+                <span class="footer-panel__icon footer-panel__icon--white">
+                  <img src="assets/footer/v2/icon-interaction-library.svg" alt="" width="27" height="26" decoding="async">
+                </span>
+                <span class="footer-panel__link-label">Interaction Library</span>
+              </span>
+              <span class="footer-panel__link-arrow" aria-hidden="true">↗</span>
+            </a>
+
+            <a class="footer-panel__link" href="https://medium.com/@chavareatharva" target="_blank" rel="noreferrer">
+              <span class="footer-panel__link-main">
+                <span class="footer-panel__icon footer-panel__icon--white">
+                  <img src="assets/footer/v2/icon-medium.png" alt="" width="31" height="31" decoding="async">
+                </span>
+                <span class="footer-panel__link-label">Medium</span>
+              </span>
+              <span class="footer-panel__link-arrow" aria-hidden="true">↗</span>
+            </a>
+
+            <a class="footer-panel__link" href="https://www.linkedin.com/in/atharva-chavare-363278248" target="_blank" rel="noreferrer">
+              <span class="footer-panel__link-main">
+                <span class="footer-panel__icon footer-panel__icon--linkedin">
+                  <img src="assets/footer/v2/icon-linkedin.svg" alt="" width="33" height="33" decoding="async">
+                </span>
+                <span class="footer-panel__link-label">LinkedIn</span>
+              </span>
+              <span class="footer-panel__link-arrow" aria-hidden="true">↗</span>
+            </a>
+
+            <a class="footer-panel__link" href="https://x.com/" target="_blank" rel="noreferrer">
+              <span class="footer-panel__link-main">
+                <span class="footer-panel__icon footer-panel__icon--twitter">
+                  <img src="assets/footer/v2/icon-twitter.svg" alt="" width="45" height="45" decoding="async">
+                </span>
+                <span class="footer-panel__link-label">Twitter</span>
+              </span>
+              <span class="footer-panel__link-arrow" aria-hidden="true">↗</span>
+            </a>
+
+            <a class="footer-panel__link" href="https://www.behance.net/atharvachavare" target="_blank" rel="noreferrer">
+              <span class="footer-panel__link-main">
+                <span class="footer-panel__icon footer-panel__icon--behance">
+                  <img src="assets/footer/v2/icon-behance.svg" alt="" width="22" height="15" decoding="async">
+                </span>
+                <span class="footer-panel__link-label">Behance</span>
+              </span>
+              <span class="footer-panel__link-arrow" aria-hidden="true">↗</span>
+            </a>
+          </nav>
+        </div>
+
+        <div class="footer-panel__divider" aria-hidden="true">
+          <img src="assets/footer/v2/divider-line.svg" alt="" width="1664" height="1" decoding="async">
+        </div>
+      </div>
+    </section>
+
+    <footer class="name-footer" aria-label="Atharva name reveal footer">
+      <div class="name-footer__stage is-idle">
+        <div class="name-footer__media" aria-hidden="true">
+          <video
+            class="name-footer__video"
+            autoplay
+            muted
+            loop
+            playsinline
+            preload="auto"
+          >
+            <source src="assets/footer/firefly.mp4" type="video/mp4">
+          </video>
+        </div>
+
+        <canvas class="name-footer__canvas" aria-hidden="true"></canvas>
+        <span class="name-footer__cursor" aria-hidden="true"></span>
+
+        <div class="name-footer__fallback" hidden>Loading texture video…</div>
+      </div>
+    </footer>
+  </div>
+
+  <dialog class="case-study-embed" aria-label="Case study" data-transition="soft-shutter" data-nav-style="ticks" data-active-deck="cross-sell">
+    <div class="case-study-embed__stage">
+      <div class="case-study-transition-fx" aria-hidden="true">
+        <canvas class="case-study-transition-fx__shader"></canvas>
+        <div class="case-study-transition-fx__shutter">
+          <span class="case-study-transition-fx__shutter-panel case-study-transition-fx__shutter-panel--top"></span>
+          <span class="case-study-transition-fx__shutter-panel case-study-transition-fx__shutter-panel--bottom"></span>
+        </div>
+        <div class="case-study-transition-fx__soft-shutter">
+          <span class="case-study-transition-fx__soft-shutter-panel case-study-transition-fx__soft-shutter-panel--top">
+            <span class="case-study-transition-fx__soft-shutter-handle"></span>
+          </span>
+          <span class="case-study-transition-fx__soft-shutter-panel case-study-transition-fx__soft-shutter-panel--bottom">
+            <span class="case-study-transition-fx__soft-shutter-handle"></span>
+          </span>
+        </div>
+        <div class="case-study-transition-fx__industrial-shutter">
+          <span class="case-study-transition-fx__industrial-panel case-study-transition-fx__industrial-panel--left">
+            <span class="case-study-transition-fx__industrial-vents case-study-transition-fx__industrial-vents--top"></span>
+            <span class="case-study-transition-fx__industrial-vents case-study-transition-fx__industrial-vents--bottom"></span>
+            <span class="case-study-transition-fx__industrial-vents case-study-transition-fx__industrial-vents--outer"></span>
+            <span class="case-study-transition-fx__industrial-bolt case-study-transition-fx__industrial-bolt--top"></span>
+            <span class="case-study-transition-fx__industrial-bolt case-study-transition-fx__industrial-bolt--bottom"></span>
+            <span class="case-study-transition-fx__industrial-handle"></span>
+          </span>
+          <span class="case-study-transition-fx__industrial-panel case-study-transition-fx__industrial-panel--right">
+            <span class="case-study-transition-fx__industrial-vents case-study-transition-fx__industrial-vents--top"></span>
+            <span class="case-study-transition-fx__industrial-vents case-study-transition-fx__industrial-vents--bottom"></span>
+            <span class="case-study-transition-fx__industrial-vents case-study-transition-fx__industrial-vents--outer"></span>
+            <span class="case-study-transition-fx__industrial-bolt case-study-transition-fx__industrial-bolt--top"></span>
+            <span class="case-study-transition-fx__industrial-bolt case-study-transition-fx__industrial-bolt--bottom"></span>
+            <span class="case-study-transition-fx__industrial-handle"></span>
+            <img class="case-study-transition-fx__industrial-mark" src="assets/industrial-shutter-mark.svg" alt="">
+          </span>
+        </div>
+        <div class="case-study-transition-fx__blinds">
+          <span style="--blind-index: 0"></span>
+          <span style="--blind-index: 1"></span>
+          <span style="--blind-index: 2"></span>
+          <span style="--blind-index: 3"></span>
+          <span style="--blind-index: 4"></span>
+          <span style="--blind-index: 5"></span>
+          <span style="--blind-index: 6"></span>
+          <span style="--blind-index: 7"></span>
+          <span style="--blind-index: 8"></span>
+          <span style="--blind-index: 9"></span>
+        </div>
+        <div class="case-study-transition-fx__portal">
+          <span class="case-study-transition-fx__portal-panel case-study-transition-fx__portal-panel--top-left"></span>
+          <span class="case-study-transition-fx__portal-panel case-study-transition-fx__portal-panel--top-right"></span>
+          <span class="case-study-transition-fx__portal-panel case-study-transition-fx__portal-panel--bottom-left"></span>
+          <span class="case-study-transition-fx__portal-panel case-study-transition-fx__portal-panel--bottom-right"></span>
+        </div>
+        <div class="case-study-transition-fx__page-turn">
+          <span></span>
+        </div>
+      </div>
+      <div class="case-study-embed__bar">
+        <button class="case-study-embed__close" type="button" aria-label="Close case study">
+          Close
+        </button>
+      </div>
+      <nav class="case-study-nav" aria-label="Case study sections">
+        <ol class="case-study-nav__ticks" aria-label="Main sections"></ol>
+        <div class="case-study-nav__legacy">
+          <button
+            class="case-study-nav__chapters-toggle"
+            type="button"
+            aria-expanded="false"
+            aria-controls="case-study-nav-surface"
+          >
+            01 · Overview
+          </button>
+          <div class="case-study-nav__surface" id="case-study-nav-surface">
+            <div class="case-study-nav__timeline-track" aria-hidden="true">
+              <span class="case-study-nav__timeline-progress"></span>
+            </div>
+            <ol class="case-study-nav__list" aria-label="Sections"></ol>
+          </div>
+        </div>
+      </nav>
+      <div class="case-study-deck is-active" data-deck-id="cross-sell" role="document" aria-label="Hotel Cross Sell case study">
+        <div class="case-study-deck__slide case-study-deck__slide--layered case-study-deck__slide--cover" data-section="overview" data-section-start="overview" data-summary-start="overview" data-nav-surface="dark">
+          <img class="case-study-deck__background" src="assets/case-study-cross-sell/slide-01-background.png" alt="" width="7680" height="4320" fetchpriority="high" aria-hidden="true">
+          <img class="case-study-deck__content" src="assets/case-study-cross-sell/slide-01-content.svg" alt="Hotel Cross Sell case study, slide 1 of 17" width="1920" height="1080" fetchpriority="high">
+          <div class="case-study-deck__phone-video" aria-hidden="true">
+            <video muted loop playsinline preload="metadata" tabindex="-1">
+              <source src="CROSS%20SELL%20SLIDE%20ASSETS/Comp%201_1.mp4" type="video/mp4">
+            </video>
+          </div>
+        </div>
+        <div class="case-study-deck__slide" data-section="problem" data-section-start="problem" data-summary-start="challenge">
+          <img src="assets/case-study-cross-sell/slide-02.png" alt="Hotel Cross Sell case study, slide 2 of 17" width="7680" height="5364" loading="lazy" decoding="async">
+        </div>
+        <div class="case-study-deck__slide case-study-deck__slide--layered" data-section="impact" data-section-start="impact" data-nav-surface="dark">
+          <img class="case-study-deck__background" src="assets/case-study-cross-sell/slide-03-background.png" alt="" width="7680" height="4320" loading="lazy" decoding="async" aria-hidden="true">
+          <img class="case-study-deck__content" src="assets/case-study-cross-sell/slide-03-content.svg" alt="Hotel Cross Sell case study, slide 3 of 17" width="1920" height="1080" loading="lazy" decoding="async">
+        </div>
+        <div class="case-study-deck__slide case-study-deck__slide--layered" data-section="research" data-section-start="research" data-summary-start="process">
+          <img class="case-study-deck__background" src="assets/case-study-cross-sell/slide-04-background.png" alt="" width="7680" height="10292" loading="lazy" decoding="async" aria-hidden="true">
+          <img class="case-study-deck__content" src="assets/case-study-cross-sell/slide-04-content.svg" alt="Hotel Cross Sell case study, slide 4 of 17" width="1920" height="2573" loading="lazy" decoding="async">
+          <div class="research-plan-actions" aria-label="Research plan resources">
+            <button class="research-plan-action research-plan-action--screener" type="button" data-research-popup="screener">
+              <span class="sr-only">View the screener criteria</span>
+            </button>
+            <button class="research-plan-action research-plan-action--discussion" type="button" data-research-popup="discussion">
+              <span class="sr-only">View the discussion guide</span>
+            </button>
+          </div>
+        </div>
+        <div class="case-study-deck__slide" data-section="research" data-detail-only>
+          <img src="assets/case-study-cross-sell/slide-05.png" alt="Hotel Cross Sell case study, slide 5 of 17" width="7680" height="4304" loading="lazy" decoding="async">
+        </div>
+        <div class="case-study-deck__slide case-study-deck__slide--layered" data-section="research" data-detail-only data-nav-surface="dark">
+          <img class="case-study-deck__background" src="assets/case-study-cross-sell/slide-06-background.png" alt="" width="7680" height="1900" loading="lazy" decoding="async" aria-hidden="true">
+          <img class="case-study-deck__content" src="assets/case-study-cross-sell/slide-06-content.svg" alt="Hotel Cross Sell case study, slide 6 of 17" width="1920" height="475" loading="lazy" decoding="async">
+        </div>
+        <div class="case-study-deck__slide" data-section="research" data-detail-only>
+          <img src="assets/case-study-cross-sell/slide-07.png" alt="Hotel Cross Sell case study, slide 7 of 17" width="7680" height="4904" loading="lazy" decoding="async">
+        </div>
+        <div class="case-study-deck__slide" data-section="ideation" data-section-start="ideation" data-summary-start="process">
+          <img src="assets/case-study-cross-sell/slide-08.png" alt="Hotel Cross Sell case study, slide 8 of 17" width="7680" height="3400" loading="lazy" decoding="async">
+        </div>
+        <div class="case-study-deck__slide" data-section="ideation" data-detail-only>
+          <img src="assets/case-study-cross-sell/slide-09.png" alt="Hotel Cross Sell case study, slide 9 of 17" width="7680" height="5252" loading="lazy" decoding="async">
+        </div>
+        <div class="case-study-deck__slide" data-section="interventions" data-section-start="interventions" data-summary-start="solution">
+          <img src="assets/case-study-cross-sell/slide-10.png" alt="Hotel Cross Sell case study, slide 10 of 17" width="7680" height="2916" loading="lazy" decoding="async">
+        </div>
+        <div class="case-study-deck__slide" data-section="interventions" data-detail-only>
+          <img src="assets/case-study-cross-sell/slide-11.png" alt="Hotel Cross Sell case study, slide 11 of 17" width="7680" height="3632" loading="lazy" decoding="async">
+        </div>
+        <div class="case-study-deck__slide" data-section="interventions" data-detail-only>
+          <img src="assets/case-study-cross-sell/slide-12.png" alt="Hotel Cross Sell case study, slide 12 of 17" width="7680" height="3732" loading="lazy" decoding="async">
+        </div>
+        <div class="case-study-deck__slide" data-section="interventions" data-detail-only>
+          <img src="assets/case-study-cross-sell/slide-13.png" alt="Hotel Cross Sell case study, slide 13 of 17" width="7680" height="3927" loading="lazy" decoding="async">
+        </div>
+        <div class="case-study-deck__slide" data-section="interventions" data-detail-only>
+          <img src="assets/case-study-cross-sell/slide-14.png" alt="Hotel Cross Sell case study, slide 14 of 17" width="7680" height="3992" loading="lazy" decoding="async">
+        </div>
+        <div class="case-study-deck__slide case-study-deck__slide--other-touchpoints" data-section="interventions" data-detail-only>
+          <div class="other-touchpoints">
+            <img class="other-touchpoints__top" src="assets/case-study-cross-sell/other-touchpoints-top.svg" alt="Other Touchpoints intervention summary" width="1920" height="343" loading="lazy" decoding="async">
+            <div class="other-touchpoints__comparison">
+              <div class="other-touchpoints__comparison-frame" data-before-after-slider aria-label="Compare before and after hotel cross-sell touchpoints">
+                <img class="other-touchpoints__comparison-image other-touchpoints__comparison-image--after" src="assets/case-study-cross-sell/other-touchpoints/comparison-after.png" alt="" width="6720" height="3126" loading="lazy" decoding="async" aria-hidden="true">
+                <div class="other-touchpoints__comparison-before">
+                  <img class="other-touchpoints__comparison-image" src="assets/case-study-cross-sell/other-touchpoints/comparison-before.png" alt="Before and after hotel cross-sell touchpoint screens" width="6720" height="2997" loading="lazy" decoding="async">
+                </div>
+                <div class="other-touchpoints__divider" data-before-after-divider aria-hidden="true">
+                  <img class="other-touchpoints__slider" src="assets/case-study-cross-sell/other-touchpoints/comparison-slider.svg" alt="" width="54" height="749" decoding="async">
+                </div>
+                <input class="other-touchpoints__slider-input" data-before-after-input type="range" min="0" max="100" value="50" aria-label="Reveal after design">
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="case-study-deck__slide" data-section="learnings" data-section-start="learnings" data-summary-start="outcome">
+          <img src="assets/case-study-cross-sell/slide-16.png" alt="Hotel Cross Sell case study, slide 16 of 17" width="7680" height="2908" loading="lazy" decoding="async">
+        </div>
+        <div class="case-study-deck__slide" data-section="learnings" data-detail-only>
+          <img src="assets/case-study-cross-sell/slide-17.png" alt="Hotel Cross Sell case study, slide 17 of 17" width="7680" height="4600" loading="lazy" decoding="async">
+        </div>
+      </div>
+      <div class="case-study-deck" data-deck-id="spendtrack" role="document" aria-label="SpendTrack AI case study" hidden>
+        <div class="case-study-deck__slide" data-section="introduction" data-section-start="introduction" data-nav-surface="dark">
+          <img src="assets/case-study-spendtrack/slide-01.png" alt="SpendTrack AI case study, slide 1 of 13" width="7680" height="4320" fetchpriority="high">
+        </div>
+        <div class="case-study-deck__slide" data-section="introduction">
+          <img src="assets/case-study-spendtrack/slide-02.png" alt="SpendTrack AI case study, slide 2 of 13" width="7680" height="3800" loading="lazy" decoding="async">
+        </div>
+        <div class="case-study-deck__slide" data-section="problem" data-section-start="problem">
+          <img src="assets/case-study-spendtrack/slide-03.png" alt="SpendTrack AI case study, slide 3 of 13" width="7680" height="5096" loading="lazy" decoding="async">
+        </div>
+        <div class="case-study-deck__slide" data-section="insights" data-section-start="insights">
+          <img src="assets/case-study-spendtrack/slide-04.png" alt="SpendTrack AI case study, slide 4 of 13" width="7680" height="5416" loading="lazy" decoding="async">
+        </div>
+        <div class="case-study-deck__slide" data-section="data-analysis" data-section-start="data-analysis">
+          <img src="assets/case-study-spendtrack/slide-05.png" alt="SpendTrack AI case study, slide 5 of 13" width="7680" height="5020" loading="lazy" decoding="async">
+        </div>
+        <div class="case-study-deck__slide" data-section="constraints" data-section-start="constraints">
+          <img src="assets/case-study-spendtrack/slide-06.png" alt="SpendTrack AI case study, slide 6 of 13" width="7680" height="4172" loading="lazy" decoding="async">
+        </div>
+        <div class="case-study-deck__slide" data-section="solution" data-section-start="solution">
+          <img src="assets/case-study-spendtrack/slide-07.png" alt="SpendTrack AI case study, slide 7 of 13" width="7680" height="6508" loading="lazy" decoding="async">
+        </div>
+        <div class="case-study-deck__slide" data-section="opportunity" data-section-start="opportunity">
+          <img src="assets/case-study-spendtrack/slide-08.png" alt="SpendTrack AI case study, slide 8 of 13" width="7680" height="5508" loading="lazy" decoding="async">
+        </div>
+        <div class="case-study-deck__slide" data-section="design-tenets" data-section-start="design-tenets">
+          <img src="assets/case-study-spendtrack/slide-09.png" alt="SpendTrack AI case study, slide 9 of 13" width="7680" height="4132" loading="lazy" decoding="async">
+        </div>
+        <div class="case-study-deck__slide" data-section="ideation" data-section-start="ideation">
+          <img src="assets/case-study-spendtrack/slide-10.png" alt="SpendTrack AI case study, slide 10 of 13" width="7680" height="6624" loading="lazy" decoding="async">
+        </div>
+        <div class="case-study-deck__slide" data-section="solution-breakdown" data-section-start="solution-breakdown">
+          <img src="assets/case-study-spendtrack/slide-11.png" alt="SpendTrack AI case study, slide 11 of 13" width="7680" height="5196" loading="lazy" decoding="async">
+        </div>
+        <div class="case-study-deck__slide" data-section="solution-breakdown">
+          <img src="assets/case-study-spendtrack/slide-12.png" alt="SpendTrack AI case study, slide 12 of 13" width="7680" height="5652" loading="lazy" decoding="async">
+        </div>
+        <div class="case-study-deck__slide" data-section="learnings" data-section-start="learnings">
+          <img src="assets/case-study-spendtrack/slide-13.png" alt="SpendTrack AI case study, slide 13 of 13" width="7680" height="4468" loading="lazy" decoding="async">
+        </div>
+      </div>
+      <div class="case-study-deck" data-deck-id="snakesafe" role="document" aria-label="SnakeSafe case study" hidden>
+        <div class="case-study-deck__slide" data-section="overview" data-section-start="overview" data-nav-surface="dark">
+          <img src="assets/case-study-snakesafe/slide-01.png" alt="SnakeSafe case study, slide 1 of 14" width="6912" height="4043" fetchpriority="high">
+        </div>
+        <div class="case-study-deck__slide" data-section="overview">
+          <img src="assets/case-study-snakesafe/slide-02.png" alt="SnakeSafe case study, slide 2 of 14" width="5552" height="2013" loading="lazy" decoding="async">
+        </div>
+        <div class="case-study-deck__slide" data-section="problem" data-section-start="problem">
+          <img src="assets/case-study-snakesafe/slide-03.png" alt="SnakeSafe case study, slide 3 of 14" width="5552" height="3679" loading="lazy" decoding="async">
+        </div>
+        <div class="case-study-deck__slide" data-section="research" data-section-start="research">
+          <img src="assets/case-study-snakesafe/slide-04.png" alt="SnakeSafe case study, slide 4 of 14" width="5552" height="2803" loading="lazy" decoding="async">
+        </div>
+        <div class="case-study-deck__slide" data-section="research">
+          <img src="assets/case-study-snakesafe/slide-05.png" alt="SnakeSafe case study, slide 5 of 14" width="6137" height="18960" loading="lazy" decoding="async">
+        </div>
+        <div class="case-study-deck__slide" data-section="ideation" data-section-start="ideation">
+          <img src="assets/case-study-snakesafe/slide-06.png" alt="SnakeSafe case study, slide 6 of 14" width="5552" height="3123" loading="lazy" decoding="async">
+        </div>
+        <div class="case-study-deck__slide" data-section="ideation">
+          <img src="assets/case-study-snakesafe/slide-07.png" alt="SnakeSafe case study, slide 7 of 14" width="5552" height="3123" loading="lazy" decoding="async">
+        </div>
+        <div class="case-study-deck__slide" data-section="solution" data-section-start="solution">
+          <img src="assets/case-study-snakesafe/slide-08.png" alt="SnakeSafe case study, slide 8 of 14" width="6232" height="4772" loading="lazy" decoding="async">
+        </div>
+        <div class="case-study-deck__slide" data-section="solution">
+          <img src="assets/case-study-snakesafe/slide-09.png" alt="SnakeSafe case study, slide 9 of 14" width="5552" height="1302" loading="lazy" decoding="async">
+        </div>
+        <div class="case-study-deck__slide" data-section="design" data-section-start="design">
+          <img src="assets/case-study-snakesafe/slide-10.png" alt="SnakeSafe case study, slide 10 of 14" width="5552" height="3123" loading="lazy" decoding="async">
+        </div>
+        <div class="case-study-deck__slide" data-section="design">
+          <img src="assets/case-study-snakesafe/slide-11.png" alt="SnakeSafe case study, slide 11 of 14" width="6564" height="4247" loading="lazy" decoding="async">
+        </div>
+        <div class="case-study-deck__slide" data-section="design">
+          <img src="assets/case-study-snakesafe/slide-12.png" alt="SnakeSafe case study, slide 12 of 14" width="5972" height="4659" loading="lazy" decoding="async">
+        </div>
+        <div class="case-study-deck__slide" data-section="learnings" data-section-start="learnings">
+          <img src="assets/case-study-snakesafe/slide-13.png" alt="SnakeSafe case study, slide 13 of 14" width="5552" height="4347" loading="lazy" decoding="async">
+        </div>
+        <div class="case-study-deck__slide" data-section="learnings">
+          <img src="assets/case-study-snakesafe/slide-14.png" alt="SnakeSafe case study, slide 14 of 14" width="6232" height="5257" loading="lazy" decoding="async">
+        </div>
+      </div>
+      <div class="research-popup" data-research-popup-panel="screener" role="dialog" aria-modal="true" aria-label="Screener criteria" hidden>
+        <button class="research-popup__backdrop" type="button" data-research-popup-close aria-label="Close screener criteria"></button>
+        <section class="research-popup__panel research-popup__panel--screener">
+          <button class="research-popup__close" type="button" data-research-popup-close aria-label="Close screener criteria">
+            <img src="assets/case-study-cross-sell/popup-close-grey.svg" alt="" width="32" height="32">
+          </button>
+          <div class="screener-visual" aria-label="Five participant screener criteria">
+            <img class="screener-visual__wave screener-visual__wave--one" src="assets/case-study-cross-sell/screener-wave-1.svg" alt="">
+            <img class="screener-visual__wave screener-visual__wave--two" src="assets/case-study-cross-sell/screener-wave-2.svg" alt="">
+            <img class="screener-visual__wave screener-visual__wave--three" src="assets/case-study-cross-sell/screener-wave-3.svg" alt="">
+            <div class="screener-visual__criteria">
+              <p class="screener-visual__criterion screener-visual__criterion--lead">Users who use MakeMyTrip frequently for Flight Bookings</p>
+              <p class="screener-visual__criterion">Users with 10–20 bookings in 2 years, to analyze decision patterns rather than one-time behaviors.</p>
+              <p class="screener-visual__criterion">Users who have never booked stays on MakeMyTrip, to understand the reason behind it.</p>
+              <p class="screener-visual__criterion">Booked a flight in the last 2 months. Ensures responses are recent, improving recall.</p>
+              <p class="screener-visual__criterion">Filters out users staying with family or on work-provided stays.</p>
+            </div>
+            <div class="screener-visual__markers" aria-hidden="true">
+              <div class="screener-visual__marker">
+                <span class="screener-visual__icon"><img src="assets/case-study-cross-sell/screener-map.svg" alt=""></span>
+                <span class="screener-visual__tag">Frequent Traveler</span>
+              </div>
+              <div class="screener-visual__marker">
+                <span class="screener-visual__icon"><img src="assets/case-study-cross-sell/screener-bed.svg" alt=""></span>
+                <span class="screener-visual__tag">Never Booked Stays</span>
+              </div>
+              <div class="screener-visual__marker">
+                <span class="screener-visual__icon"><img src="assets/case-study-cross-sell/screener-flight.svg" alt=""></span>
+                <span class="screener-visual__tag">Has Recent Flight Booking</span>
+              </div>
+              <div class="screener-visual__marker">
+                <span class="screener-visual__icon"><img src="assets/case-study-cross-sell/screener-suitcase.svg" alt=""></span>
+                <span class="screener-visual__tag">Requires Accommodation</span>
+              </div>
+            </div>
+          </div>
+        </section>
+      </div>
+      <div class="research-popup" data-research-popup-panel="discussion" role="dialog" aria-modal="true" aria-label="Discussion guide" hidden>
+        <button class="research-popup__backdrop" type="button" data-research-popup-close aria-label="Close discussion guide"></button>
+        <section class="research-popup__panel research-popup__panel--discussion">
+          <button class="research-popup__close" type="button" data-research-popup-close aria-label="Close discussion guide">
+            <img src="assets/case-study-cross-sell/popup-close-blue.svg" alt="" width="32" height="32">
+          </button>
+          <div class="discussion-guide">
+            <h2>Discussion Guide:</h2>
+            <section>
+              <h3>1. Ice breaker question (1min):</h3>
+              <ul><li>Tell me about yourself.</li></ul>
+            </section>
+            <section>
+              <h3>2. Early questions (15 min):</h3>
+              <ul>
+                <li>How often do you travel by flight in a year?</li>
+                <li>For what all purposes have you travelled by flight? (If tells some other trips, ask about leisure, pilgrimage, business)</li>
+                <li>Who do you usually travel with?</li>
+                <li>Name a few destinations you have been to by flight?</li>
+                <li>Could you tell me briefly about your trip planning process?</li>
+                <li>How long before the travel date do you usually book flight tickets?</li>
+                <li>When do you do the stay bookings? (Pick a destination from previous question)</li>
+              </ul>
+            </section>
+            <section>
+              <h3>3. Target questions (15 min):</h3>
+              <ul>
+                <li>You seem to have booked flights on MMT but not any hotels for those flight trips, why is that?</li>
+                <li>How else do you book hotels? If online, which apps do you use to book stays? Why? If offline, how do you book stays?</li>
+              </ul>
+            </section>
+            <section>
+              <h3>3. Closing questions (15 min):</h3>
+              <ul>
+                <li>Could you share your screen and show us your booking process?</li>
+                <li>Any suggestions or improvements on how we can make the experience better for you?</li>
+              </ul>
+            </section>
+          </div>
+        </section>
+      </div>
+    </div>
+  </dialog>
+  <script src="site-nav.js"></script>
+  <script src="assets/footer/atharva-reveal.js"></script>
+  <script src="vendor/gsap.min.js"></script>
+  <script src="hero-greeting.js"></script>
+  <script src="hero-entrance.js"></script>
+  <script src="screanime/wireframe1.inline.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/matter-js/0.19.0/matter.min.js"></script>
+  <script src="script.js"></script>
+  <script src="site-bg-transition.js"></script>
+  <script src="case-study-nav.js"></script>
+  <script src="scratch-card.js"></script>
+  <script src="ai-loader.js"></script>
+  <script src="agent-carousel.js"></script>
+  <script src="agent-carousel-particles.js"></script>
+  <script src="wongdoody-chat.js"></script>
+  <script src="banners.js"></script>
+  <script src="screanime/wireframe-reveal.js"></script>
+  <script src="screanime/whatsapp-chat.js"></script>
+</body>
+</html>

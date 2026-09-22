@@ -1,0 +1,8 @@
+.DS_Store
+.cursor/
+*.log
+.env
+.env.*
+.deploy-token
+node_modules/
+.tmp-npm/
