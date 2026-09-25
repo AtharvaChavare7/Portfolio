@@ -249,7 +249,7 @@
   }
 
   video.addEventListener("error", () => {
-    showFallback("Video failed to load. Check assets/footer/firefly.mp4.");
+    showFallback("Video failed to load. Check assets/footer/textnew.mp4.");
   });
 
   video.addEventListener("loadeddata", () => {
