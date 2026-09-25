@@ -1,0 +1,494 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <script src="../clock-favicon.js"></script>
+  <title>About — Atharva Chavare</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,800&family=Geist+Mono:wght@400;600&family=Libre+Baskerville:ital,wght@0,500;1,500&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/geist@1.3.1/dist/font.css">
+  <link rel="stylesheet" href="../styles.css">
+  <link rel="stylesheet" href="../site-nav.css">
+  <link rel="stylesheet" href="../assets/footer/atharva-reveal.css">
+  <link rel="stylesheet" href="../webgl/src/styles.css">
+  <link rel="stylesheet" href="../about.css">
+</head>
+<body id="top">
+  <div class="site-bg-transition" aria-hidden="true"></div>
+  <header class="site-nav" data-state="closed" aria-label="Site navigation">
+    <button
+      class="site-nav__menu"
+      type="button"
+      aria-label="Open menu"
+      aria-expanded="false"
+      aria-controls="site-nav-panel"
+    >
+      <span class="site-nav__menu-label" aria-hidden="true">
+        <span class="site-nav__menu-letter" style="--letter-index: 0">m</span>
+        <span class="site-nav__menu-letter" style="--letter-index: 1">e</span>
+        <span class="site-nav__menu-letter" style="--letter-index: 2">n</span>
+        <span class="site-nav__menu-letter" style="--letter-index: 3">u</span>
+      </span>
+      <span class="site-nav__menu-dot" aria-hidden="true"></span>
+    </button>
+    <div class="site-nav__panel" id="site-nav-panel" hidden>
+      <div class="site-nav__panel-close-row">
+        <button class="site-nav__close" type="button" aria-label="Close menu">
+          <span class="site-nav__close-label">close</span>
+          <span class="site-nav__close-icon" aria-hidden="true"></span>
+        </button>
+      </div>
+      <nav class="site-nav__links" aria-label="Primary">
+        <a class="site-nav__link" href="../#work">works</a>
+        <a class="site-nav__link" href="../interaction-library/">playground</a>
+        <a class="site-nav__link" href="../about/" aria-current="page">about</a>
+        <a class="site-nav__link" href="#">contact</a>
+      </nav>
+    </div>
+  </header>
+  <div class="site-nav__scrim" hidden aria-hidden="true"></div>
+  <main class="about">
+    <div class="about-hero">
+      <section class="shader-card" aria-labelledby="card-title">
+        <canvas class="shader-canvas" aria-hidden="true"></canvas>
+        <div class="readability-wash" aria-hidden="true"></div>
+
+        <div class="intro">
+          <h1 id="card-title">
+            outside of work, you’ll find me playing badminton, watching movies
+            or building out my ideas
+          </h1>
+          <p class="hint">Move your mouse to bend the light · click the card to shuffle colors</p>
+        </div>
+
+        <p class="status sr-only" aria-live="polite"></p>
+
+      <div hidden>
+      <section class="about-hero-controls__section" data-wash-controls>
+        <h2 class="about-hero-controls__title">Text overlay</h2>
+        <p class="about-hero-controls__lede">The soft milky layer on top of the animation so your quote stays easy to read.</p>
+
+        <label class="shader-color-picker shader-color-picker--row">
+          <span>Overlay color<small class="control-help">Color of the fade behind the text</small></span>
+          <input id="washColor" name="washColor" type="color" value="#fafafa" data-wash-input aria-label="Overlay color" />
+        </label>
+        <label class="about-hero-controls__range">
+          <span class="about-hero-controls__range-head">
+            <span>Strength on the left<small class="control-help">How strong the overlay is beside the text</small></span>
+            <output for="washSideA">90</output>
+          </span>
+          <input id="washSideA" name="washSideA" type="range" min="0" max="100" value="90" step="1" data-wash-input />
+        </label>
+        <label class="about-hero-controls__range">
+          <span class="about-hero-controls__range-head">
+            <span>Soft middle<small class="control-help">How it fades toward the center</small></span>
+            <output for="washSideB">62</output>
+          </span>
+          <input id="washSideB" name="washSideB" type="range" min="0" max="100" value="62" step="1" data-wash-input />
+        </label>
+        <label class="about-hero-controls__range">
+          <span class="about-hero-controls__range-head">
+            <span>Width across<small class="control-help">How far the side fade reaches (%)</small></span>
+            <output for="washSideStop">61</output>
+          </span>
+          <input id="washSideStop" name="washSideStop" type="range" min="20" max="100" value="61" step="1" data-wash-input />
+        </label>
+        <label class="about-hero-controls__range">
+          <span class="about-hero-controls__range-head">
+            <span>Bottom strength<small class="control-help">How strong the fade is under the text</small></span>
+            <output for="washBottomA">78</output>
+          </span>
+          <input id="washBottomA" name="washBottomA" type="range" min="0" max="100" value="78" step="1" data-wash-input />
+        </label>
+        <label class="about-hero-controls__range">
+          <span class="about-hero-controls__range-head">
+            <span>Bottom height<small class="control-help">How far up the bottom fade goes (%)</small></span>
+            <output for="washBottomStop">43</output>
+          </span>
+          <input id="washBottomStop" name="washBottomStop" type="range" min="10" max="90" value="43" step="1" data-wash-input />
+        </label>
+        <label class="about-hero-controls__range">
+          <span class="about-hero-controls__range-head">
+            <span>Blur<small class="control-help">Softens the animation under the overlay</small></span>
+            <output for="washBlur">0</output>
+          </span>
+          <input id="washBlur" name="washBlur" type="range" min="0" max="32" value="0" step="1" data-wash-input />
+        </label>
+      </section>
+      </div>
+
+      <form class="controls" id="shader-controls">
+        <div class="control-head">
+          <div class="panel-heading">
+            <p class="panel-label"><span class="label-open">Shader controls</span></p>
+          </div>
+          <button
+            class="icon-button controls-disclosure"
+            type="button"
+            aria-label="Open shader controls"
+            aria-expanded="false"
+            aria-controls="controls-body"
+          >
+            <svg class="disclosure-icon disclosure-icon--open" viewBox="0 0 28 28" width="28" height="28" aria-hidden="true">
+              <circle cx="14" cy="14" r="7.25" stroke="currentColor" stroke-width="1.75" opacity="0.45"/>
+              <circle cx="14" cy="14" r="2.75" fill="currentColor"/>
+              <path d="M14 5.5v2.25M14 20.25v2.25M5.5 14h2.25M20.25 14H22.5" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" opacity="0.65"/>
+              <path d="M8.2 8.2l1.6 1.6M18.2 18.2l1.6 1.6M18.2 8.2l-1.6 1.6M8.2 18.2l1.6 1.6" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" opacity="0.35"/>
+            </svg>
+            <svg class="disclosure-icon disclosure-icon--close" viewBox="0 0 28 28" width="28" height="28" aria-hidden="true">
+              <path d="M9.25 9.25l9.5 9.5M18.75 9.25l-9.5 9.5" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+            </svg>
+          </button>
+        </div>
+        <div class="controls-body" id="controls-body">
+            <fieldset class="study-picker" style="--study-active: 0">
+              <legend class="control-legend">Animation style</legend>
+              <span class="study-picker-indicator" aria-hidden="true"></span>
+              <button type="button" data-mode="0" aria-pressed="true" title="Soft moving clouds">Clouds</button>
+              <button type="button" data-mode="3" aria-pressed="false" title="Smooth flowing folds">Silk</button>
+              <button type="button" data-mode="1" aria-pressed="false" title="Layered lines">Lines</button>
+              <button type="button" data-mode="2" aria-pressed="false" title="Glass-like cells">Glass</button>
+            </fieldset>
+
+            <label class="shader-color-picker shader-color-picker--row">
+              <span>Background color<small class="control-help">The flat color underneath everything</small></span>
+              <input id="baseColor" name="baseColor" type="color" value="#e7e5e2" data-base-color aria-label="Background color" />
+            </label>
+
+            <label class="range-control">
+              <span><span>Animation strength<small class="control-help">0 = only background color · 1 = full animation</small></span><output for="effectStrength">1.00</output></span>
+              <input id="effectStrength" name="effectStrength" type="range" min="0" max="1" value="1" step="0.01" />
+            </label>
+
+            <p class="control-group-label">Glow colors</p>
+            <div class="shader-color-grid">
+              <label class="shader-color-picker shader-color-picker--compact">
+                <span>Color 1</span>
+                <input id="colorA" name="colorA" type="color" value="#6d64a7" data-accent-color aria-label="Glow color 1" />
+              </label>
+              <label class="shader-color-picker shader-color-picker--compact">
+                <span>Color 2</span>
+                <input id="colorB" name="colorB" type="color" value="#d6a2b6" data-accent-color aria-label="Glow color 2" />
+              </label>
+              <label class="shader-color-picker shader-color-picker--compact">
+                <span>Color 3</span>
+                <input id="colorC" name="colorC" type="color" value="#8fb8c2" data-accent-color aria-label="Glow color 3" />
+              </label>
+            </div>
+
+            <fieldset class="palette-picker">
+              <legend class="control-legend">Ready-made themes</legend>
+              <div class="palette-options">
+                <button type="button" data-palette="0" aria-label="Earthy theme" aria-pressed="false">
+                  <span class="palette-chip" style="--palette-gradient: linear-gradient(90deg, #527b78 0%, #df9d77 52%, #c2ccae 100%)"></span>
+                  <span class="palette-name">Earthy</span>
+                </button>
+                <button type="button" data-palette="1" aria-label="Purple dream theme" aria-pressed="true">
+                  <span class="palette-chip" style="--palette-gradient: linear-gradient(90deg, #6d64a7 0%, #d6a2b6 52%, #8fb8c2 100%)"></span>
+                  <span class="palette-name">Purple</span>
+                </button>
+                <button type="button" data-palette="2" aria-label="Citrus theme" aria-pressed="false">
+                  <span class="palette-chip" style="--palette-gradient: linear-gradient(90deg, #b2bd63 0%, #e6865e 52%, #80ad91 100%)"></span>
+                  <span class="palette-name">Citrus</span>
+                </button>
+              </div>
+            </fieldset>
+
+            <label class="range-control">
+              <span><span>Speed<small class="control-help">How fast the animation moves</small></span><output for="speed">1.20</output></span>
+              <input id="speed" name="speed" type="range" min="0" max="1.2" value="1.2" step="0.01" />
+            </label>
+            <label class="range-control">
+              <span><span>Zoom<small class="control-help">Make the pattern bigger or smaller</small></span><output for="scale">3.00</output></span>
+              <input id="scale" name="scale" type="range" min="0.5" max="3" value="3" step="0.01" />
+            </label>
+            <label class="range-control">
+              <span><span>Mouse bend<small class="control-help">How much your cursor pushes the light</small></span><output for="warp">1.50</output></span>
+              <input id="warp" name="warp" type="range" min="0" max="1.5" value="1.5" step="0.01" />
+            </label>
+            <label class="range-control">
+              <span><span>Film grain<small class="control-help">0 = smooth · higher = more texture</small></span><output for="grain">0.00</output></span>
+              <input id="grain" name="grain" type="range" min="0" max="0.18" value="0" step="0.01" />
+            </label>
+
+            <div class="panel-actions">
+              <button class="text-button" type="button" data-action="randomize">Surprise me</button>
+            </div>
+          </div>
+        </form>
+      </section>
+    </div>
+
+    <section class="about-photos" aria-label="Photos">
+      <div class="about-photos__viewport">
+        <div class="about-photos__track">
+          <div class="about-photos__group">
+            <img src="../MyPhotosForAboutSection/Frame%202147261676.png" alt="Atharva in the mountains" width="1496" height="1921">
+            <img src="../MyPhotosForAboutSection/Frame%202147261670.png" alt="Atharva sitting by a river" width="1496" height="1920">
+            <img src="../MyPhotosForAboutSection/Frame%202147261672.png" alt="Atharva in front of a snowy peak" width="1496" height="1920">
+            <img src="../MyPhotosForAboutSection/Frame%202147261673.png" alt="Atharva scuba diving" width="1496" height="1920">
+            <img src="../MyPhotosForAboutSection/Frame%202147261674.png" alt="Atharva at the beach" width="1496" height="1920">
+          </div>
+          <div class="about-photos__group" aria-hidden="true">
+            <img src="../MyPhotosForAboutSection/Frame%202147261676.png" alt="" width="1496" height="1921">
+            <img src="../MyPhotosForAboutSection/Frame%202147261670.png" alt="" width="1496" height="1920">
+            <img src="../MyPhotosForAboutSection/Frame%202147261672.png" alt="" width="1496" height="1920">
+            <img src="../MyPhotosForAboutSection/Frame%202147261673.png" alt="" width="1496" height="1920">
+            <img src="../MyPhotosForAboutSection/Frame%202147261674.png" alt="" width="1496" height="1920">
+          </div>
+        </div>
+      </div>
+      <div class="about-photos__fade about-photos__fade--left" aria-hidden="true"></div>
+      <div class="about-photos__fade about-photos__fade--right" aria-hidden="true"></div>
+    </section>
+
+    <section class="about-experience" aria-label="Experience">
+      <article class="about-role" tabindex="0" data-timeline-year="2026">
+        <time datetime="2025-08">Aug 2025 – Current</time>
+        <p class="about-role__company">Wongdoody</p>
+        <p class="about-role__title">Lead experience Designer</p>
+      </article>
+      <article class="about-role" tabindex="0">
+        <time datetime="2025-02/2025-08">Feb 2025 – Aug 2025</time>
+        <p class="about-role__company">makemytrip</p>
+        <p class="about-role__title">Product designer</p>
+      </article>
+      <article class="about-role" tabindex="0">
+        <time datetime="2024-05/2024-07">May 2024 – Jul 2024</time>
+        <p class="about-role__company">fiserv</p>
+        <p class="about-role__title">Product designer</p>
+      </article>
+      <article class="about-role" tabindex="0">
+        <time datetime="2023-04/2023-10">Apr 2023 – Oct 2023</time>
+        <p class="about-role__company">vainlabs</p>
+        <p class="about-role__title">Product designer</p>
+      </article>
+
+      <div class="about-timeline" data-timeline>
+        <div class="about-timeline__scroller">
+          <div class="about-timeline__track">
+            <div class="about-timeline__ticks"></div>
+          </div>
+        </div>
+        <div class="about-timeline__fade about-timeline__fade--left" aria-hidden="true"></div>
+        <div class="about-timeline__fade about-timeline__fade--right" aria-hidden="true"></div>
+      </div>
+    </section>
+
+    <section class="about-designs" aria-label="Selected designs">
+      <div class="about-designs__viewport">
+        <div class="about-designs__track">
+          <div class="about-designs__group">
+            <img src="../MyPhotosForAboutSection/work1.png" alt="Selected design work" width="4902" height="2228">
+            <img src="../MyPhotosForAboutSection/work2.png" alt="Selected design work" width="2012" height="2232">
+            <img src="../MyPhotosForAboutSection/work3.png" alt="Selected design work" width="2304" height="2228">
+            <img src="../MyPhotosForAboutSection/work4.png" alt="Selected design work" width="1639" height="2294">
+          </div>
+          <div class="about-designs__group" aria-hidden="true">
+            <img src="../MyPhotosForAboutSection/work1.png" alt="" width="4902" height="2228">
+            <img src="../MyPhotosForAboutSection/work2.png" alt="" width="2012" height="2232">
+            <img src="../MyPhotosForAboutSection/work3.png" alt="" width="2304" height="2228">
+            <img src="../MyPhotosForAboutSection/work4.png" alt="" width="1639" height="2294">
+          </div>
+        </div>
+      </div>
+      <div class="about-designs__fade about-designs__fade--left" aria-hidden="true"></div>
+      <div class="about-designs__fade about-designs__fade--right" aria-hidden="true"></div>
+    </section>
+  </main>
+
+  <div class="demo-page" aria-label="Site footer">
+    <section class="footer-panel" aria-label="Footer links">
+      <div class="footer-panel__inner">
+        <div class="footer-panel__row">
+          <div class="footer-panel__hero">
+            <h2 class="footer-panel__headline">
+              <span class="footer-panel__headline-line">
+                Let’s BUILD
+                <button class="footer-panel__folder-wrap" type="button" aria-label="AI build tools: Claude, Cursor, Codex">
+                  <span class="footer-panel__folder-scene" aria-hidden="true">
+                    <img class="footer-panel__folder-back" src="../assets/footer/v2/folder-back-tab.svg" alt="" width="78" height="55" decoding="async">
+                    <span class="footer-panel__folder-burst">
+                      <img class="footer-panel__tool footer-panel__tool--claude" src="../assets/footer/v2/tool-claude.svg" alt="" width="21" height="21" decoding="async">
+                      <img class="footer-panel__tool footer-panel__tool--cursor" src="../assets/footer/v2/tool-cursor.svg" alt="" width="21" height="21" decoding="async">
+                      <span class="footer-panel__tool footer-panel__tool--codex">
+                        <span class="footer-panel__tool-tile footer-panel__tool-tile--codex">
+                          <img src="../assets/footer/v2/tool-codex.svg" alt="" width="12" height="12" decoding="async">
+                        </span>
+                      </span>
+                    </span>
+                    <img class="footer-panel__folder-front" src="../assets/footer/v2/folder-front-body.svg" alt="" width="78" height="50" decoding="async">
+                    <img class="footer-panel__folder-mark" src="../assets/footer/v2/folder-front-mark.svg" alt="" width="19" height="17" decoding="async">
+                  </span>
+                </button>
+              </span>
+              <span class="footer-panel__headline-line">something meaningful</span>
+            </h2>
+
+            <div class="footer-panel__actions">
+              <button class="footer-panel__btn footer-panel__btn--email" type="button" data-copy-email="chavareatharva@gmail.com" aria-label="Copy Email ID">
+                <span class="footer-panel__btn-label">
+                  <span class="footer-panel__btn-label-default">Copy Email ID</span>
+                  <span class="footer-panel__btn-label-success" role="status">Copied!</span>
+                </span>
+                <span class="footer-panel__copy-icon" aria-hidden="true">
+                  <svg class="footer-panel__copy-glyph" viewBox="0 0 20 20" fill="none">
+                    <rect x="6.5" y="6.5" width="9" height="9" rx="2" stroke="currentColor" stroke-width="1.6"/>
+                    <path d="M13.5 6.5V6A2.5 2.5 0 0 0 11 3.5H6A2.5 2.5 0 0 0 3.5 6v5A2.5 2.5 0 0 0 6 13.5h.5" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/>
+                  </svg>
+                  <svg class="footer-panel__check-glyph" viewBox="0 0 20 20" fill="none">
+                    <path d="m5 10.5 3.2 3.2L15.5 6.5" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/>
+                  </svg>
+                </span>
+              </button>
+              <a class="footer-panel__btn footer-panel__btn--resume" href="#" aria-label="Resume (coming soon)">
+                <span class="footer-panel__btn-label">Resume</span>
+                <img class="footer-panel__btn-arrow" src="../assets/footer/v2/arrow-light.svg" alt="" width="19" height="19" decoding="async">
+              </a>
+            </div>
+          </div>
+
+          <nav class="footer-panel__links" aria-label="Links and social profiles">
+            <a class="footer-panel__link" href="../interaction-library/">
+              <span class="footer-panel__link-main">
+                <span class="footer-panel__icon footer-panel__icon--white">
+                  <img src="../assets/footer/v2/icon-interaction-library.svg" alt="" width="27" height="26" decoding="async">
+                </span>
+                <span class="footer-panel__link-label">Interaction Library</span>
+              </span>
+              <span class="footer-panel__link-arrow" aria-hidden="true">↗</span>
+            </a>
+
+            <a class="footer-panel__link" href="https://medium.com/@chavareatharva" target="_blank" rel="noreferrer">
+              <span class="footer-panel__link-main">
+                <span class="footer-panel__icon footer-panel__icon--white">
+                  <img src="../assets/footer/v2/icon-medium.png" alt="" width="31" height="31" decoding="async">
+                </span>
+                <span class="footer-panel__link-label">Medium</span>
+              </span>
+              <span class="footer-panel__link-arrow" aria-hidden="true">↗</span>
+            </a>
+
+            <a class="footer-panel__link" href="https://www.linkedin.com/in/atharva-chavare-363278248" target="_blank" rel="noreferrer">
+              <span class="footer-panel__link-main">
+                <span class="footer-panel__icon footer-panel__icon--linkedin">
+                  <img src="../assets/footer/v2/icon-linkedin.svg" alt="" width="33" height="33" decoding="async">
+                </span>
+                <span class="footer-panel__link-label">LinkedIn</span>
+              </span>
+              <span class="footer-panel__link-arrow" aria-hidden="true">↗</span>
+            </a>
+
+            <a class="footer-panel__link" href="https://x.com/" target="_blank" rel="noreferrer">
+              <span class="footer-panel__link-main">
+                <span class="footer-panel__icon footer-panel__icon--twitter">
+                  <img src="../assets/footer/v2/icon-twitter.svg" alt="" width="45" height="45" decoding="async">
+                </span>
+                <span class="footer-panel__link-label">Twitter</span>
+              </span>
+              <span class="footer-panel__link-arrow" aria-hidden="true">↗</span>
+            </a>
+
+            <a class="footer-panel__link" href="https://www.behance.net/atharvachavare" target="_blank" rel="noreferrer">
+              <span class="footer-panel__link-main">
+                <span class="footer-panel__icon footer-panel__icon--behance">
+                  <img src="../assets/footer/v2/icon-behance.svg" alt="" width="22" height="15" decoding="async">
+                </span>
+                <span class="footer-panel__link-label">Behance</span>
+              </span>
+              <span class="footer-panel__link-arrow" aria-hidden="true">↗</span>
+            </a>
+          </nav>
+        </div>
+
+        <div class="footer-panel__divider" aria-hidden="true">
+          <img src="../assets/footer/v2/divider-line.svg" alt="" width="1664" height="1" decoding="async">
+        </div>
+      </div>
+    </section>
+
+    <footer class="name-footer" aria-label="Atharva name reveal footer">
+      <div class="name-footer__stage is-idle">
+        <div class="name-footer__media" aria-hidden="true">
+          <video
+            class="name-footer__video"
+            autoplay
+            muted
+            loop
+            playsinline
+            preload="auto"
+          >
+            <source src="../assets/footer/textnew.mp4" type="video/mp4">
+          </video>
+        </div>
+
+        <canvas class="name-footer__canvas" aria-hidden="true"></canvas>
+        <span class="name-footer__cursor" aria-hidden="true"></span>
+
+        <div class="name-footer__fallback" hidden>Loading texture video…</div>
+      </div>
+    </footer>
+  </div>
+
+  <aside class="about-tune" data-about-tune aria-label="About page layout controls">
+    <button class="about-tune__toggle" type="button" aria-expanded="false" aria-controls="about-tune-panel">
+      Layout
+    </button>
+    <div class="about-tune__panel" id="about-tune-panel" hidden>
+      <p class="about-tune__title">Section spacing</p>
+      <label class="about-tune__label"><span>Page top</span><output data-for="about-page-top">166px</output></label>
+      <input type="range" data-var="about-page-top" min="60" max="200" step="1" value="166">
+      <label class="about-tune__label"><span>Hero → Photos</span><output data-for="space-after-hero">223px</output></label>
+      <input type="range" data-var="space-after-hero" min="0" max="240" step="1" value="223">
+      <label class="about-tune__label"><span>Photos → Experience</span><output data-for="space-after-photos">127px</output></label>
+      <input type="range" data-var="space-after-photos" min="0" max="240" step="1" value="127">
+      <label class="about-tune__label"><span>Experience → Work</span><output data-for="space-after-experience">198px</output></label>
+      <input type="range" data-var="space-after-experience" min="0" max="240" step="1" value="198">
+      <label class="about-tune__label"><span>Work → Footer</span><output data-for="space-after-designs">109px</output></label>
+      <input type="range" data-var="space-after-designs" min="0" max="240" step="1" value="109">
+      <label class="about-tune__label"><span>Experience pad top</span><output data-for="experience-padding-top">63px</output></label>
+      <input type="range" data-var="experience-padding-top" min="0" max="120" step="1" value="63">
+
+      <div class="about-tune__group">
+        <p class="about-tune__title">Photos strip</p>
+        <label class="about-tune__label"><span>Photo width</span><output data-for="photo-width">327px</output></label>
+        <input type="range" data-var="photo-width" min="200" max="520" step="1" value="327">
+        <label class="about-tune__label"><span>Photo scale</span><output data-for="photo-scale">1.00</output></label>
+        <input type="range" data-var="photo-scale" min="0.5" max="1.5" step="0.01" value="1">
+        <label class="about-tune__label"><span>Photo gap</span><output data-for="photo-gap">64px</output></label>
+        <input type="range" data-var="photo-gap" min="8" max="120" step="1" value="64">
+        <label class="about-tune__label"><span>Scroll speed</span><output data-for="photos-scroll-duration">15s</output></label>
+        <input type="range" data-var="photos-scroll-duration" min="15" max="90" step="1" value="15" data-unit="s">
+        <label class="about-tune__label"><span>Edge fade width</span><output data-for="fade-width">240px</output></label>
+        <input type="range" data-var="fade-width" min="80" max="360" step="1" value="240">
+      </div>
+
+      <div class="about-tune__group">
+        <p class="about-tune__title">Work strip</p>
+        <label class="about-tune__label"><span>Work height</span><output data-for="work-height">558px</output></label>
+        <input type="range" data-var="work-height" min="280" max="720" step="1" value="558">
+        <label class="about-tune__label"><span>Work scale</span><output data-for="work-scale">0.84</output></label>
+        <input type="range" data-var="work-scale" min="0.5" max="1.5" step="0.01" value="0.84">
+        <label class="about-tune__label"><span>Work gap</span><output data-for="work-gap">40px</output></label>
+        <input type="range" data-var="work-gap" min="8" max="120" step="1" value="40">
+        <label class="about-tune__label"><span>Scroll speed</span><output data-for="work-scroll-duration">15s</output></label>
+        <input type="range" data-var="work-scroll-duration" min="15" max="120" step="1" value="15" data-unit="s">
+      </div>
+
+      <div class="about-tune__actions">
+        <button type="button" data-action="reset">Reset</button>
+        <button type="button" data-action="copy">Copy CSS</button>
+      </div>
+    </div>
+  </aside>
+
+  <script src="../site-nav.js"></script>
+  <script src="../assets/footer/atharva-reveal.js"></script>
+  <script src="../site-bg-transition.js"></script>
+  <script src="../about.js"></script>
+  <script src="../about-wash-controls.js"></script>
+  <script src="../webgl/src/main.js"></script>
+</body>
+</html>
