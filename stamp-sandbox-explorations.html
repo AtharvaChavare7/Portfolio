@@ -1,0 +1,470 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <script src="clock-favicon.js"></script>
+  <meta name="theme-color" content="#f5f5f5">
+  <title>Stamp Sandbox — Animation Explorations</title>
+  <style>
+    :root {
+      --ink: #141414;
+      --muted: rgba(20, 20, 20, 0.55);
+      --line: rgba(20, 20, 20, 0.1);
+      --paper: #f5f5f5;
+      --card: #fff;
+      --pink: #ff6390;
+      --ease-out: cubic-bezier(0.16, 1, 0.3, 1);
+      --ease-spring: cubic-bezier(0.34, 1.56, 0.64, 1);
+      --stamp-size: 187.02px;
+    }
+
+    *,
+    *::before,
+    *::after {
+      box-sizing: border-box;
+    }
+
+    body {
+      margin: 0;
+      color: var(--ink);
+      background: var(--paper);
+      font: 14px/1.45 ui-sans-serif, system-ui, -apple-system, sans-serif;
+      -webkit-font-smoothing: antialiased;
+    }
+
+    .page {
+      width: min(1200px, calc(100% - 40px));
+      margin: 0 auto;
+      padding: 48px 0 80px;
+    }
+
+    .intro {
+      max-width: 640px;
+      margin-bottom: 40px;
+    }
+
+    .intro h1 {
+      margin: 0 0 10px;
+      font-size: clamp(28px, 4vw, 40px);
+      line-height: 1.05;
+      letter-spacing: -0.03em;
+    }
+
+    .intro p {
+      margin: 0;
+      color: var(--muted);
+    }
+
+    .grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+      gap: 20px;
+    }
+
+    .card {
+      display: flex;
+      flex-direction: column;
+      gap: 16px;
+      padding: 20px;
+      border: 1px solid var(--line);
+      border-radius: 20px;
+      background: var(--card);
+      box-shadow: 0 10px 30px rgba(20, 20, 20, 0.04);
+    }
+
+    .card__stage-wrap {
+      display: grid;
+      place-items: center;
+      min-height: 240px;
+      border-radius: 16px;
+      background:
+        radial-gradient(circle at 50% 35%, rgba(255, 99, 144, 0.08), transparent 55%),
+        #fafafa;
+    }
+
+    .card__meta h2 {
+      margin: 0 0 6px;
+      font-size: 15px;
+      font-weight: 600;
+    }
+
+    .card__meta p {
+      margin: 0 0 12px;
+      color: var(--muted);
+      font-size: 13px;
+    }
+
+    .replay-btn {
+      padding: 8px 12px;
+      border: 1px solid var(--line);
+      border-radius: 999px;
+      background: #fff;
+      font: inherit;
+      font-size: 12px;
+      cursor: pointer;
+    }
+
+    .replay-btn:hover {
+      background: #f7f7f7;
+    }
+
+    .stamp {
+      position: relative;
+      width: var(--stamp-size);
+      height: var(--stamp-size);
+      perspective: 900px;
+    }
+
+    .stamp__frame,
+    .stamp__cube {
+      position: absolute;
+      inset: 0;
+      width: 100%;
+      height: 100%;
+      display: block;
+    }
+
+    .stamp__frame {
+      z-index: 2;
+      pointer-events: none;
+    }
+
+    .stamp__cube-wrap {
+      position: absolute;
+      inset: 0;
+      z-index: 1;
+      display: grid;
+      place-items: center;
+      overflow: hidden;
+    }
+
+    .stamp__cube {
+      position: relative;
+      inset: auto;
+      width: 100%;
+      height: 100%;
+      transform-origin: 50% 58%;
+    }
+
+    /* 01 — Stamp press */
+    .anim--press .stamp__frame {
+      transform: translateY(-28px) scale(1.04);
+      opacity: 0.92;
+    }
+
+    .anim--press .stamp__cube {
+      opacity: 0;
+      transform: scale(0.72);
+    }
+
+    .anim--press.is-playing .stamp__frame {
+      animation: press-frame 0.72s var(--ease-out) forwards;
+    }
+
+    .anim--press.is-playing .stamp__cube {
+      animation: press-cube 0.55s 0.28s var(--ease-spring) forwards;
+    }
+
+    @keyframes press-frame {
+      0% {
+        transform: translateY(-28px) scale(1.04);
+      }
+
+      55% {
+        transform: translateY(2px) scale(0.98, 1.02);
+      }
+
+      100% {
+        transform: translateY(0) scale(1);
+      }
+    }
+
+    @keyframes press-cube {
+      0% {
+        opacity: 0;
+        transform: scale(0.72);
+      }
+
+      100% {
+        opacity: 1;
+        transform: scale(1);
+      }
+    }
+
+    /* 02 — Iris reveal */
+    .anim--iris .stamp__cube-wrap {
+      clip-path: circle(0% at 50% 54%);
+    }
+
+    .anim--iris.is-playing .stamp__cube-wrap {
+      animation: iris-open 0.85s var(--ease-out) forwards;
+    }
+
+    @keyframes iris-open {
+      0% {
+        clip-path: circle(0% at 50% 54%);
+      }
+
+      100% {
+        clip-path: circle(72% at 50% 54%);
+      }
+    }
+
+    /* 03 — Extrude rise */
+    .anim--extrude .stamp__cube-wrap {
+      clip-path: inset(100% 8% 0 8% round 8px);
+    }
+
+    .anim--extrude .stamp__cube {
+      transform: translateY(18px);
+    }
+
+    .anim--extrude.is-playing .stamp__cube-wrap {
+      animation: extrude-mask 0.8s var(--ease-out) forwards;
+    }
+
+    .anim--extrude.is-playing .stamp__cube {
+      animation: extrude-cube 0.8s var(--ease-out) forwards;
+    }
+
+    @keyframes extrude-mask {
+      0% {
+        clip-path: inset(100% 8% 0 8% round 8px);
+      }
+
+      100% {
+        clip-path: inset(0 0 0 0 round 8px);
+      }
+    }
+
+    @keyframes extrude-cube {
+      0% {
+        transform: translateY(18px);
+      }
+
+      100% {
+        transform: translateY(0);
+      }
+    }
+
+    /* 04 — 3D flip-in */
+    .anim--flip .stamp__cube {
+      opacity: 0;
+      transform: rotateX(68deg) rotateZ(-12deg) scale(0.86);
+    }
+
+    .anim--flip.is-playing .stamp__cube {
+      animation: flip-in 0.9s var(--ease-out) forwards;
+    }
+
+    @keyframes flip-in {
+      0% {
+        opacity: 0;
+        transform: rotateX(68deg) rotateZ(-12deg) scale(0.86);
+      }
+
+      100% {
+        opacity: 1;
+        transform: rotateX(0deg) rotateZ(0deg) scale(1);
+      }
+    }
+
+    /* 05 — Ink bloom */
+    .anim--bloom .stamp__cube {
+      opacity: 0;
+      filter: blur(10px);
+      transform: scale(1.14);
+    }
+
+    .anim--bloom.is-playing .stamp__cube {
+      animation: ink-bloom 0.95s var(--ease-out) forwards;
+    }
+
+    @keyframes ink-bloom {
+      0% {
+        opacity: 0;
+        filter: blur(10px);
+        transform: scale(1.14);
+      }
+
+      60% {
+        opacity: 1;
+        filter: blur(1px);
+        transform: scale(0.98);
+      }
+
+      100% {
+        opacity: 1;
+        filter: blur(0);
+        transform: scale(1);
+      }
+    }
+
+    /* 06 — Scan wipe */
+    .anim--scan .stamp__cube-wrap {
+      clip-path: inset(0 100% 0 0);
+    }
+
+    .anim--scan.is-playing .stamp__cube-wrap {
+      animation: scan-wipe 0.82s var(--ease-out) forwards;
+    }
+
+    @keyframes scan-wipe {
+      0% {
+        clip-path: inset(0 100% 0 0);
+      }
+
+      100% {
+        clip-path: inset(0 0 0 0);
+      }
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      .anim--press.is-playing .stamp__frame,
+      .anim--press.is-playing .stamp__cube,
+      .anim--iris.is-playing .stamp__cube-wrap,
+      .anim--extrude.is-playing .stamp__cube-wrap,
+      .anim--extrude.is-playing .stamp__cube,
+      .anim--flip.is-playing .stamp__cube,
+      .anim--bloom.is-playing .stamp__cube,
+      .anim--scan.is-playing .stamp__cube-wrap {
+        animation: none !important;
+      }
+
+      .anim--press .stamp__frame,
+      .anim--press .stamp__cube,
+      .anim--iris .stamp__cube-wrap,
+      .anim--extrude .stamp__cube-wrap,
+      .anim--extrude .stamp__cube,
+      .anim--flip .stamp__cube,
+      .anim--bloom .stamp__cube,
+      .anim--scan .stamp__cube-wrap {
+        opacity: 1;
+        transform: none;
+        filter: none;
+        clip-path: none;
+      }
+    }
+  </style>
+</head>
+<body>
+  <main class="page">
+    <header class="intro">
+      <h1>Stamp sandbox reveal explorations</h1>
+      <p>Six ways the isometric sandbox cube can be generated inside the pink stamp. Click replay on any card to see it again.</p>
+    </header>
+
+    <div class="grid">
+      <article class="card" data-anim="press">
+        <div class="card__stage-wrap">
+          <div class="stamp anim anim--press is-playing">
+            <img class="stamp__frame" src="assets/playground/hero/stamp-frame.svg" alt="">
+            <div class="stamp__cube-wrap">
+              <img class="stamp__cube" src="assets/playground/hero/stamp-cube.svg" alt="">
+            </div>
+          </div>
+        </div>
+        <div class="card__meta">
+          <h2>01 — Stamp press</h2>
+          <p>Frame drops like a rubber stamp; the cube prints into place on impact.</p>
+          <button type="button" class="replay-btn">Replay</button>
+        </div>
+      </article>
+
+      <article class="card" data-anim="iris">
+        <div class="card__stage-wrap">
+          <div class="stamp anim anim--iris is-playing">
+            <img class="stamp__frame" src="assets/playground/hero/stamp-frame.svg" alt="">
+            <div class="stamp__cube-wrap">
+              <img class="stamp__cube" src="assets/playground/hero/stamp-cube.svg" alt="">
+            </div>
+          </div>
+        </div>
+        <div class="card__meta">
+          <h2>02 — Iris reveal</h2>
+          <p>A circular aperture opens from the center, exposing the sandbox icon.</p>
+          <button type="button" class="replay-btn">Replay</button>
+        </div>
+      </article>
+
+      <article class="card" data-anim="extrude">
+        <div class="card__stage-wrap">
+          <div class="stamp anim anim--extrude is-playing">
+            <img class="stamp__frame" src="assets/playground/hero/stamp-frame.svg" alt="">
+            <div class="stamp__cube-wrap">
+              <img class="stamp__cube" src="assets/playground/hero/stamp-cube.svg" alt="">
+            </div>
+          </div>
+        </div>
+        <div class="card__meta">
+          <h2>03 — Extrude rise</h2>
+          <p>The cube rises from the bottom edge, like material being pushed up into form.</p>
+          <button type="button" class="replay-btn">Replay</button>
+        </div>
+      </article>
+
+      <article class="card" data-anim="flip">
+        <div class="card__stage-wrap">
+          <div class="stamp anim anim--flip is-playing">
+            <img class="stamp__frame" src="assets/playground/hero/stamp-frame.svg" alt="">
+            <div class="stamp__cube-wrap">
+              <img class="stamp__cube" src="assets/playground/hero/stamp-cube.svg" alt="">
+            </div>
+          </div>
+        </div>
+        <div class="card__meta">
+          <h2>04 — 3D flip-in</h2>
+          <p>The icon rotates into its isometric angle with a perspective flip.</p>
+          <button type="button" class="replay-btn">Replay</button>
+        </div>
+      </article>
+
+      <article class="card" data-anim="bloom">
+        <div class="card__stage-wrap">
+          <div class="stamp anim anim--bloom is-playing">
+            <img class="stamp__frame" src="assets/playground/hero/stamp-frame.svg" alt="">
+            <div class="stamp__cube-wrap">
+              <img class="stamp__cube" src="assets/playground/hero/stamp-cube.svg" alt="">
+            </div>
+          </div>
+        </div>
+        <div class="card__meta">
+          <h2>05 — Ink bloom</h2>
+          <p>Soft blur and overscale snap into a crisp, locked icon — like ink settling.</p>
+          <button type="button" class="replay-btn">Replay</button>
+        </div>
+      </article>
+
+      <article class="card" data-anim="scan">
+        <div class="card__stage-wrap">
+          <div class="stamp anim anim--scan is-playing">
+            <img class="stamp__frame" src="assets/playground/hero/stamp-frame.svg" alt="">
+            <div class="stamp__cube-wrap">
+              <img class="stamp__cube" src="assets/playground/hero/stamp-cube.svg" alt="">
+            </div>
+          </div>
+        </div>
+        <div class="card__meta">
+          <h2>06 — Scan wipe</h2>
+          <p>A horizontal scan passes left to right, generating the cube as it moves.</p>
+          <button type="button" class="replay-btn">Replay</button>
+        </div>
+      </article>
+    </div>
+  </main>
+
+  <script>
+    document.querySelectorAll('.card').forEach((card) => {
+      const stamp = card.querySelector('.stamp');
+      const btn = card.querySelector('.replay-btn');
+
+      btn.addEventListener('click', () => {
+        stamp.classList.remove('is-playing');
+        void stamp.offsetWidth;
+        stamp.classList.add('is-playing');
+      });
+    });
+  </script>
+</body>
+</html>

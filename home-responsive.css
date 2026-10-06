@@ -1,0 +1,328 @@
+/*
+ * Homepage mobile composition.
+ *
+ * Desktop remains unchanged. The card zoom variables preserve the existing
+ * interactive canvases/animations while reducing their rendered footprint.
+ */
+@media (max-width: 720px) {
+  :root {
+    --case-card-scale: 1;
+    --agent-mobile-font-size: 15px;
+  }
+
+  html,
+  body {
+    overflow-x: hidden;
+  }
+
+  .page {
+    padding: 0 16px 48px;
+  }
+
+  /* Keep the introduction readable while the artwork scales independently. */
+  .hero__container {
+    width: 100%;
+    max-width: none;
+    --hero-block-offset-y: 0px;
+  }
+
+  .hero__intro {
+    gap: 5px;
+    margin-bottom: 10px;
+  }
+
+  .hero__greeting,
+  .hero__role {
+    font-size: 10px;
+    line-height: 15px;
+    letter-spacing: 1.4px;
+  }
+
+  /* --- Reflow the fixed absolute composition into a stacked mobile layout ---
+     Desktop keeps the scaled artwork; on phones the title breaks into short
+     lines and the chips flow into a grid below, so nothing shrinks to nothing
+     and the top/bottom whitespace is reclaimed. */
+  .hero-screen {
+    height: auto;
+    min-height: 100dvh;
+    overflow: visible;
+  }
+
+  .hero {
+    align-items: flex-start;
+    justify-content: flex-start;
+    min-height: 100dvh;
+    height: auto;
+    padding: 88px 0 48px;
+  }
+
+  /* Stage stacks: full-width title, then a scatter field for the hero pills. */
+  .hero__stage {
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    align-items: stretch;
+    gap: 28px;
+    width: 100%;
+    max-width: none;
+    height: auto;
+    padding-bottom: 88vw;
+    font-size: initial;
+  }
+
+  /* Flatten line wrappers so words wrap naturally on narrow viewports. */
+  .hero__title {
+    position: static;
+    display: flex;
+    flex-direction: row; /* base title is column; must be row to wrap into lines */
+    flex-wrap: wrap;
+    align-items: baseline;
+    column-gap: 0.14em;
+    row-gap: 0.12em;
+    width: 100%;
+    max-width: 100%;
+    height: auto;
+    margin: 0 0 26px;
+    font-size: clamp(28px, 9.2vw, 60px); /* master title size; sized so the widest
+                                            pair ("Crafting meaningful") always fits */
+    /* neutralise the desktop per-word micro-gaps */
+    --hero-gap-crafting-meaningful: 0;
+    --hero-gap-interfaces-for: 0;
+    --hero-gap-for-millions: 0;
+    --hero-gap-makemytrip-amp: 0;
+    --hero-gap-amp-fiserv: 0;
+  }
+
+  /* Specificity must beat `.hero__title > .hero__line { display:flex }`. */
+  .hero__title > .hero__line,
+  .hero__title .hero__line--employer {
+    display: contents;
+  }
+
+  /* Words size off the title master; letter-spacing/line-height scale with the
+     title’s clamp (desktop styles.css uses px on upstream). */
+  .hero__word--sans {
+    font-size: 1em;
+    line-height: 1.0427;
+  }
+
+  .hero__word--serif {
+    font-size: 0.882em; /* keeps the desktop 60/68 sans:serif ratio */
+    line-height: 1.0427;
+  }
+
+  .hero__pill {
+    position: absolute;
+    width: auto;
+    height: 12vw;
+    max-width: none;
+    transform-origin: 50% 50%;
+    left: auto;
+    top: auto;
+  }
+
+  .hero__pill--animations {
+    left: 3%;
+    bottom: 86%;
+    transform: rotate(-4deg);
+  }
+  .hero__pill--shipping {
+    left: 54%;
+    bottom: 78%;
+    transform: rotate(5deg);
+  }
+  .hero__pill--detail {
+    left: 6%;
+    bottom: 50%;
+    transform: rotate(-3deg);
+  }
+  .hero__pill--agent {
+    left: 50%;
+    bottom: 42%;
+    transform: rotate(4deg);
+  }
+  .hero__pill--design-systems {
+    left: 5%;
+    bottom: 15%;
+    transform: rotate(-2deg);
+  }
+
+  .hero-scroll {
+    bottom: 28px;
+  }
+
+  .hero-scroll__label {
+    font-size: 10px;
+  }
+
+  /* The desktop side rail is too intrusive at phone widths. */
+  .work-nav {
+    display: none;
+  }
+
+  .work-card,
+  .case-study--dark {
+    width: 100%;
+    margin-top: 0;
+    padding-left: 0;
+    box-sizing: border-box;
+  }
+
+  .case-study,
+  .case-study--viewport {
+    min-height: auto;
+  }
+
+  .case-study--viewport {
+    display: block;
+    padding: 56px 0;
+  }
+
+  .case-study--dark .case-study__stage {
+    width: 100%;
+    padding-left: 0;
+    box-sizing: border-box;
+  }
+
+  .work-card__grid,
+  .work-card__grid--wongdoody,
+  .work-card__grid--fiserv {
+    width: 100%;
+    justify-content: center;
+    gap: 0;
+  }
+
+  .work-card__panel {
+    border-radius: 16px;
+  }
+
+  /* MakeMyTrip: retain only the phone + draggable banners/toasts card. */
+  #case-makemytrip .work-card__column {
+    display: none;
+  }
+
+  #case-makemytrip .work-card__panel-wrap--main {
+    zoom: var(--case-card-scale);
+  }
+
+  /* SpendTrack: retain the agent review and mobile search cards. */
+  #case-wongdoody .work-card__panel--chat {
+    display: none;
+  }
+
+  #case-wongdoody .work-card__column--wongdoody {
+    zoom: var(--case-card-scale);
+  }
+
+  #case-wongdoody .agent-carousel-frame .pill-text-layer,
+  #case-wongdoody .agent-carousel-frame .item-text {
+    font-size: var(--agent-mobile-font-size);
+  }
+
+  /* SnakeSafe: retain only the wireframe-to-visual reveal card. */
+  #case-fiserv .work-card__column--fiserv {
+    display: none;
+  }
+
+  #case-fiserv .work-card__panel--fiserv-main {
+    zoom: var(--case-card-scale);
+  }
+
+  .work-card__footer {
+    align-items: flex-start;
+    gap: 16px;
+    margin-top: 18px;
+    white-space: normal;
+  }
+
+  .work-card__title {
+    max-width: 60%;
+    font-size: clamp(18px, 5.5vw, 24px);
+    line-height: 1.12;
+  }
+
+  .work-card__case-study-link {
+    flex: 0 0 auto;
+    padding: 8px 12px;
+    font-size: 14px;
+  }
+}
+
+@media (max-width: 680px) {
+  :root {
+    --case-card-scale: 0.96;
+  }
+}
+
+@media (max-width: 640px) {
+  :root {
+    --case-card-scale: 0.91;
+  }
+}
+
+@media (max-width: 600px) {
+  :root {
+    --case-card-scale: 0.85;
+  }
+}
+
+@media (max-width: 560px) {
+  :root {
+    --case-card-scale: 0.79;
+  }
+}
+
+@media (max-width: 520px) {
+  :root {
+    --case-card-scale: 0.73;
+  }
+}
+
+@media (max-width: 480px) {
+  :root {
+    --case-card-scale: 0.67;
+  }
+}
+
+@media (max-width: 440px) {
+  :root {
+    --case-card-scale: 0.61;
+    --agent-mobile-font-size: 17px;
+  }
+}
+
+@media (max-width: 400px) {
+  :root {
+    --case-card-scale: 0.54;
+    --agent-mobile-font-size: 19px;
+  }
+
+  .work-card__footer {
+    flex-direction: column;
+  }
+
+  .work-card__title {
+    max-width: none;
+  }
+}
+
+@media (max-width: 360px) {
+  :root {
+    --case-card-scale: 0.49;
+    --agent-mobile-font-size: 21px;
+  }
+}
+
+@media (max-width: 340px) {
+  :root {
+    --case-card-scale: 0.46;
+    --agent-mobile-font-size: 22px;
+  }
+}
+
+@media (max-width: 320px) {
+  :root {
+    --case-card-scale: 0.43;
+    --agent-mobile-font-size: 24px;
+  }
+}

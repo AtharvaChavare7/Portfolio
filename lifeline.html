@@ -1,0 +1,181 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <script src="clock-favicon.js"></script>
+  <title>Lifeline — Timeline Demo</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Geist+Mono:wght@400&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/geist@1.3.1/dist/font.css">
+  <link rel="stylesheet" href="site-nav.css">
+  <style>
+    :root {
+      --border: #efefef;
+      --text: #707070;
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    html,
+    body {
+      width: 100%;
+      height: 100%;
+      overflow: hidden;
+      background: #fff;
+      font-family: "Geist", system-ui, sans-serif;
+      color: #0a0a0a;
+    }
+
+    .lifeline-page {
+      position: relative;
+      width: 100%;
+      height: 100%;
+      display: flex;
+      flex-direction: column;
+    }
+
+    .lifeline-frame {
+      flex: 1 1 auto;
+      width: 100%;
+      min-height: 0;
+      border: 0;
+      background: #fff;
+    }
+
+    .lifeline-fallback {
+      position: absolute;
+      inset: 0;
+      display: none;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      gap: 16px;
+      padding: 32px;
+      text-align: center;
+      background: #fff;
+    }
+
+    .lifeline-fallback.is-visible {
+      display: flex;
+    }
+
+    .lifeline-fallback h1 {
+      font-size: 1.5rem;
+      font-weight: 600;
+      letter-spacing: -0.02em;
+    }
+
+    .lifeline-fallback p {
+      max-width: 34rem;
+      color: var(--text);
+      line-height: 1.6;
+    }
+
+    .lifeline-fallback a {
+      color: #0a0a0a;
+      text-decoration: underline;
+      text-underline-offset: 3px;
+    }
+
+    .lifeline-fallback code {
+      font-family: "Geist Mono", ui-monospace, monospace;
+      font-size: 0.9em;
+      padding: 2px 6px;
+      border-radius: 6px;
+      background: #f5f5f5;
+    }
+  </style>
+</head>
+<body>
+  <header class="site-nav" data-state="closed" aria-label="Site navigation">
+    <button
+      class="site-nav__menu"
+      type="button"
+      aria-label="Open menu"
+      aria-expanded="false"
+      aria-controls="site-nav-panel"
+    >
+      <span class="site-nav__menu-label" aria-hidden="true">
+        <span class="site-nav__menu-letter" style="--letter-index: 0">m</span>
+        <span class="site-nav__menu-letter" style="--letter-index: 1">e</span>
+        <span class="site-nav__menu-letter" style="--letter-index: 2">n</span>
+        <span class="site-nav__menu-letter" style="--letter-index: 3">u</span>
+      </span>
+      <span class="site-nav__menu-dot" aria-hidden="true"></span>
+    </button>
+    <div class="site-nav__panel" id="site-nav-panel" hidden>
+      <div class="site-nav__panel-close-row">
+        <button class="site-nav__close" type="button" aria-label="Close menu">
+          <span class="site-nav__close-label">close</span>
+          <span class="site-nav__close-icon" aria-hidden="true"></span>
+        </button>
+      </div>
+      <nav class="site-nav__links" aria-label="Primary">
+        <a class="site-nav__link" href="index.html#work">works</a>
+        <a class="site-nav__link" href="interaction-library.html">playground</a>
+        <a class="site-nav__link" href="lifeline.html" aria-current="page">lifeline</a>
+        <a class="site-nav__link" href="about.html">about</a>
+        <a class="site-nav__link" href="#">contact</a>
+      </nav>
+    </div>
+  </header>
+  <div class="site-nav__scrim" hidden aria-hidden="true"></div>
+
+  <main class="lifeline-page">
+    <iframe
+      class="lifeline-frame"
+      title="Lifeline timeline demo"
+      src="https://lifeline.evilrabbit.com/"
+      loading="eager"
+      referrerpolicy="no-referrer-when-downgrade"
+      allow="fullscreen"
+    ></iframe>
+
+    <div class="lifeline-fallback" id="lifeline-fallback" hidden>
+      <h1>Lifeline preview unavailable</h1>
+      <p>
+        The hosted demo could not be loaded in this frame. You can open it directly at
+        <a href="https://lifeline.evilrabbit.com/" target="_blank" rel="noreferrer">lifeline.evilrabbit.com</a>,
+        or run the local copy from <code>lifeline/</code> with
+        <code>npm install &amp;&amp; npm run dev</code> and visit
+        <a href="http://localhost:3000/" target="_blank" rel="noreferrer">localhost:3000</a>.
+      </p>
+      <p>
+        Source:
+        <a href="https://github.com/evilrabbit/lifeline" target="_blank" rel="noreferrer">evilrabbit/lifeline</a>
+      </p>
+    </div>
+  </main>
+
+  <script src="site-nav.js" defer></script>
+  <script>
+    const frame = document.querySelector(".lifeline-frame");
+    const fallback = document.getElementById("lifeline-fallback");
+
+    frame.addEventListener("error", showFallback);
+
+    window.setTimeout(() => {
+      try {
+        const doc = frame.contentDocument;
+        if (!doc || !doc.body || !doc.body.childElementCount) {
+          showFallback();
+        }
+      } catch (_) {
+        // Cross-origin iframe: load event is the best signal we get.
+      }
+    }, 8000);
+
+    function showFallback() {
+      fallback.hidden = false;
+      fallback.classList.add("is-visible");
+      frame.hidden = true;
+    }
+  </script>
+</body>
+</html>

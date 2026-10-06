@@ -1,0 +1,343 @@
+/* Agent status carousel — dark mode only, scoped to SpendTrack panel */
+.agent-carousel-frame {
+  --bg: #121212;
+  --white: #242424;
+  --gray-100: #2c2c2c;
+  --gray-200: #383838;
+  --gray-300: #4a4a4a;
+  --gray-400: #6e6e6e;
+  --gray-500: #9a9a9a;
+  --gray-600: #b8b8b8;
+  --green: #6aad78;
+  --orange: #e09670;
+  --pill-gray: #8a8580;
+  --pill-bg-gray: #3a3a3a;
+  --shadow-pill: none;
+  --shadow-card: none;
+  --frame-width: 100%;
+  --frame-height: 100%;
+  --card-width: 280px;
+  --card-gap: 54px;
+  --slide-step: calc(var(--card-width) + var(--card-gap));
+  --slide-duration: 0.75s;
+  --slide-ease: cubic-bezier(0.4, 0, 0.2, 1);
+
+  position: relative;
+  width: 100%;
+  height: 100%;
+  flex-shrink: 0;
+  background: var(--bg);
+  font-family: "Plus Jakarta Sans", system-ui, sans-serif;
+  -webkit-font-smoothing: antialiased;
+  cursor: default;
+}
+
+.agent-carousel-backdrop {
+  position: absolute;
+  inset: 4px;
+  z-index: 0;
+  overflow: clip;
+  border-radius: 16px;
+  pointer-events: none;
+}
+
+.agent-carousel-frame .particle-sphere {
+  position: absolute;
+  pointer-events: none;
+  z-index: 0;
+}
+
+.agent-carousel-frame .carousel-viewport {
+  position: relative;
+  z-index: 2;
+  width: 100%;
+  height: 100%;
+  overflow: hidden;
+  display: flex;
+  align-items: center;
+  pointer-events: none;
+}
+
+.agent-carousel-frame .carousel-track {
+  display: flex;
+  align-items: flex-start;
+  gap: var(--card-gap);
+  will-change: transform;
+}
+
+.agent-carousel-frame .carousel-track.is-sliding {
+  transition: transform var(--slide-duration) var(--slide-ease);
+}
+
+.agent-carousel-frame .agent-card {
+  width: var(--card-width);
+  flex-shrink: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  transition:
+    transform var(--slide-duration) var(--slide-ease),
+    opacity var(--slide-duration) var(--slide-ease);
+}
+
+.agent-carousel-frame .agent-card.active {
+  opacity: 1;
+  transform: scale(1);
+  filter: none;
+  position: relative;
+  z-index: 2;
+}
+
+.agent-carousel-frame .agent-card.ghost {
+  opacity: 0.18;
+  transform: scale(0.96);
+  pointer-events: none;
+}
+
+.agent-carousel-frame .agent-card.entering {
+  opacity: 0;
+  transform: scale(0.96);
+}
+
+.agent-carousel-frame .pill {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  width: 100%;
+  background: var(--white);
+  border: none;
+  border-radius: 999px;
+  padding: 8px 18px 8px 10px;
+  box-shadow: var(--shadow-pill);
+  transition: color 0.4s ease, background 0.4s ease, box-shadow 0.35s ease;
+  -webkit-backface-visibility: hidden;
+  backface-visibility: hidden;
+}
+
+.agent-carousel-frame .pill-review .pill-icon { color: var(--pill-gray); }
+.agent-carousel-frame .pill-review .pill-text,
+.agent-carousel-frame .pill-review .pill-text-layer { color: var(--gray-500); }
+
+.agent-carousel-frame .pill-approved .pill-icon { color: var(--green); }
+.agent-carousel-frame .pill-approved .pill-text,
+.agent-carousel-frame .pill-approved .pill-text-layer { color: var(--green); }
+
+.agent-carousel-frame .pill-flagged .pill-icon { color: var(--orange); }
+.agent-carousel-frame .pill-flagged .pill-text,
+.agent-carousel-frame .pill-flagged .pill-text-layer { color: var(--orange); }
+
+.agent-carousel-frame .pill-icon {
+  width: 28px;
+  height: 28px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+  background: var(--pill-bg-gray);
+  transition: background 0.4s ease, color 0.4s ease;
+}
+
+.agent-carousel-frame .pill-approved .pill-icon,
+.agent-carousel-frame .pill-flagged .pill-icon {
+  background: transparent;
+}
+
+.agent-carousel-frame .pill-icon svg {
+  width: 20px;
+  height: 20px;
+}
+
+.agent-carousel-frame .pill-text-viewport {
+  flex: 1;
+  position: relative;
+  min-height: 1.15em;
+  overflow: hidden;
+}
+
+.agent-carousel-frame .pill-text-layer {
+  display: block;
+  font-size: 15px;
+  font-weight: 400;
+  letter-spacing: -0.01em;
+  white-space: nowrap;
+  transition: color 0.4s ease;
+}
+
+.agent-carousel-frame .pill-text-layer.is-typing::after {
+  content: "";
+  display: inline-block;
+  width: 1.5px;
+  height: 0.85em;
+  margin-left: 1px;
+  vertical-align: -0.05em;
+  background: currentColor;
+  opacity: 0.7;
+  animation: agent-pill-text-caret 0.85s step-end infinite;
+}
+
+@keyframes agent-pill-text-caret {
+  0%, 100% { opacity: 0.7; }
+  50% { opacity: 0; }
+}
+
+.agent-carousel-frame .card-body {
+  background: var(--white);
+  border: none;
+  border-radius: 16px;
+  padding: 18px 20px;
+  box-shadow: var(--shadow-card);
+  transition: background 0.35s ease, box-shadow 0.35s ease;
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+  min-height: 132px;
+  -webkit-backface-visibility: hidden;
+  backface-visibility: hidden;
+}
+
+.agent-carousel-frame .check-item {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  min-height: 24px;
+  transition: opacity 0.3s ease;
+}
+
+.agent-carousel-frame .item-icon {
+  width: 20px;
+  height: 20px;
+  border-radius: 50%;
+  flex-shrink: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: background 0.35s ease, transform 0.35s cubic-bezier(0.34, 1.56, 0.64, 1);
+}
+
+.agent-carousel-frame .item-icon.skeleton-dot {
+  background: var(--gray-200);
+}
+
+.agent-carousel-frame .item-icon.ok {
+  background: var(--green);
+  transform: scale(1);
+}
+
+.agent-carousel-frame .item-icon.ok::after {
+  content: "";
+  width: 8px;
+  height: 5px;
+  border-left: 1.5px solid #fff;
+  border-bottom: 1.5px solid #fff;
+  transform: rotate(-45deg) translateY(-1px);
+}
+
+.agent-carousel-frame .item-icon.fail {
+  position: relative;
+  background: var(--orange);
+  transform: scale(1);
+}
+
+.agent-carousel-frame .item-icon.fail::before,
+.agent-carousel-frame .item-icon.fail::after {
+  content: "";
+  position: absolute;
+  width: 8px;
+  height: 1.5px;
+  background: #fff;
+  border-radius: 1px;
+  left: 50%;
+  top: 50%;
+  margin-left: -4px;
+  margin-top: -0.75px;
+}
+
+.agent-carousel-frame .item-icon.fail::before { transform: rotate(45deg); }
+.agent-carousel-frame .item-icon.fail::after { transform: rotate(-45deg); }
+
+.agent-carousel-frame .item-label {
+  font-size: 14px;
+  font-weight: 400;
+  letter-spacing: -0.01em;
+  transition: color 0.35s ease, opacity 0.35s ease;
+}
+
+.agent-carousel-frame .item-label.skeleton-bar {
+  display: block;
+  width: 120px;
+  height: 12px;
+  border-radius: 6px;
+  background: linear-gradient(90deg, var(--gray-200) 0%, var(--gray-100) 50%, var(--gray-200) 100%);
+  background-size: 200% 100%;
+  animation: agent-shimmer 1.4s ease-in-out infinite;
+}
+
+.agent-carousel-frame .check-item.done .item-label {
+  color: var(--green);
+}
+
+.agent-carousel-frame .check-item.fail .item-label {
+  color: var(--orange);
+}
+
+.agent-carousel-frame .check-item.resolving .item-icon {
+  animation: agent-pop-in 0.4s cubic-bezier(0.34, 1.56, 0.64, 1);
+}
+
+.agent-carousel-frame .check-item.resolving .item-label {
+  animation: agent-fade-label 0.35s ease forwards;
+}
+
+@keyframes agent-shimmer {
+  0% { background-position: 100% 0; }
+  100% { background-position: -100% 0; }
+}
+
+@keyframes agent-pop-in {
+  0% { transform: scale(0.5); opacity: 0.5; }
+  100% { transform: scale(1); opacity: 1; }
+}
+
+@keyframes agent-fade-label {
+  0% { opacity: 0; transform: translateX(-4px); }
+  100% { opacity: 1; transform: translateX(0); }
+}
+
+.agent-carousel-frame .pill-review .pill-icon {
+  background: var(--pill-bg-gray);
+}
+
+.agent-carousel-frame .pill-review .pill-icon.pill-icon--loader {
+  background: transparent;
+  overflow: visible;
+}
+
+.agent-carousel-frame .ai-loader {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 20px;
+  height: 20px;
+  flex-shrink: 0;
+}
+
+.agent-carousel-frame .ai-loader--dots {
+  gap: 3px;
+}
+
+.agent-carousel-frame .ai-loader--dots span {
+  width: 3.5px;
+  height: 3.5px;
+  border-radius: 50%;
+  background: var(--pill-gray);
+  animation: agent-loader-dot-bounce 1s ease-in-out infinite;
+}
+
+.agent-carousel-frame .ai-loader--dots span:nth-child(2) { animation-delay: 0.12s; }
+.agent-carousel-frame .ai-loader--dots span:nth-child(3) { animation-delay: 0.24s; }
+
+@keyframes agent-loader-dot-bounce {
+  0%, 70%, 100% { transform: translateY(0); opacity: 0.45; }
+  35% { transform: translateY(-3px); opacity: 1; }
+}

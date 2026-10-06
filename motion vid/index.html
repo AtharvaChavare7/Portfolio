@@ -1,0 +1,739 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>STYLE × COMFORT — 10s Motion Reel</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter+Tight:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+*{box-sizing:border-box;margin:0;padding:0}
+html,body{height:100%;background:#070707;color:#e9e9e9;font-family:'Inter Tight','Helvetica Neue',Helvetica,Arial,sans-serif;-webkit-font-smoothing:antialiased}
+body{display:flex;align-items:center;justify-content:center;overflow:hidden}
+#wrap{display:flex;flex-direction:column;gap:16px;transform-origin:50% 50%}
+.meta{display:flex;justify-content:space-between;font-size:10.5px;letter-spacing:.22em;text-transform:uppercase;color:#6d6d6d}
+.meta b{color:#d8d8d8;font-weight:500}
+
+/* ───────── stage: 1225 × 557 ───────── */
+#stage{position:relative;width:1225px;height:557px;overflow:hidden;background:#0b0b0b;box-shadow:0 40px 90px rgba(0,0,0,.65),0 0 0 1px #1c1c1c;isolation:isolate}
+#film{position:absolute;inset:0}
+.scene{position:absolute;inset:0;overflow:hidden;visibility:hidden}
+.a{position:absolute}
+.m{overflow:hidden}
+.ch,.wd{display:inline-block;will-change:transform}
+img{display:block;user-select:none;-webkit-user-drag:none}
+.mul{mix-blend-mode:multiply}
+
+/* nav (shared) */
+.nav{position:absolute;left:0;top:0;width:1225px;height:44px;background:#f3f3f3;border-bottom:1px solid #dcdcdc;z-index:5;will-change:transform}
+.nav .lg{position:absolute;left:40px;top:11px;width:36px;height:22px}
+.nav .links{position:absolute;left:50%;top:0;height:44px;transform:translateX(-50%);display:flex;align-items:center;gap:30px;font-size:11.5px;font-weight:500;letter-spacing:.02em;color:#1b1b1b}
+.nav .ic{position:absolute;top:12.5px;width:19px;height:19px}
+.nav .ic svg{width:19px;height:19px;fill:none;stroke:#1b1b1b;stroke-width:1.4;stroke-linecap:round;stroke-linejoin:round;overflow:visible}
+.nav .bdg{position:absolute;top:-6px;right:-8px;width:15px;height:15px;border-radius:50%;background:#000;color:#fff;font-size:9px;font-weight:600;display:grid;place-items:center;transform:scale(0)}
+
+/* ── S1 hero ── */
+#s-hero{background:#0b0b0b}
+#h-logo{left:564.5px;top:248.85px;width:96px;height:59.3px}
+#h-panel{left:0;top:0;width:0;height:557px;background:#fbfbfa}
+#h-shoec{left:612.5px;top:0;width:612.5px;height:557px;overflow:hidden}
+#h-shoe{left:70px;top:112px;width:440px;height:587px;will-change:transform}
+.hl{position:absolute;inset:0;pointer-events:none}
+.hl .in{position:absolute;inset:0;transform-origin:612.5px 190px;will-change:transform}
+.hm{position:absolute;top:128px;height:124px;overflow:hidden;white-space:nowrap}
+.hm.L{left:0;width:554px;text-align:right}
+.hm.R{left:666px;width:559px}
+.hw{display:inline-block;font-weight:600;font-size:104px;line-height:124px;letter-spacing:-.045em}
+.hl.lt .hw{color:#f4f4f2}.hl.dk .hw{color:#232323}
+.chev{position:absolute;left:576px;top:151.8px;width:73px;height:76.4px;overflow:visible}
+.hl.lt .chev path{fill:#f4f4f2}.hl.dk .chev path{fill:#232323}
+#h-copy{left:40px;top:292px}
+#h-copy .cl{display:block;overflow:hidden;font-size:31px;line-height:38px;font-weight:500;letter-spacing:-.03em;color:#141414}
+#h-copy .cl span{display:inline-block}
+#h-btn{left:40px;top:462px;width:532px;height:56px}
+#h-btn .fill{position:absolute;inset:0;background:#050505;transform-origin:0 50%;transform:scaleX(0)}
+#h-btn .lbl{position:absolute;inset:0;display:flex;align-items:center;justify-content:center;color:#fff;font-size:14px;font-weight:600;letter-spacing:.06em}
+#h-blk{background:#0b0b0b;z-index:6;display:none}
+
+/* ── S2 collection ── */
+#s-col{background:#0b0b0b}
+#c-eye{left:40px;top:24px;font-size:12px;letter-spacing:.26em;font-weight:500;color:#ededed;line-height:16px}
+#c-count{right:40px;top:22px;font-size:12px;letter-spacing:.22em;color:#ededed;font-variant-numeric:tabular-nums;line-height:16px}
+#c-bar{right:40px;top:42px;width:120px;height:1px;background:#333}
+#c-bar i{position:absolute;left:0;top:0;height:1px;width:100%;background:#eee;transform-origin:0 0}
+.cc{position:absolute;background:#f2f2f2;overflow:hidden;will-change:clip-path}
+.cc .nm{position:absolute;left:-300px;right:-300px;top:18px;text-align:center;overflow:hidden;white-space:nowrap}
+.cc .nm span{display:inline-block;font-weight:600;color:#121212;letter-spacing:-.035em;line-height:1.08}
+.cc img{position:absolute;bottom:0;object-fit:cover;object-position:50% 100%}
+.cc .dim{position:absolute;inset:0;background:#000;opacity:0}
+
+/* ── S3 arrivals ── */
+#s-arr{background:#f2f2f2}
+#a-marq{left:0;top:322px;white-space:nowrap;font-size:236px;font-weight:700;letter-spacing:-.045em;line-height:1;color:transparent;-webkit-text-stroke:1.2px #c4c4c4}
+#a-head{left:40px;top:28px;font-size:46px;line-height:56px;font-weight:600;letter-spacing:-.035em;color:#262626}
+.arw{position:absolute;top:36px;width:40px;height:40px;background:#e2e2e2;display:grid;place-items:center}
+.arw svg{width:18px;height:18px;fill:none;stroke:#222;stroke-width:2;stroke-linecap:round;stroke-linejoin:round}
+#a-track{position:absolute;inset:0}
+.pc{position:absolute;top:108px;width:286px;height:372px;background:#fff;padding:10px;will-change:transform}
+.pc .im{position:relative;width:266px;height:258px;background:#f7f7f7;overflow:hidden}
+.pc .im img{width:100%;height:100%;object-fit:cover}
+.pc .bd{position:absolute;left:10px;top:10px;background:#141414;color:#fff;font-size:11px;padding:5px 9px 4px;letter-spacing:.02em}
+.pc .nmx{margin-top:14px;font-size:17px;font-weight:500;color:#141414;letter-spacing:-.015em;white-space:nowrap}
+.pc .rw{display:flex;justify-content:space-between;align-items:center;margin-top:12px}
+.pc .sw{display:flex;gap:5px}
+.pc .sw i{display:block;width:30px;height:30px;background:#f2f2f2;overflow:hidden}
+.pc .sw i img{width:100%;height:100%;object-fit:cover}
+.pc .pr{display:flex;align-items:baseline;gap:7px}
+.pc .mrp{position:relative;font-size:13px;color:#8a8a8a}
+.pc .mrp .st{position:absolute;left:-1px;right:-1px;top:52%;height:1px;background:#7a7a7a;transform-origin:0 0;transform:scaleX(0)}
+.pc .now{font-size:22px;font-weight:600;color:#111;font-variant-numeric:tabular-nums;letter-spacing:-.01em}
+#a-flip{background:#fff;display:none;z-index:4}
+#a-flipimg{display:none;overflow:hidden;background:#f7f7f7;z-index:5}
+#a-flipimg img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover}
+
+/* ── S4 product page ── */
+#s-pdp{background:#fff}
+#p-crumb{left:40px;top:55px;font-size:11px;color:#222;letter-spacing:.01em}
+#p-main{left:40px;top:80px;width:330px;height:450px;overflow:hidden;background:#f7f7f7}
+#p-main img{width:100%;height:100%;object-fit:cover;transform-origin:50% 60%}
+.gcl{position:absolute;width:125px;height:220px;overflow:hidden;background:#f7f7f7}
+.gcl img{width:100%;height:100%;object-fit:cover}
+#p-info .r{position:absolute;left:690px;will-change:transform}
+.p-brand{font-size:12px;letter-spacing:.16em;color:#666}
+.p-title{font-size:36px;line-height:44px;font-weight:500;letter-spacing:-.025em;color:#0e0e0e;white-space:nowrap}
+.p-rate{font-size:13px;color:#111}.p-rate small{font-size:11px;color:#777;margin-left:8px}
+.p-price{display:flex;align-items:center;gap:16px;height:34px}
+.p-price .now{font-size:26px;font-weight:600;letter-spacing:-.02em}
+.p-price .mrp{font-size:21px;color:#8d8d8d;text-decoration:line-through;text-decoration-thickness:1px}
+.p-price .off{background:#111;color:#fff;font-size:13px;padding:6px 10px 5px}
+.p-lab{font-size:13px;color:#111}.p-lab em{font-style:normal;color:#8a8a8a;margin-left:10px}
+.p-sws{display:flex;gap:8px}
+.p-sws i{display:block;width:62px;height:62px;background:#f4f4f4;overflow:hidden;position:relative}
+.p-sws i img{width:100%;height:100%;object-fit:cover}
+.p-sws i.on{outline:1.5px solid #111;outline-offset:2px}
+.p-sizes{display:flex;gap:8px;position:relative}
+.p-sizes b{display:grid;place-items:center;width:50px;height:36px;border:1px solid #cfcfcf;font-size:13px;font-weight:500;color:#111;background:#fff}
+.p-sizes b.x{background:#a3a3a3;border-color:#a3a3a3;color:#e9e9e9}
+#p-hl{position:absolute;left:0;top:0;width:50px;height:36px;background:#fff;mix-blend-mode:difference;opacity:0}
+.p-guide{font-size:12px;color:#8a8a8a;text-decoration:underline;text-underline-offset:3px}
+.p-btns{display:flex;gap:15px}
+.p-btns div{position:relative;width:240px;height:48px;display:grid;place-items:center;font-size:14px;font-weight:600;letter-spacing:.04em;overflow:hidden}
+#p-buy{background:#000;color:#fff}
+#p-add{border:1px solid #bdbdbd;color:#111;background:#fafafa}
+#p-add .f{position:absolute;inset:-1px;background:#000;transform-origin:0 50%;transform:scaleX(0)}
+#p-add span{position:absolute;inset:0;display:grid;place-items:center}
+#p-add .s2{color:#fff;opacity:0}
+.p-trust{display:flex;gap:34px;font-size:11.5px;color:#555}
+.p-trust span{display:flex;align-items:center;gap:7px}
+.p-trust svg{width:15px;height:15px;fill:none;stroke:#333;stroke-width:1.3;stroke-linejoin:round;stroke-linecap:round}
+#p-fly{display:none;overflow:hidden;background:#f7f7f7;z-index:7;box-shadow:0 10px 30px rgba(0,0,0,.25)}
+#p-fly img{width:100%;height:100%;object-fit:cover}
+#p-shut{position:absolute;inset:0;z-index:9;pointer-events:none}
+#p-shut i{position:absolute;top:0;width:176px;height:557px;background:#0b0b0b;transform:translateY(100%)}
+
+/* ── S5 details (as designed) ── */
+#s-det{background:#fff}
+#d-panel{left:40px;top:48px;width:1145px;height:460px;background:#f4f4f4;overflow:hidden}
+#d-img{position:absolute;left:0;top:0;width:543px;height:460px;overflow:hidden}
+#d-img img{width:100%;height:100%;transform-origin:30% 40%}
+.hs{position:absolute;width:28px;height:28px;margin:-14px 0 0 -14px;z-index:3}
+.hs b{position:absolute;inset:0;border-radius:50%;background:#fafafa;border:1px solid #cfcfcf;box-shadow:0 1px 4px rgba(0,0,0,.18);display:grid;place-items:center;font-size:13px;font-weight:500;color:#111}
+.hs i{position:absolute;inset:-2px;border-radius:50%;border:1.5px solid #111;opacity:0}
+#d-title{left:613px;top:138px;font-size:50px;line-height:60px;font-weight:600;letter-spacing:-.03em;color:#0a0a0a;white-space:nowrap}
+.it{position:absolute;left:619px;width:540px}
+.it .t{font-size:16px;letter-spacing:.12em;font-weight:500;color:#a2a2a2}
+.it .d{margin:6px 0 0 16px;font-size:14.5px;color:#b0b0b0;letter-spacing:.005em}
+#d-bars{position:absolute;inset:0;z-index:9;pointer-events:none}
+#d-bars i{position:absolute;top:0;width:176px;height:557px;background:#0b0b0b}
+#d-wipe{position:absolute;inset:0;background:#efefed;transform:translateY(100%);z-index:10}
+
+/* ── S6 outro ── */
+#s-out{background:#efefed}
+#o-mos{position:absolute;inset:0;overflow:hidden}
+#o-plane{position:absolute;left:50%;top:50%;width:2730px;height:2600px;margin:-1300px 0 0 -1365px;will-change:transform}
+.mc{position:absolute;top:0;width:360px;will-change:transform}
+.mc img{width:360px;margin-bottom:28px;box-shadow:0 24px 50px rgba(0,0,0,.22)}
+#o-wash{position:absolute;inset:0;background:radial-gradient(ellipse 60% 70% at 50% 50%,rgba(239,239,237,.55),rgba(239,239,237,0) 70%)}
+.plw{position:absolute;left:0;right:0;display:flex;justify-content:center}
+.pl{background:#0b0b0b;color:#f4f4f2;font-size:52px;line-height:60px;font-weight:700;letter-spacing:-.03em;padding:8px 22px 6px;white-space:nowrap;overflow:hidden}
+.pl span{display:inline-block}
+#o-iris{position:absolute;inset:0;background:#0b0b0b;clip-path:circle(0px at 50% 50%);z-index:8}
+#o-logo{left:564.5px;top:248.85px;width:96px;height:59.3px;z-index:9;opacity:0}
+
+/* ── global overlays ── */
+#cur{position:absolute;left:0;top:0;width:24px;height:24px;z-index:40;opacity:0;pointer-events:none;will-change:transform}
+#rip{position:absolute;left:0;top:0;width:44px;height:44px;margin:-22px 0 0 -22px;border-radius:50%;border:1.5px solid #8c8c8c;z-index:39;opacity:0;pointer-events:none}
+#vig{position:absolute;inset:0;z-index:50;pointer-events:none;background:radial-gradient(ellipse 75% 85% at 50% 50%,rgba(0,0,0,0) 62%,rgba(0,0,0,.16) 100%)}
+#grain{position:absolute;inset:-50px;z-index:51;pointer-events:none;opacity:.035}
+#loader{position:absolute;inset:0;z-index:60;background:#0b0b0b;display:grid;place-items:center;font-size:11px;letter-spacing:.3em;color:#777}
+
+/* ── controls ── */
+.ctrl{display:flex;align-items:center;gap:14px;font-size:11px;letter-spacing:.12em;color:#8a8a8a;font-variant-numeric:tabular-nums}
+#pp{width:30px;height:30px;border:1px solid #2c2c2c;background:#111;color:#ddd;display:grid;place-items:center;cursor:pointer;border-radius:50%}
+#pp svg{width:11px;height:11px;fill:#ddd}
+#bar{position:relative;flex:1;height:30px;cursor:pointer}
+#bar .tr{position:absolute;left:0;right:0;top:14px;height:2px;background:#232323}
+#bar .pg{position:absolute;left:0;top:14px;height:2px;background:#e6e6e6;width:0}
+#bar .tk{position:absolute;top:10px;width:1px;height:10px;background:#3a3a3a}
+#bar .lb{position:absolute;top:22px;font-size:8.5px;letter-spacing:.18em;color:#555;text-transform:uppercase;white-space:nowrap;transform:translateX(4px)}
+#bar .hd{position:absolute;top:10px;width:10px;height:10px;margin-left:-5px;border-radius:50%;background:#fff}
+
+html.is-embed,html.is-embed body{height:100%;width:100%;overflow:hidden;background:#0b0b0b}
+html.is-embed body{display:flex;align-items:center;justify-content:center}
+html.is-embed .meta,html.is-embed .ctrl{display:none!important}
+html.is-embed #wrap{gap:0;transform-origin:50% 50%}
+html.is-embed #stage{box-shadow:none;border-radius:24px}
+html.is-embed #vig{display:none}
+html.is-embed body{background:#fff}
+</style>
+</head>
+<body>
+<div id="wrap">
+  <div class="meta"><span><b>Style × Comfort</b> &nbsp;—&nbsp; Homepage + Product Page Reel</span><span>1225 × 557 &nbsp;·&nbsp; 16.7s loop &nbsp;·&nbsp; Black / White</span></div>
+
+  <div id="stage">
+    <div id="film">
+
+      <!-- ───────── S1 · HERO ───────── -->
+      <section class="scene" id="s-hero">
+        <div class="a" id="h-shoec"><img class="a" id="h-shoe" src="assets/img/h_image0.png" alt=""></div>
+        <div class="a" id="h-panel"></div>
+        <div class="a" id="h-logo" data-logo="#f4f4f2"></div>
+        <div class="hl lt" id="h-lt"></div>
+        <div class="hl dk" id="h-dk"></div>
+        <div class="a" id="h-copy">
+          <div class="cl"><span>Discover the perfect pair</span></div>
+          <div class="cl"><span>that complements your</span></div>
+          <div class="cl"><span>unique style.</span></div>
+        </div>
+        <div class="a" id="h-btn"><div class="fill"></div><div class="lbl">SHOP NOW</div></div>
+        <div class="nav" id="h-nav"></div>
+        <div class="a" id="h-blk"></div>
+      </section>
+
+      <!-- ───────── S2 · COLLECTION ───────── -->
+      <section class="scene" id="s-col">
+        <div class="a m" id="c-eye">LATEST SNEAKER COLLECTION</div>
+        <div class="a" id="c-count">01 / 04</div>
+        <div class="a" id="c-bar"><i></i></div>
+        <div id="c-cards"></div>
+      </section>
+
+      <!-- ───────── S3 · NEW ARRIVALS ───────── -->
+      <section class="scene" id="s-arr">
+        <div class="a" id="a-marq">NEW ARRIVALS — NEW ARRIVALS — NEW ARRIVALS — NEW ARRIVALS —</div>
+        <div class="a m" id="a-head">NEW ARRIVALS</div>
+        <div class="arw" id="a-prev" style="left:1097px"><svg viewBox="0 0 18 18"><path d="M11 3L5 9l6 6"/></svg></div>
+        <div class="arw" id="a-next" style="left:1145px"><svg viewBox="0 0 18 18"><path d="M7 3l6 6-6 6"/></svg></div>
+        <div id="a-track"></div>
+        <div class="a" id="a-flip"></div>
+        <div class="a" id="a-flipimg"><img src="assets/img/h_image6.jpg" class="mul" alt=""><img src="assets/img/p_image0.jpg" class="mul" id="a-flip2" style="opacity:0" alt=""></div>
+      </section>
+
+      <!-- ───────── S4 · PRODUCT PAGE ───────── -->
+      <section class="scene" id="s-pdp">
+        <div class="nav" id="p-nav"></div>
+        <div class="a" id="p-crumb">Mens / sneakers / reebok</div>
+        <div class="a" id="p-main"><img class="mul" src="assets/img/p_image0.jpg" alt=""></div>
+        <div class="gcl" style="left:380px;top:80px"><img class="mul" src="assets/img/p_image1.jpg" alt=""></div>
+        <div class="gcl" style="left:515px;top:80px"><img class="mul" src="assets/img/p_image2.jpg" alt=""></div>
+        <div class="gcl" style="left:380px;top:310px"><img class="mul" src="assets/img/p_image3.jpg" alt=""></div>
+        <div class="gcl" style="left:515px;top:310px"><img class="mul" src="assets/img/p_image4.jpg" alt=""></div>
+        <div id="p-info">
+          <div class="r p-brand" style="top:78px">AERION</div>
+          <div class="r p-title m" style="top:96px" id="p-title">Aeos Zig Kinetica 3</div>
+          <div class="r p-rate" style="top:146px">4.0 ★<small>42 reviews</small></div>
+          <div class="r p-price" style="top:174px"><span class="now">₹2499</span><span class="mrp">MRP ₹4999</span><span class="off">50%OFF</span></div>
+          <div class="r p-lab" style="top:222px">Color<em>•&nbsp;&nbsp;Ice White</em></div>
+          <div class="r p-sws" style="top:244px"><i><img class="mul" src="assets/img/h_image2.jpg" alt=""></i><i><img class="mul" src="assets/img/h_image3.jpg" alt=""></i><i class="on"><img class="mul" src="assets/img/h_image4.jpg" alt=""></i></div>
+          <div class="r p-lab" style="top:322px">Size<em>•&nbsp;&nbsp;EU Men</em></div>
+          <div class="r p-sizes" style="top:344px" id="p-sizes"><b>6</b><b>7</b><b>8</b><b>9</b><b>10</b><b>11</b><b class="x">12</b><b>13</b><div id="p-hl"></div></div>
+          <div class="r p-guide" style="top:390px">Size guide</div>
+          <div class="r p-btns" style="top:420px"><div id="p-buy">BUY NOW</div><div id="p-add"><i class="f"></i><span class="s1">ADD TO CART</span><span class="s2">ADDED TO CART ✓</span></div></div>
+          <div class="r p-trust" style="top:494px">
+            <span><svg viewBox="0 0 16 16"><rect x="3" y="7" width="10" height="7" rx="1"/><path d="M5.5 7V5a2.5 2.5 0 015 0v2"/></svg>100% Secure Payment</span>
+            <span><svg viewBox="0 0 16 16"><path d="M8 1.8l5.6 3v6.4L8 14.2l-5.6-3V4.8z"/><path d="M2.4 4.8L8 7.9l5.6-3.1M8 7.9v6.3"/></svg>Free shipping within 5–7 days</span>
+            <span><svg viewBox="0 0 16 16"><path d="M5 4L2.5 6.5 5 9"/><path d="M2.5 6.5h7a3.5 3.5 0 010 7H7"/></svg>Easy return within 7 days</span>
+          </div>
+        </div>
+        <div class="a" id="p-fly"><img class="mul" src="assets/img/p_image0.jpg" alt=""></div>
+        <div id="p-shut"></div>
+      </section>
+
+      <!-- ───────── S5 · DETAILS MATTER ───────── -->
+      <section class="scene" id="s-det">
+        <div class="a" id="d-panel"><div id="d-img"><img src="assets/img/details.jpg" alt=""></div></div>
+        <div id="d-hs"></div>
+        <div class="a m" id="d-title">DETAILS MATTER</div>
+        <div class="it" style="top:240px"><div class="t">1. STREET-READY STYLE</div><div class="d">Bold aesthetics inspired by the latest urban trends.</div></div>
+        <div class="it" style="top:309px"><div class="t">2. CLOUD SOLE</div><div class="d">Feather-light sole for a barely-there sensation.</div></div>
+        <div class="it" style="top:385px"><div class="t">3. BREATHABLE SHELL</div><div class="d">Designed with airflow channels to keep feet cool and dry.</div></div>
+        <div id="d-bars"></div>
+        <div id="d-wipe"></div>
+      </section>
+
+      <!-- ───────── S6 · OUTRO ───────── -->
+      <section class="scene" id="s-out">
+        <div id="o-mos"><div id="o-plane"></div></div>
+        <div id="o-wash"></div>
+        <div class="plw" style="top:150px"><div class="pl"><span>FIND YOUR SIZE.</span></div></div>
+        <div class="plw" style="top:236px"><div class="pl"><span>FREE SHIPPING.</span></div></div>
+        <div class="plw" style="top:322px"><div class="pl"><span>EASY RETURNS.</span></div></div>
+        <div id="o-iris"></div>
+        <div class="a" id="o-logo" data-logo="#f4f4f2"></div>
+      </section>
+
+      <div id="rip"></div>
+      <svg id="cur" viewBox="0 0 24 24"><path d="M3 2v17.5l4.6-4.3 3.2 6.9 2.9-1.3-3.1-6.7h6.4z" fill="#111" stroke="#fff" stroke-width="1.4" stroke-linejoin="round"/></svg>
+    </div>
+        <div id="loader">LOADING</div>
+  </div>
+
+  <div class="ctrl">
+    <button id="pp" title="Play / Pause (Space)"></button>
+    <span id="tc">00:00.00</span>
+    <div id="bar"><div class="tr"></div><div class="pg"></div><div class="hd"></div></div>
+    <span>00:16.67</span>
+  </div>
+</div>
+
+<!-- directional motion-blur filters -->
+<svg width="0" height="0" style="position:absolute">
+  <filter id="mbx" x="-30%" y="-10%" width="160%" height="120%"><feGaussianBlur id="mbx-b" stdDeviation="0 0"/></filter>
+  <filter id="mbt" x="-10%" y="-5%" width="120%" height="110%"><feGaussianBlur id="mbt-b" stdDeviation="0 0"/></filter>
+</svg>
+
+<script>
+/* ═════════════════ helpers ═════════════════ */
+const DUR = 10000;
+const RATE = 0.6; // playback speed — 0.6 ⇒ ~16.7s loop
+const $ = s => document.querySelector(s), $$ = (s, r = document) => [...r.querySelectorAll(s)];
+const clamp = (v, a = 0, b = 1) => v < a ? a : v > b ? b : v;
+const lerp = (a, b, k) => a + (b - a) * k;
+const tri = x => Math.max(0, 1 - Math.abs(x));
+const E = {
+  lin: x => x,
+  oCubic: x => 1 - Math.pow(1 - x, 3),
+  oQuart: x => 1 - Math.pow(1 - x, 4),
+  oExpo: x => x >= 1 ? 1 : 1 - Math.pow(2, -10 * x),
+  ioCubic: x => x < .5 ? 4 * x * x * x : 1 - Math.pow(-2 * x + 2, 3) / 2,
+  ioQuart: x => x < .5 ? 8 * x * x * x * x : 1 - Math.pow(-2 * x + 2, 4) / 2,
+  ioExpo: x => x <= 0 ? 0 : x >= 1 ? 1 : x < .5 ? Math.pow(2, 20 * x - 10) / 2 : (2 - Math.pow(2, -20 * x + 10)) / 2,
+  oBack: x => { const c = 1.9; return 1 + (c + 1) * Math.pow(x - 1, 3) + c * Math.pow(x - 1, 2); },
+};
+const P = (t, a, d, e = E.oExpo) => e(clamp((t - a) / d));
+const tr = (x = 0, y = 0, s = 1, r = 0) => `translate3d(${x}px,${y}px,0) scale(${s}) rotate(${r}deg)`;
+const box = (el, x, y, w, h) => { const s = el.style; s.left = x + 'px'; s.top = y + 'px'; s.width = w + 'px'; s.height = h + 'px'; };
+function split(el, cls = 'ch', byWord = false) {
+  const parts = byWord ? el.textContent.split(/(\s+)/) : [...el.textContent];
+  el.textContent = '';
+  return parts.filter(p => p.length).map(p => {
+    const s = document.createElement('span'); s.className = cls;
+    s.textContent = /^\s+$/.test(p) ? ' ' : p; el.appendChild(s); return s;
+  });
+}
+
+/* ═════════════════ shared markup ═════════════════ */
+const LOGO_D = 'M58.6364 71.1833L61.8082 63.7186L60.2223 60H48V88.0265H60.0582L62.7925 81.3822L65.5815 88.0265H75.8625L78.5968 81.3548L81.3857 88.0265H93.362V60.0547H81.1397L71.761 83.1048H69.7103L65.8549 73.7535L69.5189 65.0584H71.8977L74.4953 71.1559L77.6124 63.8007L76.0812 60.0547H65.3081L55.9021 83.0501H54.1795V65.0038H56.0388L58.6364 71.1833ZM85.3206 64.9763H87.2346V83.05H85.512L81.6566 73.7534L85.3206 64.9763Z';
+const logo = fill => `<svg viewBox="48 60 45.362 28.0265" width="100%" height="100%"><path fill-rule="evenodd" d="${LOGO_D}" fill="${fill}"/></svg>`;
+$$('[data-logo]').forEach(el => el.innerHTML = logo(el.dataset.logo));
+
+const NAV = `<div class="lg">${logo('#1b1b1b')}</div>
+  <div class="links"><span>MEN</span><span>WOMEN</span><span>NEW ARRIVALS</span><span>ABOUT US</span></div>
+  <div class="ic" style="left:1092px"><svg viewBox="0 0 19 19"><circle cx="8" cy="8" r="6"/><path d="M12.5 12.5L18 18"/></svg></div>
+  <div class="ic cart" style="left:1129px"><svg viewBox="0 0 19 19"><path d="M1 2h2.8l2.4 10h9.2L18 5H5"/><circle cx="7.5" cy="16" r="1.2"/><circle cx="14.5" cy="16" r="1.2"/></svg><span class="bdg">1</span></div>
+  <div class="ic" style="left:1166px"><svg viewBox="0 0 19 19"><circle cx="9.5" cy="6" r="3.6"/><path d="M2.5 18c1.1-3.6 3.9-5.4 7-5.4s5.9 1.8 7 5.4"/></svg></div>`;
+$$('.nav').forEach(n => n.innerHTML = NAV);
+
+const CHEV_L = 'M745 244.969H726L756.5 288.469L724 333.469H741L766 299.969V276.969L745 244.969Z';
+const CHEV_R = 'M787 244.969H806L775.5 288.469L808 333.469H791L766 299.969V276.969L787 244.969Z';
+['#h-lt', '#h-dk'].forEach(id => $(id).innerHTML = `<div class="in">
+  <div class="hm L"><span class="hw">STYLE</span></div>
+  <div class="hm R"><span class="hw">COMFORT</span></div>
+  <svg class="chev cl" viewBox="723 244 86 90"><path d="${CHEV_L}"/></svg>
+  <svg class="chev cr" viewBox="723 244 86 90"><path d="${CHEV_R}"/></svg></div>`);
+
+/* collection cards */
+const COL = [['STRIX', 'h_image7'], ['AXON', 'h_image8'], ['ZEVO', 'h_image9'], ['ONYX', 'h_image10']];
+$('#c-cards').innerHTML = COL.map(([n, i]) =>
+  `<div class="cc"><div class="nm"><span>${n}</span></div><img src="assets/img/${i}.png" alt=""><div class="dim"></div></div>`).join('');
+
+/* arrivals cards */
+const ARR = [
+  { n: 'Velocity Shadow Low Top', i: 'h_image1', b: '50%OFF', m: 4999, p: 2499 },
+  { n: 'Edge Runner Low', i: 'h_image5', b: '40%OFF', m: 2999, p: 1799 },
+  { n: 'Shadow Flux High Top', i: 'h_image6', b: '30%OFF', m: 1999, p: 1399 },
+  { n: 'Street Echo LV8', i: 'p_image8', b: '50%OFF', m: 0, p: '119.95' },
+  { n: 'Street Echo High Top', i: 'p_image9', b: '50%OFF', m: 0, p: '119.95' },
+  { n: 'Urban Drift Low Top', i: 'p_image10', b: '50%OFF', m: 0, p: '119.95' },
+];
+const SW = ['h_image2', 'h_image3', 'h_image4'].map(i => `<i><img class="mul" src="assets/img/${i}.jpg" alt=""></i>`).join('');
+$('#a-track').innerHTML = ARR.map(c => `<div class="pc">
+  <div class="im"><img class="mul" src="assets/img/${c.i}.jpg" alt=""><span class="bd">${c.b}</span></div>
+  <div class="nmx">${c.n}</div>
+  <div class="rw"><div class="sw">${SW}</div><div class="pr">${c.m ? `<span class="mrp">₹${c.m}<i class="st"></i></span>` : ''}<span class="now">₹${c.m || c.p}</span></div></div></div>`).join('');
+
+/* pdp shutter bars */
+$('#p-shut').innerHTML = Array.from({ length: 7 }, (_, k) => `<i style="left:${k * 175}px"></i>`).join('');
+
+/* details hotspots — positions from the original design (stage px) */
+const HS = [[305, 145], [160, 345], [452, 306]];
+$('#d-hs').innerHTML = HS.map(([x, y], k) => `<div class="hs" style="left:${x}px;top:${y}px"><i></i><b>${k + 1}</b></div>`).join('');
+$('#d-bars').innerHTML = Array.from({ length: 7 }, (_, k) => `<i style="left:${k * 175}px"></i>`).join('');
+
+/* outro mosaic: 7 columns of real page renders */
+{
+  const cols = [];
+  for (let k = 0; k < 7; k++) {
+    const pg = k % 2 ? 'pdp_page' : 'home_page', n = k % 2 ? 7 : 4;
+    cols.push(`<div class="mc" style="left:${k * 390}px">${Array(n).fill(`<img src="assets/img/${pg}.jpg" alt="">`).join('')}</div>`);
+  }
+  $('#o-plane').innerHTML = cols.join('');
+}
+
+/* split text for kinetic type */
+const cEye = split($('#c-eye'));
+const aHead = split($('#a-head'));
+const pTitle = split($('#p-title'), 'wd', true);
+const dTitle = split($('#d-title'));
+
+/* ═════════════════ element refs ═════════════════ */
+const R = {
+  scenes: {}, hLogo: $('#h-logo'), hPanel: $('#h-panel'), hShoe: $('#h-shoe'),
+  hIn: $$('.hl .in'), hDk: $('#h-dk'), hW: $$('.hl .hw'), hCl: $$('.hl .cl'), hCr: $$('.hl .cr'),
+  hCopy: $$('#h-copy .cl span'), hFill: $('#h-btn .fill'), hLbl: $('#h-btn .lbl'), hBtn: $('#h-btn'),
+  hNav: $('#h-nav'), hBlk: $('#h-blk'),
+  cCards: $$('.cc'), cCount: $('#c-count'), cBar: $('#c-bar'), cBarI: $('#c-bar i'),
+  aCards: $$('.pc'), aTrack: $('#a-track'), aMarq: $('#a-marq'), aPrev: $('#a-prev'), aNext: $('#a-next'),
+  aFlip: $('#a-flip'), aFlipImg: $('#a-flipimg'), aFlip2: $('#a-flip2'),
+  pNav: $('#p-nav'), pCrumb: $('#p-crumb'), pMain: $('#p-main img'), pCells: $$('.gcl'), pRows: $$('#p-info .r'),
+  pHl: $('#p-hl'), pSizes: $$('#p-sizes b'), pAdd: $('#p-add'), pAddF: $('#p-add .f'), pAdd1: $('#p-add .s1'), pAdd2: $('#p-add .s2'),
+  pFly: $('#p-fly'), pBars: $$('#p-shut i'), pBadge: $('#p-nav .bdg'), pCart: $('#p-nav .cart'),
+  dImg: $('#d-img img'), dHs: $$('.hs'), dItems: $$('.it'), dWipe: $('#d-wipe'), dBars: $$('#d-bars i'),
+  oPlane: $('#o-plane'), oCols: $$('.mc'), oPl: $$('.pl'), oIris: $('#o-iris'), oLogo: $('#o-logo'), oMos: $('#o-mos'),
+  cur: $('#cur'), rip: $('#rip'), mbx: $('#mbx-b'), mbt: $('#mbt-b'),
+};
+
+/* ═════════════════ cursor ═════════════════ */
+let CUR;
+function cursor(lt, keys, clicks, vin, vout) {
+  if (lt < vin || lt > vout) return;
+  let x = keys[0][1], y = keys[0][2];
+  for (let i = 0; i < keys.length - 1; i++) {
+    const [t0, x0, y0] = keys[i], [t1, x1, y1] = keys[i + 1];
+    if (lt >= t0 && lt < t1) {
+      const k = E.ioCubic((lt - t0) / (t1 - t0)), d = Math.hypot(x1 - x0, y1 - y0);
+      x = lerp(x0, x1, k); y = lerp(y0, y1, k) - Math.sin(k * Math.PI) * d * .09; break;
+    }
+    if (lt >= t1) { x = x1; y = y1; }
+  }
+  let s = 1, rip = null;
+  for (const c of clicks) {
+    const d = lt - c;
+    if (d >= 0 && d < 170) s = 1 - .2 * Math.sin(Math.PI * d / 170);
+    if (d >= 0 && d < 520) rip = d / 520;
+  }
+  CUR = { x, y, s, rip, o: Math.min(P(lt, vin, 120, E.lin), 1 - P(lt, vout - 120, 120, E.lin)) };
+}
+
+/* ═════════════════ scenes (local time) ═════════════════ */
+function hero(t) {
+  // logo collapses as the X slams in
+  const kl = P(t, 220, 380, E.ioCubic);
+  R.hLogo.style.transform = tr(0, 0, lerp(1, .2, kl), lerp(0, -45, kl));
+  R.hLogo.style.opacity = 1 - kl;
+
+  const kc = P(t, 290, 560, E.oExpo);
+  R.hCl.forEach(e => e.style.transform = tr(0, lerp(-380, 0, kc), 1, lerp(-35, 0, kc)));
+  R.hCr.forEach(e => e.style.transform = tr(0, lerp(380, 0, kc), 1, lerp(35, 0, kc)));
+
+  const ks = P(t, 540, 760, E.oExpo), kf = P(t, 590, 760, E.oExpo);
+  R.hW.forEach((e, i) => {
+    const k = i % 2 ? kf : ks;
+    e.style.transform = `translate3d(${i % 2 ? lerp(-106, 0, k) : lerp(106, 0, k)}%,0,0)`;
+  });
+  const blur = 26 * Math.pow(1 - ks, 2.2);
+  R.mbx.setAttribute('stdDeviation', `${blur.toFixed(2)} 0`);
+  R.hW.forEach((e, i) => {
+    e.style.filter = blur > .3 && ks > 0 ? 'url(#mbx)' : 'none';
+    e.style.visibility = (i % 2 ? kf : ks) > 0 ? 'visible' : 'hidden';
+  });
+
+  // headline settles up as the white half sweeps in
+  const kg = P(t, 1080, 420, E.ioExpo);
+  R.hIn.forEach(e => e.style.transform = `translate3d(0,${lerp(88, 0, kg)}px,0) scale(${lerp(1.12, 1, kg)})`);
+  const wp = 612.5 * kg;
+  R.hPanel.style.width = wp + 'px';
+  R.hDk.style.clipPath = `inset(0 ${1225 - wp}px 0 0)`;
+
+  const kh = P(t, 1150, 950, E.oExpo);
+  R.hShoe.style.opacity = clamp(kh * 2.5);
+  R.hShoe.style.transform = `translate3d(0,${lerp(320, 0, kh) + Math.sin(t / 520) * 5}px,0) rotate(${lerp(-20, 0, kh) + Math.sin(t / 800) * 1.4}deg) scale(${lerp(.9, 1, kh)},${lerp(.9, 1, kh)}) scaleX(-1)`;
+
+  R.hCopy.forEach((e, i) => e.style.transform = `translate3d(0,${lerp(105, 0, P(t, 1350 + i * 80, 700))}%,0)`);
+  R.hNav.style.transform = `translate3d(0,${lerp(-102, 0, P(t, 1420, 600))}%,0)`;
+  R.hFill.style.transform = `scaleX(${P(t, 1520, 620)})`;
+  const kb = P(t, 1720, 450);
+  R.hLbl.style.opacity = kb;
+  R.hLbl.style.letterSpacing = lerp(.34, .06, kb) + 'em';
+  const pr = t > 2200 && t < 2300 ? Math.sin(Math.PI * (t - 2200) / 100) : 0;
+  R.hBtn.style.transform = `scale(${1 - .025 * pr})`;
+
+  // SHOP NOW explodes to fill the frame
+  const ke = P(t, 2240, 360, E.ioExpo);
+  R.hBlk.style.display = t >= 2240 ? 'block' : 'none';
+  if (t >= 2240) box(R.hBlk, lerp(40, 0, ke), lerp(462, 0, ke), lerp(532, 1225, ke), lerp(56, 557, ke));
+
+  cursor(t, [[1800, 1010, 530], [1850, 1010, 530], [2180, 300, 490]], [2200], 1800, 2420);
+}
+
+function collection(t) {
+  cEye.forEach((c, i) => c.style.transform = `translate3d(0,${lerp(110, 0, P(t, 60 + i * 14, 520))}%,0)`);
+  const a = P(t, 560, 260, E.ioCubic);
+  let f = 0; for (let k = 1; k <= 3; k++) f += P(t, 620 + 220 * k, 200, E.ioCubic);
+  const ex = P(t, 1490, 310, E.ioExpo);
+
+  const fade = P(t, 200, 400) * (1 - P(t, 1490, 150, E.lin));
+  R.cCount.style.opacity = fade; R.cBar.style.opacity = fade;
+  R.cCount.textContent = `0${Math.round(f) + 1} / 04`;
+  R.cBarI.style.transform = `scaleX(${(f + 1) / 4 * a + .25 * (1 - a)})`;
+  $('#c-eye').style.opacity = 1 - P(t, 1490, 150, E.lin);
+
+  const X = lerp(40, 0, ex), Y = lerp(64, 0, ex), Wd = lerp(1145, 1225, ex), Hd = lerp(453, 557, ex), gap = 12 * (1 - ex);
+  const w = COL.map((_, i) => (1 + a * (2.4 * tri(f - i) - .3)) * (i === 3 ? 1 : 1 - ex));
+  const sum = w.reduce((p, c) => p + c, 0), avail = Wd - gap * 3;
+  let cx = X;
+  R.cCards.forEach((el, i) => {
+    const cw = avail * w[i] / sum, fo = tri(f - i);
+    box(el, cx, Y, cw, Hd); cx += cw + gap;
+    const r = P(t, 80 + i * 90, 650);
+    el.style.clipPath = `inset(${(1 - r) * 100}% 0 0 0)`;
+    const nm = el.children[0].children[0], img = el.children[1], dim = el.children[2];
+    nm.style.fontSize = (60 + a * (fo * 36 - (1 - fo) * 16)) + 'px';
+    nm.style.transform = `translate3d(0,${lerp(110, 0, P(t, 200 + i * 90, 600))}%,0)`;
+    const ih = lerp(361, 425, fo * a), iw = ih * .768;
+    const out = i === 3 ? P(t, 1490, 200, E.lin) : 0;
+    box(img, (cw - iw) / 2, Hd - ih, iw, ih);
+    img.style.transform = `translate3d(0,${(1 - r) * 90}px,0) scale(${(1.15 - .15 * r) * (1 + .25 * out)}) rotate(${-3 * fo * a}deg)`;
+    img.style.opacity = 1 - out; el.children[0].style.opacity = 1 - out;
+    dim.style.opacity = a * (1 - fo) * .3 * (1 - ex);
+  });
+}
+
+function trackX(t) { return lerp(1260, 40, P(t, 20, 750)) - 302 * P(t, 800, 380, E.ioExpo); }
+function arrivals(t) {
+  R.aMarq.style.transform = `translate3d(${-120 - t * .16}px,0,0)`;
+  R.aMarq.style.opacity = P(t, 0, 500, E.lin);
+  aHead.forEach((c, i) => c.style.transform = `translate3d(0,${lerp(110, 0, P(t, 50 + i * 22, 560))}%,0)`);
+  [R.aPrev, R.aNext].forEach((e, i) => e.style.opacity = P(t, 200 + i * 60, 400, E.lin));
+  const pressed = t > 780 && t < 960;
+  R.aNext.style.background = pressed ? '#111' : '#e2e2e2';
+  R.aNext.firstChild.style.stroke = pressed ? '#fff' : '#222';
+  R.aNext.style.transform = `scale(${pressed ? .92 : 1})`;
+
+  const tx = trackX(t), v = Math.abs(tx - trackX(t - 16));
+  const mb = Math.min(22, v * .55);
+  R.mbt.setAttribute('stdDeviation', `${mb.toFixed(2)} 0`);
+  R.aTrack.style.filter = mb > .3 ? 'url(#mbt)' : 'none';
+
+  const lift = P(t, 1100, 220, E.oCubic);
+  R.aCards.forEach((el, i) => {
+    const x = tx + i * 302 + (1 - P(t, 20 + i * 60, 800)) * i * 70;
+    const hov = i === 2 ? lift : 0;
+    el.style.transform = `translate3d(${x}px,${-8 * hov}px,0)`;
+    el.style.boxShadow = hov ? `0 ${18 * hov}px ${40 * hov}px rgba(0,0,0,${.16 * hov})` : 'none';
+    el.style.opacity = (i === 2 ? 1 : 1 - .45 * lift) * (1 - P(t, 1300, 200, E.lin) * (i !== 2));
+    el.style.visibility = i === 2 && t >= 1300 ? 'hidden' : 'visible';
+    const bd = el.querySelector('.bd'), sb = clamp((t - (250 + i * 70)) / 360);
+    bd.style.transform = `scale(${lerp(1.9, 1, E.oBack(sb))})`; bd.style.opacity = clamp(sb * 4);
+    const c = ARR[i];
+    if (c.m) {
+      const kp = P(t, 350 + i * 90, 650, E.oQuart);
+      el.querySelector('.now').textContent = '₹' + Math.round(lerp(c.m, c.p, kp));
+      el.querySelector('.st').style.transform = `scaleX(${P(t, 820 + i * 90, 260, E.oQuart)})`;
+    } else el.querySelector('.now').textContent = '₹' + c.p;
+  });
+
+  // card → product page (FLIP)
+  const on = t >= 1300;
+  R.aFlip.style.display = R.aFlipImg.style.display = on ? 'block' : 'none';
+  if (on) {
+    const kf = P(t, 1300, 280, E.ioExpo), cx = trackX(1300) + 604, cy = 100;
+    box(R.aFlip, lerp(cx, 0, kf), lerp(cy, 0, kf), lerp(286, 1225, kf), lerp(372, 557, kf));
+    box(R.aFlipImg, lerp(cx + 10, 40, kf), lerp(cy + 10, 80, kf), lerp(266, 330, kf), lerp(258, 450, kf));
+    R.aFlip2.style.opacity = P(t, 1380, 160, E.lin);
+  }
+  cursor(t, [[550, 1060, 520], [760, 1167, 58], [840, 1167, 58], [1160, 485, 250]], [780, 1280], 550, 1340);
+}
+
+function pdp(t) {
+  R.pNav.style.transform = `translate3d(0,${lerp(-102, 0, P(t, 30, 550))}%,0)`;
+  R.pCrumb.style.opacity = P(t, 130, 400, E.lin);
+  R.pMain.style.transform = `scale(${lerp(1, 1.08, P(t, 0, 1840, E.lin))})`;
+  R.pCells.forEach((c, k) => {
+    const r = P(t, 60 + k * 70, 620);
+    c.style.clipPath = `inset(0 0 ${(1 - r) * 100}% 0)`;
+    c.firstChild.style.transform = `scale(${lerp(1.35, 1, r)})`;
+  });
+  R.pRows.forEach((e, j) => {
+    const r = P(t, 130 + j * 45, 620);
+    e.style.transform = `translate3d(0,${lerp(18, 0, r)}px,0)`; e.style.opacity = r;
+  });
+  pTitle.forEach((w, i) => w.style.transform = `translate3d(0,${lerp(110, 0, P(t, 150 + i * 40, 650))}%,0)`);
+
+  let pos = 0; for (let k = 0; k < 4; k++) pos += P(t, 740 + k * 60, 110, E.ioCubic);
+  const sq = t > 1040 && t < 1140 ? Math.sin(Math.PI * (t - 1040) / 100) : 0;
+  R.pHl.style.opacity = P(t, 700, 80, E.lin);
+  R.pHl.style.transform = `translate3d(${pos * 58}px,0,0) scale(${1 - .08 * sq})`;
+
+  R.pAddF.style.transform = `scaleX(${P(t, 1200, 280)})`;
+  const ka = P(t, 1250, 220, E.lin);
+  R.pAdd1.style.opacity = 1 - ka; R.pAdd2.style.opacity = ka;
+  R.pAdd2.style.transform = `translate3d(0,${lerp(10, 0, P(t, 1250, 400))}px,0)`;
+
+  // shoe flies into the cart
+  const kf = P(t, 1220, 330, E.ioCubic), fon = t >= 1220 && t < 1560;
+  R.pFly.style.display = fon ? 'block' : 'none';
+  if (fon) {
+    const sx = 205, sy = 305, ex = 1138.5, ey = 22, qx = 760, qy = -70, u = 1 - kf;
+    const x = u * u * sx + 2 * u * kf * qx + kf * kf * ex, y = u * u * sy + 2 * u * kf * qy + kf * kf * ey, s = lerp(90, 14, kf);
+    box(R.pFly, x - s / 2, y - s / 2, s, s);
+    R.pFly.style.opacity = 1 - P(t, 1500, 60, E.lin);
+  }
+  const sb = clamp((t - 1530) / 320);
+  R.pBadge.style.transform = `scale(${t < 1530 ? 0 : E.oBack(sb)})`;
+  R.pCart.style.transform = `translate3d(0,${-4 * Math.sin(Math.PI * clamp((t - 1530) / 200))}px,0)`;
+
+  R.pBars.forEach((b, k) => b.style.transform = `translate3d(0,${lerp(100, 0, P(t, 1500 + k * 18, 220, E.ioQuart))}%,0)`);
+
+  cursor(t, [[600, 1120, 540], [730, 715, 362], [1000, 947, 362], [1180, 1065, 444]], [1040, 1200], 600, 1460);
+}
+
+const mix = (a, b, k) => Math.round(lerp(a, b, k));
+function details(t) {
+  // black shutter from the product page lifts away
+  R.dBars.forEach((b, k) => b.style.transform = `translate3d(0,${lerp(0, -100, P(t, k * 18, 280, E.ioQuart))}%,0)`);
+  R.dImg.style.transform = `scale(${lerp(1.08, 1, P(t, 0, 1100, E.oCubic))})`;
+  dTitle.forEach((c, i) => c.style.transform = `translate3d(0,${lerp(110, 0, P(t, 140 + i * 16, 560))}%,0)`);
+
+  // cursor visits 1 → 2 → 3; the hovered point's copy darkens
+  const ARRIVE = [700, 980, 1240], LEAVE = [880, 1160, 99999];
+  HS.forEach((_, k) => {
+    const el = R.dHs[k], kp = clamp((t - (300 + k * 70)) / 380);
+    const hov = P(t, ARRIVE[k], 160, E.oCubic) * (1 - P(t, LEAVE[k], 160, E.oCubic));
+    el.children[1].style.transform = `scale(${(t < 300 + k * 70 ? 0 : E.oBack(kp)) * (1 + .22 * hov)})`;
+    el.children[1].style.background = `rgb(${mix(250, 17, hov)},${mix(250, 17, hov)},${mix(250, 17, hov)})`;
+    el.children[1].style.color = hov > .5 ? '#fff' : '#111';
+    el.children[0].style.opacity = hov;
+    el.children[0].style.transform = `scale(${1.25 + .25 * hov})`;
+
+    const it = R.dItems[k], ki = P(t, 260 + k * 60, 520), c1 = mix(162, 10, hov), c2 = mix(176, 70, hov);
+    it.style.opacity = ki;
+    it.style.transform = `translate3d(${lerp(-16, 0, ki) + 4 * hov}px,0,0)`;
+    it.children[0].style.color = `rgb(${c1},${c1},${c1})`;
+    it.children[1].style.color = `rgb(${c2},${c2},${c2})`;
+  });
+  R.dWipe.style.transform = `translate3d(0,${lerp(100, 0, P(t, 1440, 190, E.ioExpo))}%,0)`;
+  cursor(t, [[520, 920, 520], [700, 305, 145], [880, 305, 145], [980, 160, 345], [1160, 160, 345], [1240, 452, 306]], [], 520, 1460);
+}
+
+function outro(t) {
+  const km = P(t, 0, 1100, E.oCubic);
+  R.oMos.style.opacity = P(t, 10, 320, E.lin);
+  R.oPlane.style.transform = `rotateX(50deg) rotateZ(-34deg) scale(${lerp(1.25, 1, km)})`;
+  R.oCols.forEach((c, k) => {
+    const H = k % 2 ? 360 * 2735 / 1512 + 28 : 360 * 5675 / 1512 + 28, dir = k % 2 ? 1 : -1;
+    const y = ((dir * (t * .45 + k * 260)) % H + H) % H;
+    c.style.transform = `translate3d(0,${y - H}px,0)`;
+  });
+  R.oPl.forEach((p, k) => {
+    const kp = P(t, 150 + k * 100, 420, E.oExpo);
+    p.style.clipPath = k % 2 ? `inset(0 0 0 ${(1 - kp) * 100}%)` : `inset(0 ${(1 - kp) * 100}% 0 0)`;
+    p.firstChild.style.transform = `translate3d(${(k % 2 ? 1 : -1) * lerp(60, 0, kp)}px,0,0)`;
+    p.parentNode.style.transform = `scale(${lerp(1, .94, P(t, 780, 380, E.ioCubic))})`;
+  });
+  R.oIris.style.clipPath = `circle(${lerp(0, 700, P(t, 790, 300, E.ioExpo))}px at 50% 50%)`;
+  const kl = P(t, 990, 200);
+  R.oLogo.style.opacity = clamp((t - 990) / 140);
+  R.oLogo.style.transform = tr(0, 0, lerp(.55, 1, kl), lerp(45, 0, kl));
+}
+
+const SCENES = [
+  { id: 's-hero', a: 0, b: 2600, f: hero },
+  { id: 's-col', a: 2600, b: 4250, f: collection, k: 1800 / 1650 },
+  { id: 's-arr', a: 4250, b: 5700, f: arrivals, k: 1580 / 1450 },
+  { id: 's-pdp', a: 5690, b: 7390, f: pdp, k: 1840 / 1700 },
+  { id: 's-det', a: 7380, b: 9010, f: details },
+  { id: 's-out', a: 9000, b: 10001, f: outro, k: 1210 / 1000 },
+];
+SCENES.forEach(s => s.el = document.getElementById(s.id));
+
+/* ═════════════════ render loop ═════════════════ */
+function render(t) {
+  CUR = null;
+  for (const s of SCENES) {
+    const on = t >= s.a && t < s.b;
+    s.el.style.visibility = on ? 'visible' : 'hidden';
+    if (on) s.f((t - s.a) * (s.k || 1));
+  }
+  if (CUR) {
+    R.cur.style.opacity = CUR.o;
+    R.cur.style.transform = `translate3d(${CUR.x - 3}px,${CUR.y - 2}px,0) scale(${CUR.s})`;
+    R.rip.style.opacity = CUR.rip == null ? 0 : (1 - CUR.rip) * .9;
+    R.rip.style.transform = `translate3d(${CUR.x}px,${CUR.y}px,0) scale(${CUR.rip == null ? 0 : .2 + CUR.rip * 1.4})`;
+  } else { R.cur.style.opacity = 0; R.rip.style.opacity = 0; }
+  ui(t);
+}
+
+/* ═════════════════ playback + controls ═════════════════ */
+const qs = new URLSearchParams(location.search);
+const isEmbed = qs.has('embed');
+if (isEmbed) document.documentElement.classList.add('is-embed');
+let T = +qs.get('t') || 0, playing = !qs.has('t'), last = performance.now();
+const bar = $('#bar'), pg = $('#bar .pg'), hd = $('#bar .hd'), tc = $('#tc'), pp = $('#pp');
+const ICON_PLAY = '<svg viewBox="0 0 10 10"><path d="M2 1l7 4-7 4z"/></svg>', ICON_PAUSE = '<svg viewBox="0 0 10 10"><path d="M2 1h2v8H2zM6 1h2v8H6z"/></svg>';
+const LABELS = ['Hero', 'Collection', 'Arrivals', 'Product', 'Details', 'Outro'];
+SCENES.forEach((s, i) => bar.insertAdjacentHTML('beforeend',
+  `<div class="tk" style="left:${s.a / DUR * 100}%"></div><div class="lb" style="left:${s.a / DUR * 100}%">${LABELS[i]}</div>`));
+function ui(t) {
+  pg.style.width = hd.style.left = (t / DUR * 100) + '%';
+  const r = t / RATE; tc.textContent = `00:${String(Math.floor(r / 1000)).padStart(2, '0')}.${String(Math.floor(r % 1000 / 10)).padStart(2, '0')}`;
+}
+function setPlay(p) { playing = p; pp.innerHTML = p ? ICON_PAUSE : ICON_PLAY; last = performance.now(); }
+pp.onclick = () => setPlay(!playing);
+addEventListener('keydown', e => {
+  if (e.code === 'Space') { e.preventDefault(); setPlay(!playing); }
+  if (e.code === 'ArrowRight' || e.code === 'ArrowLeft') { setPlay(false); T = (T + (e.code === 'ArrowRight' ? 1 : -1) * RATE * 1000 / 30 + DUR) % DUR; render(T); }
+});
+let drag = false, wasPlaying;
+const seek = e => { const r = bar.getBoundingClientRect(); T = clamp((e.clientX - r.left) / r.width) * (DUR - 1); render(T); };
+bar.addEventListener('pointerdown', e => { drag = true; wasPlaying = playing; setPlay(false); bar.setPointerCapture(e.pointerId); seek(e); });
+bar.addEventListener('pointermove', e => drag && seek(e));
+bar.addEventListener('pointerup', () => { drag = false; setPlay(wasPlaying); });
+
+function fit() {
+  const w = $('#wrap');
+  if (isEmbed) {
+    const s = Math.min(document.documentElement.clientWidth / 1225, document.documentElement.clientHeight / 557);
+    w.style.transform = `scale(${s})`;
+    return;
+  }
+  const s = Math.min(1, (innerWidth - 40) / 1225, (innerHeight - 40) / w.offsetHeight);
+  w.style.transform = `scale(${s})`;
+}
+addEventListener('resize', fit); fit();
+
+function frame(now) {
+  if (playing) T = (T + (now - last) * RATE) % DUR;
+  last = now; render(T);
+  requestAnimationFrame(frame);
+}
+const imgs = $$('img');
+Promise.all([document.fonts.ready, ...imgs.map(i => i.decode().catch(() => {}))]).then(() => {
+  $('#loader').remove(); setPlay(playing); render(T); requestAnimationFrame(frame);
+  document.documentElement.dataset.ready = 1;
+});
+</script>
+</body>
+</html>

@@ -1,0 +1,312 @@
+/* Footer exploration: social links as iOS home-screen apps (half-cropped device) */
+
+.footer-panel--iphone-home .footer-panel__row {
+  align-items: flex-end;
+}
+
+.footer-panel__iphone-slot {
+  position: relative;
+  flex: 0 0 auto;
+  width: min(100%, 300px);
+  height: clamp(268px, 34vw, 338px);
+  margin-bottom: -8px;
+  overflow: hidden;
+  pointer-events: none;
+}
+
+.footer-panel__iphone-slot * {
+  pointer-events: auto;
+}
+
+.footer-iphone {
+  --iphone-w: 272px;
+  --bezel: 11px;
+  --screen-radius: 38px;
+  --bezel-radius: 46px;
+  position: absolute;
+  left: 50%;
+  top: 0;
+  width: var(--iphone-w);
+  transform: translateX(-50%);
+  filter: drop-shadow(0 28px 48px rgba(0, 0, 0, 0.55));
+}
+
+.footer-iphone__bezel {
+  padding: var(--bezel);
+  border-radius: var(--bezel-radius);
+  background: linear-gradient(145deg, #3a3a3c 0%, #1c1c1e 42%, #0b0b0c 100%);
+  box-shadow:
+    inset 0 0 0 1px rgba(255, 255, 255, 0.12),
+    inset 0 -2px 4px rgba(0, 0, 0, 0.45);
+}
+
+.footer-iphone__screen {
+  position: relative;
+  overflow: hidden;
+  border-radius: var(--screen-radius);
+  background:
+    radial-gradient(120% 90% at 20% 10%, rgba(255, 196, 220, 0.85) 0%, transparent 55%),
+    radial-gradient(90% 70% at 85% 25%, rgba(130, 180, 255, 0.9) 0%, transparent 50%),
+    radial-gradient(80% 60% at 50% 90%, rgba(180, 140, 255, 0.75) 0%, transparent 55%),
+    linear-gradient(165deg, #5b7cfa 0%, #9b6dff 38%, #f472b6 100%);
+  aspect-ratio: 272 / 590;
+  min-height: 590px;
+}
+
+.footer-iphone__island {
+  position: absolute;
+  top: 11px;
+  left: 50%;
+  z-index: 3;
+  width: 92px;
+  height: 28px;
+  border-radius: 20px;
+  background: #000;
+  transform: translateX(-50%);
+  box-shadow: inset 0 0 0 1px rgba(255, 255, 255, 0.06);
+}
+
+.footer-iphone__status {
+  position: relative;
+  z-index: 2;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 16px 22px 8px;
+  color: #fff;
+  font-family: "Geist", system-ui, sans-serif;
+  font-size: 14px;
+  font-weight: 600;
+  letter-spacing: -0.02em;
+  text-shadow: 0 1px 3px rgba(0, 0, 0, 0.25);
+}
+
+.footer-iphone__status-icons {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  font-size: 12px;
+  opacity: 0.95;
+}
+
+.footer-iphone__status-icons svg {
+  display: block;
+  width: 18px;
+  height: 11px;
+}
+
+.footer-iphone__grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 18px 10px;
+  padding: 12px 18px 20px;
+}
+
+.footer-iphone__app {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 6px;
+  padding: 0;
+  border: 0;
+  background: none;
+  color: #fff;
+  font: inherit;
+  text-decoration: none;
+  cursor: pointer;
+  -webkit-tap-highlight-color: transparent;
+  transition: transform 160ms ease, filter 160ms ease;
+}
+
+.footer-iphone__app:hover {
+  transform: scale(1.06);
+  filter: brightness(1.05);
+}
+
+.footer-iphone__app:focus-visible {
+  outline: 2px solid rgba(255, 255, 255, 0.85);
+  outline-offset: 4px;
+  border-radius: 12px;
+}
+
+.footer-iphone__app:active {
+  transform: scale(0.94);
+}
+
+.footer-iphone__icon {
+  display: grid;
+  place-items: center;
+  width: 56px;
+  height: 56px;
+  border-radius: 14px;
+  overflow: hidden;
+  box-shadow:
+    0 2px 6px rgba(0, 0, 0, 0.18),
+    inset 0 0 0 1px rgba(255, 255, 255, 0.14);
+}
+
+.footer-iphone__icon img {
+  display: block;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.footer-iphone__icon--contain img {
+  width: 70%;
+  height: 70%;
+  object-fit: contain;
+}
+
+.footer-iphone__icon--linkedin {
+  background: #0a66c2;
+}
+
+.footer-iphone__icon--behance {
+  background: #0556fe;
+}
+
+.footer-iphone__icon--white {
+  background: #fff;
+}
+
+.footer-iphone__icon--library {
+  background: linear-gradient(145deg, #2d2d2d, #0a0a0a);
+}
+
+.footer-iphone__icon--mail {
+  background: linear-gradient(180deg, #5ac8fa 0%, #007aff 100%);
+  color: #fff;
+}
+
+.footer-iphone__icon--mail svg {
+  width: 28px;
+  height: 28px;
+}
+
+.footer-iphone__icon--portfolio {
+  background: linear-gradient(145deg, #004df4, #002fa0);
+}
+
+.footer-iphone__label {
+  max-width: 64px;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  font-family: "Geist", system-ui, sans-serif;
+  font-size: 11px;
+  font-weight: 500;
+  line-height: 1.15;
+  letter-spacing: -0.01em;
+  text-align: center;
+  text-shadow: 0 1px 2px rgba(0, 0, 0, 0.35);
+  white-space: nowrap;
+}
+
+.footer-iphone__dock-wrap {
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: 22px;
+  padding: 0 14px;
+}
+
+.footer-iphone__dock {
+  display: flex;
+  align-items: center;
+  justify-content: space-around;
+  padding: 14px 12px;
+  border-radius: 28px;
+  background: rgba(255, 255, 255, 0.22);
+  backdrop-filter: blur(22px) saturate(1.4);
+  -webkit-backdrop-filter: blur(22px) saturate(1.4);
+  box-shadow: inset 0 0 0 1px rgba(255, 255, 255, 0.18);
+}
+
+.footer-iphone__dock .footer-iphone__app {
+  gap: 0;
+}
+
+.footer-iphone__dock .footer-iphone__icon {
+  width: 52px;
+  height: 52px;
+  border-radius: 13px;
+}
+
+.footer-iphone__dock .footer-iphone__label {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+}
+
+.footer-iphone__home-indicator {
+  position: absolute;
+  left: 50%;
+  bottom: 8px;
+  width: 118px;
+  height: 4px;
+  border-radius: 999px;
+  background: rgba(255, 255, 255, 0.92);
+  transform: translateX(-50%);
+  opacity: 0.85;
+}
+
+.footer-explore-banner {
+  position: sticky;
+  top: 0;
+  z-index: 20;
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px 20px;
+  padding: 14px 20px;
+  border-bottom: 1px solid rgba(0, 0, 0, 0.08);
+  background: rgba(255, 255, 255, 0.92);
+  backdrop-filter: blur(12px);
+  font-family: "Geist", system-ui, sans-serif;
+  font-size: 14px;
+  color: #202020;
+}
+
+.footer-explore-banner a {
+  color: #004df4;
+  font-weight: 600;
+  text-decoration: none;
+}
+
+.footer-explore-banner a:hover {
+  text-decoration: underline;
+}
+
+.footer-explore-preview {
+  min-height: 40vh;
+  display: grid;
+  place-items: center;
+  padding: 48px 24px;
+  background: #f5f5f5;
+  color: #707070;
+  font-family: "Geist", system-ui, sans-serif;
+  font-size: 15px;
+  text-align: center;
+}
+
+@media (max-width: 960px) {
+  .footer-panel--iphone-home .footer-panel__row {
+    align-items: flex-start;
+  }
+
+  .footer-panel__iphone-slot {
+    width: 100%;
+    max-width: 300px;
+    margin-inline: auto;
+    margin-bottom: 0;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .footer-iphone__app {
+    transition: none;
+  }
+}

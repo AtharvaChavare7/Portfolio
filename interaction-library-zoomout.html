@@ -1,0 +1,1354 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <script src="clock-favicon.js"></script>
+  <title>Interaction Library</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Geist+Mono:wght@400&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/geist@1.3.1/dist/font.css">
+  <style>
+    :root {
+      --border: #efefef;
+      --chrome: #fdfdfd;
+      --text: #707070;
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    html,
+    body {
+      width: 100%;
+      min-height: 100%;
+      background: #fff;
+      font-family: "Geist", system-ui, sans-serif;
+    }
+
+    body {
+      display: flex;
+      justify-content: center;
+      overflow-x: hidden;
+    }
+
+    button,
+    a {
+      color: inherit;
+      font: inherit;
+    }
+
+    button {
+      border: 0;
+      background: none;
+    }
+
+    .workspace-shell {
+      position: relative;
+      width: 74vw;
+      height: 810px;
+      flex: 0 0 74vw;
+    }
+
+    .workspace {
+      display: flex;
+      width: 100%;
+      min-width: 1062px;
+      height: 810px;
+      flex-direction: column;
+      overflow: hidden;
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      background: #fff;
+      transform-origin: top left;
+    }
+
+    .titlebar {
+      position: relative;
+      display: flex;
+      width: 100%;
+      height: 36.85px;
+      flex: 0 0 36.85px;
+      align-items: center;
+      padding: 12px 60px 12px 12px;
+      border-bottom: 1px solid var(--border);
+      background: var(--chrome);
+    }
+
+    .traffic {
+      display: flex;
+      gap: 7.37px;
+    }
+
+    .traffic span {
+      width: 11.054px;
+      height: 11.054px;
+      border-radius: 50%;
+    }
+
+    .traffic span:nth-child(1) { background: #ff5f57; }
+    .traffic span:nth-child(2) { background: #febc2e; }
+    .traffic span:nth-child(3) { background: #28c840; }
+
+    .window-title {
+      position: absolute;
+      left: 50%;
+      top: 50%;
+      color: #6b6b6b;
+      font-family: "Geist Mono", monospace;
+      font-size: 10.133px;
+      font-weight: 400;
+      line-height: 15.2px;
+      transform: translate(-50%, -50%);
+      white-space: nowrap;
+    }
+
+    .body {
+      display: flex;
+      min-height: 0;
+      flex: 1;
+    }
+
+    .sidebar {
+      display: flex;
+      width: 18.65%;
+      min-width: 195px;
+      max-width: 234px;
+      height: 100%;
+      flex: 0 0 18.65%;
+      flex-direction: column;
+      border-right: 1px solid var(--border);
+      background: var(--chrome);
+    }
+
+    .sidebar-heading {
+      padding: 12px;
+      color: #4c4c4c;
+      font-family: "Geist Mono", monospace;
+      font-size: 9.212px;
+      font-weight: 400;
+      letter-spacing: 1px;
+      line-height: 13.818px;
+    }
+
+    .tree {
+      padding: 0 8px;
+    }
+
+    .folder,
+    .project {
+      display: flex;
+      width: 100%;
+      height: 33.96px;
+      align-items: center;
+      padding: 8px 12px;
+      border-radius: 8px;
+      color: var(--text);
+      cursor: default;
+      font-size: 11.976px;
+      line-height: 17.964px;
+      white-space: nowrap;
+    }
+
+    .folder {
+      gap: 16px;
+      transition: background 120ms ease;
+    }
+
+    .folder:hover {
+      background: #f6f6f6;
+    }
+
+    .folder-main,
+    .project-main {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .folder-icon {
+      width: 18.06px;
+      height: 18.06px;
+    }
+
+    .folder[aria-expanded="true"] .folder-icon {
+      width: 18.48px;
+      height: 18.48px;
+    }
+
+    .caret {
+      width: 11px;
+      height: 11px;
+      transition: transform 160ms ease;
+    }
+
+    .folder[aria-expanded="false"] .caret {
+      transform: rotate(-90deg);
+    }
+
+    .project {
+      opacity: 0;
+      transform: translateY(-4px);
+      transition:
+        background 120ms ease,
+        opacity 180ms ease,
+        transform 220ms cubic-bezier(.22, 1, .36, 1);
+    }
+
+    .project-list {
+      display: block;
+      max-height: 0;
+      overflow: hidden;
+      opacity: 0;
+      pointer-events: none;
+      transform: translateY(-5px);
+      transform-origin: top;
+      transition:
+        max-height 280ms cubic-bezier(.22, 1, .36, 1),
+        opacity 160ms ease,
+        transform 240ms cubic-bezier(.22, 1, .36, 1);
+    }
+
+    .project-list.is-open {
+      max-height: 220px;
+      opacity: 1;
+      pointer-events: auto;
+      transform: translateY(0);
+    }
+
+    .project-list.is-open .project {
+      opacity: 1;
+      transform: translateY(0);
+    }
+
+    .project-list.is-open .project:nth-child(2) { transition-delay: 18ms; }
+    .project-list.is-open .project:nth-child(3) { transition-delay: 36ms; }
+    .project-list.is-open .project:nth-child(4) { transition-delay: 54ms; }
+    .project-list.is-open .project:nth-child(5) { transition-delay: 72ms; }
+    .project-list.is-open .project:nth-child(6) { transition-delay: 90ms; }
+
+    @media (prefers-reduced-motion: reduce) {
+      .project-list,
+      .project,
+      .caret {
+        transition: none;
+      }
+    }
+
+    .project.is-selected {
+      background: #f6f6f6;
+    }
+
+    .project:hover {
+      background: #f6f6f6;
+    }
+
+    .app-icon {
+      position: relative;
+      width: 17.831px;
+      height: 17.831px;
+      flex: 0 0 17.831px;
+      overflow: hidden;
+      border-radius: 4.283px;
+    }
+
+    .app-icon.exported > img {
+      position: absolute;
+      left: -3.272px;
+      top: -3.272px;
+      display: block;
+      width: 131.698px;
+      height: 24.54px;
+      max-width: none;
+    }
+
+    .app-icon.blue {
+      background: linear-gradient(140deg, #306cff 6%, #2f56b4 92%);
+      box-shadow: inset 0 -0.5px 1px rgba(255,255,255,.3);
+    }
+
+    .app-icon.blue::before {
+      position: absolute;
+      width: 20px;
+      height: 10px;
+      left: -4px;
+      top: -6px;
+      border-radius: 50%;
+      background: #7ba8fd;
+      filter: blur(3px);
+      content: "";
+      transform: rotate(-50deg);
+    }
+
+    .app-icon.blue::after {
+      position: absolute;
+      width: 3.15px;
+      height: 3.15px;
+      left: 4.02px;
+      top: 3.6px;
+      border-radius: .8px;
+      background: white;
+      box-shadow: 0 .34px 1.37px rgba(0,0,0,.25);
+      content: "";
+    }
+
+    .app-icon.blue img {
+      position: absolute;
+      width: 15.82px;
+      height: 15.82px;
+      left: 5.2px;
+      top: 5.94px;
+    }
+
+    .app-icon.black {
+      background: #000;
+      box-shadow: inset 0 -0.52px .96px rgba(254,254,254,.34);
+    }
+
+    .app-icon.black::before {
+      position: absolute;
+      width: 22px;
+      height: 6px;
+      left: 0;
+      top: 0;
+      background: #5434e7;
+      filter: blur(5.1px);
+      content: "";
+    }
+
+    .app-icon.black img {
+      position: absolute;
+      width: 10.08px;
+      height: 7.2px;
+      left: 3.88px;
+      top: 5.45px;
+    }
+
+    .app-icon.document {
+      background: white;
+      box-shadow: inset 0 -.34px 1.99px rgba(0,0,0,.08), inset 0 -.46px 6.5px .69px rgba(202,202,202,.25);
+    }
+
+    .app-icon.document .doc-page {
+      position: absolute;
+      width: 8.04px;
+      height: 10.03px;
+      left: 4.96px;
+      top: 3.9px;
+    }
+
+    .app-icon.orange {
+      border: .115px solid #f7a085;
+      background: linear-gradient(#fe653b, #fe4a39 96%);
+    }
+
+    .app-icon.orange img {
+      position: absolute;
+      inset: 4.1px;
+      width: 9.6px;
+      height: 9.6px;
+    }
+
+    .app-icon.purple {
+      border: .23px solid #37008a;
+      background: linear-gradient(#30006c, #170133);
+    }
+
+    .shape-pill {
+      position: absolute;
+      width: 9.04px;
+      height: 9.11px;
+      left: 4.4px;
+      top: 4.25px;
+      overflow: hidden;
+      border-radius: 8px;
+      background: #f8fff4;
+      box-shadow: inset 0 -.54px .87px rgba(255,255,255,.59);
+    }
+
+    .shape-pill::before,
+    .shape-pill::after {
+      position: absolute;
+      width: 5.1px;
+      height: 5.1px;
+      border-radius: 50%;
+      filter: blur(1.1px);
+      content: "";
+    }
+
+    .shape-pill::before {
+      left: 3px;
+      top: 1px;
+      background: #91e5fd;
+      box-shadow: -2.5px 2px #545ffe, -4.5px 4px #db70fe;
+    }
+
+    .app-icon.pink {
+      background: linear-gradient(#ff5e69, #fe4258);
+      box-shadow: inset 0 -1.9px 5.7px rgba(255,255,255,.62);
+    }
+
+    .app-icon.pink img {
+      position: absolute;
+      width: 8.01px;
+      height: 8.37px;
+      left: 4.87px;
+      top: 4.71px;
+    }
+
+    .main {
+      display: flex;
+      min-width: 867px;
+      min-height: 0;
+      flex: 1;
+      flex-direction: column;
+    }
+
+    .tabs {
+      display: flex;
+      width: 100%;
+      height: 38.72px;
+      flex: 0 0 38.72px;
+      align-items: center;
+      justify-content: flex-start;
+      gap: 16px;
+      overflow: hidden;
+      padding: 4px 16px 4.92px;
+      border-bottom: .921px solid var(--border);
+      background: #fff;
+    }
+
+    .tab {
+      display: flex;
+      min-width: 0;
+      flex: 1 1 0;
+      align-items: center;
+      justify-content: flex-start;
+      gap: 9px;
+      overflow: hidden;
+      padding: 4px;
+      border-radius: 4px;
+      color: var(--text);
+      cursor: default;
+      font-size: 11.976px;
+      line-height: 17.964px;
+      white-space: nowrap;
+    }
+
+    .tab > span:last-child {
+      min-width: 0;
+      overflow: hidden;
+      text-overflow: ellipsis;
+    }
+
+    .tab.is-selected {
+      background: #f6f6f6;
+    }
+
+    .tab:hover {
+      background: #f6f6f6;
+    }
+
+    .tab .app-icon {
+      width: 21.797px;
+      height: 21.797px;
+      flex-basis: 21.797px;
+      border-radius: 5.236px;
+    }
+
+    .tab .app-icon.exported > img {
+      left: -4px;
+      top: -4px;
+      width: 161px;
+      height: 30px;
+    }
+
+    .tab .app-icon.blue::after {
+      width: 3.85px;
+      height: 3.85px;
+      left: 4.91px;
+      top: 4.44px;
+    }
+
+    .tab .app-icon.blue img {
+      width: 19.34px;
+      height: 19.34px;
+      left: 6.35px;
+      top: 7.29px;
+    }
+
+    .tab .app-icon.orange img {
+      inset: 5px;
+      width: 11.8px;
+      height: 11.8px;
+    }
+
+    .tab .app-icon.black img {
+      width: 12.32px;
+      height: 8.8px;
+      left: 4.74px;
+      top: 6.5px;
+    }
+
+    .tab .app-icon.pink img {
+      width: 9.79px;
+      height: 10.23px;
+      left: 5.95px;
+      top: 5.76px;
+    }
+
+    .tab .app-icon.document .doc-page {
+      width: 9.83px;
+      height: 12.26px;
+      left: 5.99px;
+      top: 4.76px;
+    }
+
+    .toolbar {
+      display: flex;
+      width: 100%;
+      height: 40.533px;
+      flex: 0 0 40.533px;
+      align-items: center;
+      gap: 11.055px;
+      padding: 0 11.055px 1px;
+      border-bottom: 1px solid var(--border);
+      background: #fff;
+    }
+
+    .nav {
+      display: flex;
+      align-self: stretch;
+      gap: 5.527px;
+    }
+
+    .nav span {
+      display: grid;
+      min-width: 10.4px;
+      place-items: center;
+      color: #5e5e5e;
+      font-size: 14.739px;
+      line-height: 22.109px;
+    }
+
+    .address {
+      display: flex;
+      min-width: 0;
+      height: 28.7px;
+      flex: 1;
+      align-items: center;
+      padding: 5.527px 11.055px;
+      border-radius: 7.37px;
+      background: #f0f0f0;
+      color: #666;
+      font-size: 10.133px;
+      line-height: 15.2px;
+      white-space: nowrap;
+    }
+
+    .visit {
+      display: flex;
+      height: 28.703px;
+      flex: 0 0 auto;
+      align-items: center;
+      gap: 5.527px;
+      padding: 7.772px 8.37px;
+      border: 1px solid #dbdada;
+      border-radius: 5.527px;
+      background: #fff;
+      color: #6d6d6d;
+      text-decoration: none;
+    }
+
+    .visit img {
+      width: 15.158px;
+      height: 15.158px;
+    }
+
+    .visit span {
+      font-size: 9.212px;
+      line-height: 13.818px;
+      white-space: nowrap;
+    }
+
+    .viewport {
+      position: relative;
+      min-height: 0;
+      flex: 1;
+      overflow: hidden;
+      background: #fff;
+    }
+
+    .placeholder {
+      position: absolute;
+      width: 717px;
+      left: 183px;
+      top: calc(50% - 52.62px);
+      color: rgba(0,0,0,.15);
+      font-size: 65.254px;
+      font-weight: 400;
+      letter-spacing: .6525px;
+      line-height: normal;
+      transform: translateY(-50%);
+    }
+
+    [hidden] {
+      display: none !important;
+    }
+
+    .launcher-layer {
+      position: relative;
+      display: grid;
+      width: 100%;
+      min-height: 0;
+      flex: 1;
+      place-items: center;
+      overflow: hidden;
+      border-radius: 0 0 12px 12px;
+      background:
+        radial-gradient(circle at 50% 42%, rgba(0,0,0,.025), transparent 42%),
+        #fdfdfd;
+    }
+
+    .workspace.is-launcher .body {
+      display: none;
+    }
+
+    .launcher-grid,
+    .picker-grid {
+      display: grid;
+      grid-template-columns: repeat(3, minmax(150px, 1fr));
+      gap: 66px 84px;
+      width: min(760px, 78%);
+    }
+
+    .launcher-app,
+    .picker-app {
+      display: flex;
+      min-width: 0;
+      flex-direction: column;
+      align-items: center;
+      gap: 14px;
+      color: #5e5e5e;
+      cursor: pointer;
+      transition: opacity 140ms ease, transform 140ms ease;
+    }
+
+    .launcher-app:hover,
+    .picker-app:hover {
+      transform: translateY(-3px);
+    }
+
+    .launcher-app:focus-visible,
+    .picker-app:focus-visible,
+    .tab-control:focus-visible,
+    .tab-close:focus-visible,
+    .mobile-project__back:focus-visible {
+      outline: 2px solid #306cff;
+      outline-offset: 4px;
+    }
+
+    .launcher-app__icon,
+    .picker-app__icon {
+      width: 72px;
+      height: 72px;
+      flex: 0 0 72px;
+      border-radius: 17.3px;
+      box-shadow: 0 12px 26px rgba(0,0,0,.08);
+    }
+
+    .launcher-app__icon.app-icon.exported > img,
+    .picker-app__icon.app-icon.exported > img {
+      left: -13.21px;
+      top: -13.21px;
+      width: 531.8px;
+      height: 99.1px;
+    }
+
+    .launcher-app__name,
+    .picker-app__name {
+      overflow: hidden;
+      font-size: 13px;
+      line-height: 19px;
+      text-align: center;
+      text-overflow: ellipsis;
+      white-space: nowrap;
+    }
+
+    .launcher-layer.is-exiting .launcher-app:not(:focus) {
+      opacity: 0;
+      transform: scale(.96);
+    }
+
+    .flight-icon {
+      position: fixed;
+      z-index: 100;
+      overflow: hidden;
+      border-radius: 17.3px;
+      pointer-events: none;
+      transform-origin: top left;
+      transition: transform 480ms cubic-bezier(.22, 1, .36, 1);
+    }
+
+    .flight-icon.app-icon.exported > img {
+      left: -13.21px;
+      top: -13.21px;
+      width: 531.8px;
+      height: 99.1px;
+    }
+
+    .workspace-shell[hidden] {
+      display: none !important;
+    }
+
+    .workspace.is-assembling .sidebar {
+      opacity: 0;
+      transform: translateX(-28px);
+    }
+
+    .workspace.is-assembling .tabs,
+    .workspace.is-assembling .toolbar {
+      opacity: 0;
+      transform: translateY(-5px);
+    }
+
+    .workspace .sidebar,
+    .workspace .tabs,
+    .workspace .toolbar {
+      transition:
+        opacity 330ms cubic-bezier(.22, 1, .36, 1),
+        transform 420ms cubic-bezier(.22, 1, .36, 1);
+    }
+
+    .workspace.is-ready .sidebar,
+    .workspace.is-ready .tabs,
+    .workspace.is-ready .toolbar {
+      opacity: 1;
+      transform: none;
+    }
+
+    .project.is-closed .app-icon {
+      opacity: .45;
+    }
+
+    .project.is-open .app-icon {
+      opacity: .68;
+    }
+
+    .project.is-focused {
+      background: #f6f6f6;
+    }
+
+    .project.is-focused .app-icon {
+      opacity: 1;
+    }
+
+    .tabs {
+      align-items: stretch;
+    }
+
+    .tab-wrap {
+      position: relative;
+      display: flex;
+      min-width: 0;
+      flex: 1 1 0;
+      align-items: center;
+      border-radius: 4px;
+    }
+
+    .tab-wrap .tab {
+      width: 100%;
+      height: 100%;
+      padding-right: 24px;
+    }
+
+    .tab-wrap:not(.is-active) .app-icon {
+      opacity: .52;
+    }
+
+    .tab-wrap.is-active {
+      background: #f6f6f6;
+    }
+
+    .tab-close {
+      position: absolute;
+      right: 4px;
+      top: 50%;
+      display: grid;
+      width: 18px;
+      height: 18px;
+      place-items: center;
+      border-radius: 4px;
+      color: #858585;
+      cursor: pointer;
+      font-size: 14px;
+      opacity: 0;
+      transform: translateY(-50%);
+      transition: background 120ms ease, opacity 120ms ease;
+    }
+
+    .tab-wrap:hover .tab-close,
+    .tab-wrap.is-active .tab-close {
+      opacity: 1;
+    }
+
+    .tab-close:hover,
+    .tab-control:hover {
+      background: #e8e8e8;
+    }
+
+    .tab-control {
+      display: grid;
+      width: 30px;
+      flex: 0 0 30px;
+      place-items: center;
+      align-self: center;
+      height: 29.8px;
+      border-radius: 4px;
+      color: #707070;
+      cursor: pointer;
+      font-size: 16px;
+      transition: background 120ms ease;
+    }
+
+    .nav {
+      align-items: center;
+    }
+
+    .nav button {
+      display: grid;
+      min-width: 18px;
+      height: 23px;
+      place-items: center;
+      border-radius: 4px;
+      color: #5e5e5e;
+      cursor: pointer;
+      font-size: 14.739px;
+    }
+
+    .nav button:hover {
+      background: #f0f0f0;
+    }
+
+    .project-frame,
+    .project-splash {
+      position: absolute;
+      inset: 0;
+      width: 100%;
+      height: 100%;
+      border: 0;
+      background: #fff;
+    }
+
+    .project-frame {
+      opacity: 0;
+      transition: opacity 150ms ease;
+    }
+
+    .project-frame.is-visible {
+      opacity: 1;
+    }
+
+    .project-splash {
+      z-index: 2;
+      display: grid;
+      place-items: center;
+      opacity: 1;
+      transition: opacity 150ms ease;
+    }
+
+    .project-splash.is-leaving {
+      opacity: 0;
+      pointer-events: none;
+    }
+
+    .project-splash__content {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 20px;
+    }
+
+    .project-splash__icon {
+      width: 64px;
+      height: 64px;
+      flex: 0 0 64px;
+      border-radius: 15.4px;
+      box-shadow: 0 10px 22px rgba(0,0,0,.08);
+    }
+
+    .project-splash__icon.app-icon.exported > img {
+      left: -11.74px;
+      top: -11.74px;
+      width: 472.4px;
+      height: 88.1px;
+    }
+
+    .project-splash__loader {
+      width: 22px;
+      height: 22px;
+      border: 2px solid #e7e7e7;
+      border-top-color: #707070;
+      border-radius: 50%;
+      animation: playground-spin 700ms linear infinite;
+    }
+
+    .launch-stage {
+      position: absolute;
+      left: 0;
+      top: 32px;
+      z-index: 100;
+      width: 100%;
+      height: calc(100% - 32px);
+      overflow: hidden;
+      background: #fff;
+      transform-origin: top left;
+      transition:
+        left 560ms cubic-bezier(.22, 1, .36, 1),
+        top 560ms cubic-bezier(.22, 1, .36, 1),
+        width 560ms cubic-bezier(.22, 1, .36, 1),
+        height 560ms cubic-bezier(.22, 1, .36, 1);
+    }
+
+    .launch-stage .project-frame {
+      z-index: 1;
+      opacity: 0;
+    }
+
+    .launch-stage.is-loaded .project-frame {
+      opacity: 1;
+    }
+
+    .launch-stage__loading {
+      position: absolute;
+      inset: 0;
+      z-index: 2;
+      display: grid;
+      place-items: center;
+      background: #fff;
+      transition: opacity 150ms ease;
+    }
+
+    .launch-stage.is-loaded .launch-stage__loading {
+      opacity: 0;
+      pointer-events: none;
+    }
+
+    .launch-stage__loading-content {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 20px;
+    }
+
+    .launch-stage__icon {
+      width: 72px;
+      height: 72px;
+      flex: 0 0 72px;
+      border-radius: 17.3px;
+      box-shadow: 0 12px 26px rgba(0,0,0,.08);
+    }
+
+    .launch-stage__icon.app-icon.exported > img {
+      left: -13.21px;
+      top: -13.21px;
+      width: 531.8px;
+      height: 99.1px;
+    }
+
+    @keyframes playground-spin {
+      to { transform: rotate(360deg); }
+    }
+
+    .picker-overlay {
+      position: absolute;
+      inset: 0;
+      z-index: 20;
+      display: grid;
+      place-items: center;
+      border-radius: inherit;
+      background: rgba(253,253,253,.985);
+      opacity: 0;
+      transition: opacity 150ms ease;
+    }
+
+    .picker-overlay.is-open {
+      opacity: 1;
+    }
+
+    .picker-overlay__close {
+      position: absolute;
+      right: 18px;
+      top: 14px;
+      display: grid;
+      width: 30px;
+      height: 30px;
+      place-items: center;
+      border-radius: 6px;
+      color: #707070;
+      cursor: pointer;
+      font-size: 20px;
+    }
+
+    .picker-overlay__close:hover {
+      background: #f0f0f0;
+    }
+
+    .picker-grid {
+      width: min(720px, 74%);
+    }
+
+    .picker-app__icon {
+      width: 58px;
+      height: 58px;
+      flex-basis: 58px;
+      border-radius: 13.95px;
+    }
+
+    .picker-app__icon.app-icon.exported > img {
+      left: -10.64px;
+      top: -10.64px;
+      width: 428.3px;
+      height: 79.84px;
+    }
+
+    .mobile-project {
+      position: fixed;
+      inset: 0;
+      z-index: 50;
+      display: flex;
+      flex-direction: column;
+      background: #fff;
+    }
+
+    .mobile-project__bar {
+      display: flex;
+      height: 52px;
+      flex: 0 0 52px;
+      align-items: center;
+      gap: 12px;
+      padding: 0 14px;
+      border-bottom: 1px solid var(--border);
+      background: var(--chrome);
+    }
+
+    .mobile-project__back {
+      padding: 7px 10px;
+      border-radius: 6px;
+      color: #5e5e5e;
+      cursor: pointer;
+    }
+
+    .mobile-project__title {
+      color: #4c4c4c;
+      font-size: 14px;
+      font-weight: 400;
+    }
+
+    .mobile-project__frame {
+      width: 100%;
+      min-height: 0;
+      flex: 1;
+      border: 0;
+    }
+
+    @media (max-width: 700px) {
+      body {
+        display: block;
+      }
+
+      .launcher-layer {
+        width: 100vw;
+        height: 100dvh;
+        border-radius: 0;
+      }
+
+      .launcher-grid {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+        gap: 44px 24px;
+        width: calc(100% - 40px);
+      }
+
+      .workspace-shell {
+        display: block !important;
+        width: 100vw;
+        height: 100dvh !important;
+        flex-basis: auto;
+      }
+
+      .workspace {
+        width: 100% !important;
+        min-width: 0;
+        height: 100dvh;
+        border: 0;
+        border-radius: 0;
+        transform: none !important;
+      }
+
+      .workspace .titlebar,
+      .workspace .body,
+      .workspace .picker-overlay {
+        display: none !important;
+      }
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      .launcher-app,
+      .picker-app,
+      .flight-icon,
+      .workspace .sidebar,
+      .workspace .tabs,
+      .workspace .toolbar,
+      .project-frame,
+      .project-splash,
+      .picker-overlay,
+      .launch-stage,
+      .launch-stage__loading {
+        transition: none;
+      }
+
+      .project-splash__loader {
+        animation: none;
+      }
+    }
+
+  </style>
+</head>
+<body>
+  <div class="workspace-shell">
+  <main class="workspace" data-node-id="128:2189">
+    <header class="titlebar">
+      <div class="traffic" aria-hidden="true">
+        <span></span><span></span><span></span>
+      </div>
+      <p class="window-title">atharvachavare — explorations.workspace</p>
+    </header>
+
+    <section class="launch-stage" id="launch-stage" aria-label="Launching project" hidden>
+      <div class="launch-stage__loading">
+        <div class="launch-stage__loading-content">
+          <span class="launch-stage__icon app-icon exported"><img src="" alt=""></span>
+          <span class="project-splash__loader" aria-label="Loading project"></span>
+        </div>
+      </div>
+    </section>
+
+    <section class="launcher-layer" id="playground-launcher" aria-label="Project launcher">
+      <div class="launcher-grid"></div>
+    </section>
+
+    <div class="body">
+      <aside class="sidebar">
+        <p class="sidebar-heading">REPOSITORIES</p>
+        <div class="tree">
+          <button class="folder" type="button" aria-expanded="false" aria-controls="project-list">
+            <span class="folder-main">
+              <img class="folder-icon" src="assets/interaction-library/folder-simple.svg" alt="">
+              <span>Projects</span>
+            </span>
+            <img class="caret" src="assets/interaction-library/caret-down.svg" alt="">
+          </button>
+
+          <div class="project-list" id="project-list" hidden>
+            <button class="project" type="button">
+              <span class="project-main">
+                <span class="app-icon exported"><img src="assets/interaction-library/app-blue.svg" alt=""></span>
+                <span>InteractionsLibrary.tsx</span>
+              </span>
+            </button>
+            <button class="project is-selected" type="button">
+              <span class="project-main">
+                <span class="app-icon exported"><img src="assets/interaction-library/app-black.svg" alt=""></span>
+                <span>DataVizTool.tsx</span>
+              </span>
+            </button>
+            <button class="project" type="button">
+              <span class="project-main">
+                <span class="app-icon exported"><img src="assets/interaction-library/app-document.svg" alt=""></span>
+                <span>ResumeEditor.tsx</span>
+              </span>
+            </button>
+            <button class="project" type="button">
+              <span class="project-main">
+                <span class="app-icon exported"><img src="assets/interaction-library/app-orange.svg" alt=""></span>
+                <span>RacketFinder.tsx</span>
+              </span>
+            </button>
+            <button class="project" type="button">
+              <span class="project-main">
+                <span class="app-icon exported"><img src="assets/interaction-library/app-purple.svg" alt=""></span>
+                <span>3dShapeGenerator.tsx</span>
+              </span>
+            </button>
+            <button class="project" type="button">
+              <span class="project-main">
+                <span class="app-icon exported"><img src="assets/interaction-library/app-pink.svg" alt=""></span>
+                <span>NoteTaking.tsx</span>
+              </span>
+            </button>
+          </div>
+        </div>
+      </aside>
+
+      <section class="main">
+        <div class="tabs" role="tablist" aria-label="Projects">
+          <button class="tab" type="button" role="tab">
+            <span class="app-icon exported"><img src="assets/interaction-library/app-blue.svg" alt=""></span>
+            <span>InteractionsLibrary.tsx</span>
+          </button>
+          <button class="tab" type="button" role="tab">
+            <span class="app-icon exported"><img src="assets/interaction-library/app-purple.svg" alt=""></span>
+            <span>InteractionsLibrary.tsx</span>
+          </button>
+          <button class="tab" type="button" role="tab">
+            <span class="app-icon exported"><img src="assets/interaction-library/app-orange.svg" alt=""></span>
+            <span>InteractionsLibrary.tsx</span>
+          </button>
+          <button class="tab" type="button" role="tab">
+            <span class="app-icon exported"><img src="assets/interaction-library/app-black.svg" alt=""></span>
+            <span>InteractionsLibrary.tsx</span>
+          </button>
+          <button class="tab" type="button" role="tab">
+            <span class="app-icon exported"><img src="assets/interaction-library/app-pink.svg" alt=""></span>
+            <span>InteractionsLibrary.tsx</span>
+          </button>
+          <button class="tab is-selected" type="button" role="tab" aria-selected="true">
+            <span class="app-icon exported"><img src="assets/interaction-library/app-document.svg" alt=""></span>
+            <span>InteractionsLibrary.tsx</span>
+          </button>
+        </div>
+
+        <div class="toolbar">
+          <div class="nav">
+            <button type="button" aria-label="Back" disabled>‹</button>
+            <button type="button" aria-label="Forward" disabled>›</button>
+            <button type="button" data-action="reload" aria-label="Reload project">⟳</button>
+          </div>
+          <div class="address">localhost: 3001/interactionlibrary</div>
+          <a class="visit" href="#" target="_blank" rel="noopener noreferrer">
+            <img src="assets/interaction-library/arrow-up-right.svg" alt="">
+            <span>VISIT WEBSITE</span>
+          </a>
+        </div>
+
+        <div class="viewport">
+          <iframe
+            class="project-frame"
+            title="Live project preview"
+            sandbox="allow-scripts allow-same-origin allow-forms allow-popups allow-modals"
+          ></iframe>
+          <div class="project-splash" hidden>
+            <div class="project-splash__content">
+              <span class="project-splash__icon app-icon exported"><img src="" alt=""></span>
+              <span class="project-splash__loader" aria-label="Loading project"></span>
+            </div>
+          </div>
+        </div>
+      </section>
+    </div>
+
+    <div class="picker-overlay" hidden aria-label="Choose another project">
+      <button class="picker-overlay__close" type="button" aria-label="Close project picker">×</button>
+      <div class="picker-grid"></div>
+    </div>
+  </main>
+  </div>
+
+  <section class="mobile-project" id="mobile-project" hidden>
+    <header class="mobile-project__bar">
+      <button class="mobile-project__back" type="button">← Back</button>
+      <h1 class="mobile-project__title"></h1>
+    </header>
+    <iframe
+      class="mobile-project__frame"
+      title="Live mobile project"
+      sandbox="allow-scripts allow-same-origin allow-forms allow-popups allow-modals"
+    ></iframe>
+  </section>
+
+  <script>
+    const shell = document.querySelector(".workspace-shell");
+    const workspace = document.querySelector(".workspace");
+    const minimumWidth = 1062;
+    const fixedHeight = 810;
+
+    function sizeWorkspace() {
+      const availableWidth = window.innerWidth * 0.74;
+      const scale = Math.min(1, availableWidth / minimumWidth);
+
+      if (scale < 1) {
+        workspace.style.width = `${minimumWidth}px`;
+        workspace.style.transform = `scale(${scale})`;
+        shell.style.height = `${fixedHeight * scale}px`;
+      } else {
+        workspace.style.width = "100%";
+        workspace.style.transform = "none";
+        shell.style.height = `${fixedHeight}px`;
+      }
+    }
+
+    sizeWorkspace();
+    window.addEventListener("resize", sizeWorkspace, { passive: true });
+
+    const folder = document.querySelector(".folder");
+    const folderIcon = folder.querySelector(".folder-icon");
+    const projectList = document.querySelector("#project-list");
+    const closedFolderSrc = "assets/interaction-library/folder-simple.svg";
+    const openFolderSrc = "assets/footer/folder-open.svg";
+
+    folder.addEventListener("click", () => {
+      const isExpanded = folder.getAttribute("aria-expanded") === "true";
+      folder.setAttribute("aria-expanded", String(!isExpanded));
+      folderIcon.src = isExpanded ? closedFolderSrc : openFolderSrc;
+
+      if (isExpanded) {
+        projectList.classList.remove("is-open");
+        if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) {
+          projectList.hidden = true;
+          return;
+        }
+
+        const finishCollapse = (event) => {
+          if (event.propertyName !== "max-height") {
+            return;
+          }
+
+          projectList.removeEventListener("transitionend", finishCollapse);
+          if (folder.getAttribute("aria-expanded") === "false") {
+            projectList.hidden = true;
+          }
+        };
+        projectList.addEventListener("transitionend", finishCollapse);
+      } else {
+        projectList.hidden = false;
+        requestAnimationFrame(() => {
+          projectList.classList.add("is-open");
+        });
+      }
+    });
+
+    document.querySelectorAll(".project").forEach((project) => {
+      project.addEventListener("click", () => {
+        document.querySelectorAll(".project").forEach((item) => item.classList.remove("is-selected"));
+        project.classList.add("is-selected");
+      });
+    });
+
+    document.querySelectorAll(".tab").forEach((tab) => {
+      tab.addEventListener("click", () => {
+        document.querySelectorAll(".tab").forEach((item) => {
+          item.classList.remove("is-selected");
+          item.removeAttribute("aria-selected");
+        });
+        tab.classList.add("is-selected");
+        tab.setAttribute("aria-selected", "true");
+      });
+    });
+  </script>
+  <script src="interaction-library-zoomout.js"></script>
+</body>
+</html>

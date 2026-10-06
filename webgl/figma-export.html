@@ -1,0 +1,112 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=420, initial-scale=1" />
+    <script src="../clock-favicon.js"></script>
+    <title>Shader controls — Figma export</title>
+    <link rel="stylesheet" href="/src/styles.css" />
+    <script src="https://mcp.figma.com/mcp/html-to-design/capture.js" async></script>
+    <style>
+      body {
+        margin: 0;
+        min-height: 100vh;
+        display: grid;
+        place-items: center;
+        background: #ffffff;
+      }
+
+      .export-wrap {
+        padding: 24px;
+      }
+
+      .shader-card.export-card {
+        width: 400px;
+        height: 420px;
+        min-height: 420px;
+      }
+
+      .export-card .shader-canvas,
+      .export-card .intro {
+        display: none;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="export-wrap">
+      <section class="shader-card export-card" aria-label="Expanded shader controls export">
+        <div class="readability-wash" aria-hidden="true"></div>
+
+        <form class="controls is-open" id="shader-controls">
+          <div class="control-head">
+            <div class="panel-heading">
+              <p class="panel-label"><span class="label-open">Shader lab</span></p>
+              <p class="panel-title">Aurora field</p>
+            </div>
+            <button class="icon-button controls-disclosure" type="button" aria-label="Close controls">
+              <svg class="disclosure-icon disclosure-icon--close" viewBox="0 0 28 28" width="28" height="28" aria-hidden="true">
+                <path d="M9.25 9.25l9.5 9.5M18.75 9.25l-9.5 9.5" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+              </svg>
+            </button>
+          </div>
+
+          <div class="controls-body" id="controls-body">
+            <fieldset class="study-picker" style="--study-active: 0">
+              <legend class="sr-only">Shader study</legend>
+              <span class="study-picker-indicator" aria-hidden="true"></span>
+              <button type="button" aria-pressed="true">Aurora</button>
+              <button type="button" aria-pressed="false">Silk</button>
+              <button type="button" aria-pressed="false">Contours</button>
+              <button type="button" aria-pressed="false">Glass</button>
+            </fieldset>
+
+            <label class="range-control">
+              <span><span>Motion</span><output>0.45</output></span>
+              <input type="range" min="0" max="1.2" value="0.45" step="0.01" style="--range-fill: 37.5%" />
+            </label>
+            <label class="range-control">
+              <span><span>Scale</span><output>1.25</output></span>
+              <input type="range" min="0.5" max="3" value="1.25" step="0.01" style="--range-fill: 30%" />
+            </label>
+            <label class="range-control">
+              <span><span>Warp</span><output>0.62</output></span>
+              <input type="range" min="0" max="1.5" value="0.62" step="0.01" style="--range-fill: 41.33%" />
+            </label>
+            <label class="range-control">
+              <span><span>Grain</span><output>0.06</output></span>
+              <input type="range" min="0" max="0.18" value="0.06" step="0.01" style="--range-fill: 33.33%" />
+            </label>
+
+            <fieldset class="palette-picker">
+              <legend>Colors</legend>
+              <div class="palette-options">
+                <button type="button" aria-label="Mineral palette" aria-pressed="true">
+                  <span
+                    class="palette-chip"
+                    style="--palette-gradient: linear-gradient(90deg, #527b78 0%, #df9d77 52%, #c2ccae 100%)"
+                  ></span>
+                </button>
+                <button type="button" aria-label="Iris palette" aria-pressed="false">
+                  <span
+                    class="palette-chip"
+                    style="--palette-gradient: linear-gradient(90deg, #6d64a7 0%, #d6a2b6 52%, #8fb8c2 100%)"
+                  ></span>
+                </button>
+                <button type="button" aria-label="Citrus palette" aria-pressed="false">
+                  <span
+                    class="palette-chip"
+                    style="--palette-gradient: linear-gradient(90deg, #b2bd63 0%, #e6865e 52%, #80ad91 100%)"
+                  ></span>
+                </button>
+              </div>
+            </fieldset>
+
+            <div class="panel-actions">
+              <button class="text-button" type="button">Randomize</button>
+            </div>
+          </div>
+        </form>
+      </section>
+    </div>
+  </body>
+</html>

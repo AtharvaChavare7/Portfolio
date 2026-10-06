@@ -1,0 +1,134 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta
+      name="description"
+      content="An interactive collection of mathematical WebGL shader studies."
+    />
+    <title>Shader playground</title>
+    <link rel="stylesheet" href="/src/styles.css" />
+  </head>
+  <body>
+    <main class="page">
+      <section class="shader-card" aria-labelledby="card-title">
+        <canvas class="shader-canvas" aria-hidden="true"></canvas>
+        <div class="readability-wash" aria-hidden="true"></div>
+
+        <div class="intro">
+          <p class="eyebrow">
+            WebGL study · <span class="eyebrow-study" data-study-name>Aurora field</span>
+          </p>
+          <h1 id="card-title">
+            outside of work, you’ll find me playing badminton, watching movies
+            or building out my ideas
+          </h1>
+          <p class="hint">Move to bend the field · click to shift its center</p>
+        </div>
+
+        <form class="controls" id="shader-controls">
+          <div class="control-head">
+            <div class="panel-heading">
+              <p class="panel-label">
+                <span class="label-open">Shader lab</span>
+              </p>
+              <p class="panel-title" data-panel-title>Aurora field</p>
+            </div>
+            <button
+              class="icon-button controls-disclosure"
+              type="button"
+              aria-label="Expand controls"
+              aria-expanded="false"
+              aria-controls="controls-body"
+            >
+              <svg class="disclosure-icon disclosure-icon--open" viewBox="0 0 28 28" width="28" height="28" aria-hidden="true">
+                <circle cx="14" cy="14" r="7.25" stroke="currentColor" stroke-width="1.75" opacity="0.45"/>
+                <circle cx="14" cy="14" r="2.75" fill="currentColor"/>
+                <path d="M14 5.5v2.25M14 20.25v2.25M5.5 14h2.25M20.25 14H22.5" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" opacity="0.65"/>
+                <path d="M8.2 8.2l1.6 1.6M18.2 18.2l1.6 1.6M18.2 8.2l-1.6 1.6M8.2 18.2l-1.6 1.6" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" opacity="0.35"/>
+              </svg>
+              <svg class="disclosure-icon disclosure-icon--close" viewBox="0 0 28 28" width="28" height="28" aria-hidden="true">
+                <path d="M9.25 9.25l9.5 9.5M18.75 9.25l-9.5 9.5" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+              </svg>
+            </button>
+          </div>
+
+          <div class="controls-body" id="controls-body">
+            <fieldset class="study-picker" style="--study-active: 0">
+              <legend class="sr-only">Shader study</legend>
+              <span class="study-picker-indicator" aria-hidden="true"></span>
+              <button type="button" data-mode="0" aria-pressed="true">Aurora</button>
+              <button type="button" data-mode="3" aria-pressed="false">Silk</button>
+              <button type="button" data-mode="1" aria-pressed="false">Contours</button>
+              <button type="button" data-mode="2" aria-pressed="false">Glass</button>
+            </fieldset>
+
+            <label class="range-control">
+              <span><span>Motion</span><output for="speed">0.45</output></span>
+              <input id="speed" name="speed" type="range" min="0" max="1.2" value="0.45" step="0.01" />
+            </label>
+            <label class="range-control">
+              <span><span>Scale</span><output for="scale">1.25</output></span>
+              <input id="scale" name="scale" type="range" min="0.5" max="3" value="1.25" step="0.01" />
+            </label>
+            <label class="range-control">
+              <span><span>Warp</span><output for="warp">0.62</output></span>
+              <input id="warp" name="warp" type="range" min="0" max="1.5" value="0.62" step="0.01" />
+            </label>
+            <label class="range-control">
+              <span><span>Grain</span><output for="grain">0.06</output></span>
+              <input id="grain" name="grain" type="range" min="0" max="0.18" value="0.06" step="0.01" />
+            </label>
+
+            <fieldset class="palette-picker">
+              <legend>Colors</legend>
+              <div class="palette-options">
+                <button
+                  type="button"
+                  data-palette="0"
+                  aria-label="Mineral palette"
+                  aria-pressed="true"
+                >
+                  <span
+                    class="palette-chip"
+                    style="--palette-gradient: linear-gradient(90deg, #527b78 0%, #df9d77 52%, #c2ccae 100%)"
+                  ></span>
+                </button>
+                <button
+                  type="button"
+                  data-palette="1"
+                  aria-label="Iris palette"
+                  aria-pressed="false"
+                >
+                  <span
+                    class="palette-chip"
+                    style="--palette-gradient: linear-gradient(90deg, #6d64a7 0%, #d6a2b6 52%, #8fb8c2 100%)"
+                  ></span>
+                </button>
+                <button
+                  type="button"
+                  data-palette="2"
+                  aria-label="Citrus palette"
+                  aria-pressed="false"
+                >
+                  <span
+                    class="palette-chip"
+                    style="--palette-gradient: linear-gradient(90deg, #b2bd63 0%, #e6865e 52%, #80ad91 100%)"
+                  ></span>
+                </button>
+              </div>
+            </fieldset>
+
+            <div class="panel-actions">
+              <button class="text-button" type="button" data-action="randomize">Randomize</button>
+            </div>
+          </div>
+        </form>
+
+        <p class="status sr-only" aria-live="polite"></p>
+      </section>
+    </main>
+    <script type="module" src="/src/main.js"></script>
+  </body>
+</html>

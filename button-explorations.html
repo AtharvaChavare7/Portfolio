@@ -1,0 +1,2645 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <script src="clock-favicon.js"></script>
+  <meta name="theme-color" content="#f2f0e9">
+  <title>Read Case Study — Button Explorations</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Geist+Mono:wght@500&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --paper: #f2f0e9;
+      --ink: #111214;
+      --muted: #6d6c68;
+      --line: rgba(17, 18, 20, 0.13);
+      --card: rgba(255, 255, 255, 0.64);
+      --ease-out: cubic-bezier(0.16, 1, 0.3, 1);
+      --ease-spring: cubic-bezier(0.34, 1.56, 0.64, 1);
+    }
+
+    * {
+      box-sizing: border-box;
+    }
+
+    html {
+      scroll-behavior: smooth;
+    }
+
+    body {
+      min-width: 320px;
+      margin: 0;
+      color: var(--ink);
+      background:
+        radial-gradient(circle at 8% 0%, rgba(255, 255, 255, 0.95), transparent 31rem),
+        radial-gradient(circle at 100% 8%, rgba(197, 185, 255, 0.22), transparent 28rem),
+        var(--paper);
+      font-family: "Manrope", "Avenir Next", Avenir, Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+      -webkit-font-smoothing: antialiased;
+    }
+
+    button {
+      font: inherit;
+    }
+
+    button:focus-visible {
+      outline: 3px solid #6c5cff;
+      outline-offset: 4px;
+    }
+
+    .page-shell {
+      width: min(1480px, calc(100% - 40px));
+      margin: 0 auto;
+      padding: 28px 0 72px;
+    }
+
+    .hero {
+      position: relative;
+      min-height: 400px;
+      padding: clamp(28px, 5vw, 72px);
+      overflow: hidden;
+      border: 1px solid rgba(17, 18, 20, 0.12);
+      border-radius: 32px;
+      background:
+        linear-gradient(120deg, rgba(255, 255, 255, 0.78), rgba(255, 255, 255, 0.38)),
+        repeating-linear-gradient(90deg, transparent 0 79px, rgba(17, 18, 20, 0.035) 79px 80px);
+      box-shadow: 0 24px 70px rgba(48, 44, 33, 0.08);
+    }
+
+    .hero::before,
+    .hero::after {
+      position: absolute;
+      content: "";
+      border-radius: 999px;
+      pointer-events: none;
+    }
+
+    .hero::before {
+      top: -160px;
+      right: -90px;
+      width: 410px;
+      height: 410px;
+      background: conic-gradient(from 210deg, #ff6b57, #ffdd67, #72e2a0, #7a6cff, #ff6b57);
+      opacity: 0.5;
+      animation: hero-orbit 18s linear infinite;
+    }
+
+    .hero::after {
+      right: 130px;
+      bottom: -240px;
+      width: 360px;
+      height: 360px;
+      border: 1px solid rgba(17, 18, 20, 0.14);
+      box-shadow:
+        0 0 0 38px rgba(255, 255, 255, 0.22),
+        0 0 0 39px rgba(17, 18, 20, 0.08),
+        0 0 0 78px rgba(255, 255, 255, 0.15),
+        0 0 0 79px rgba(17, 18, 20, 0.06);
+    }
+
+    @keyframes hero-orbit {
+      to { transform: rotate(360deg); }
+    }
+
+    .eyebrow {
+      position: relative;
+      z-index: 1;
+      display: inline-flex;
+      align-items: center;
+      gap: 10px;
+      margin: 0 0 34px;
+      padding: 8px 12px;
+      border: 1px solid rgba(17, 18, 20, 0.14);
+      border-radius: 999px;
+      background: rgba(255, 255, 255, 0.54);
+      font-size: 11px;
+      font-weight: 700;
+      letter-spacing: 0.13em;
+      text-transform: uppercase;
+      backdrop-filter: blur(10px);
+    }
+
+    .eyebrow__dot {
+      width: 7px;
+      height: 7px;
+      border-radius: 50%;
+      background: #6557ff;
+      box-shadow: 0 0 0 5px rgba(101, 87, 255, 0.13);
+      animation: dot-pulse 2.2s ease-in-out infinite;
+    }
+
+    @keyframes dot-pulse {
+      50% { box-shadow: 0 0 0 8px rgba(101, 87, 255, 0); }
+    }
+
+    .hero h1 {
+      position: relative;
+      z-index: 1;
+      max-width: 1000px;
+      margin: 0;
+      font-size: clamp(54px, 8.2vw, 124px);
+      font-weight: 500;
+      letter-spacing: -0.075em;
+      line-height: 0.83;
+    }
+
+    .hero h1 span {
+      display: block;
+    }
+
+    .hero h1 em {
+      font-family: "DM Serif Display", Georgia, "Times New Roman", serif;
+      font-weight: 400;
+      letter-spacing: -0.045em;
+    }
+
+    .hero__bottom {
+      position: relative;
+      z-index: 1;
+      display: flex;
+      align-items: end;
+      justify-content: space-between;
+      gap: 28px;
+      margin-top: 54px;
+    }
+
+    .hero__intro {
+      max-width: 590px;
+      margin: 0;
+      color: #55544f;
+      font-size: 15px;
+      line-height: 1.65;
+    }
+
+    .hero__legend {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: flex-end;
+      gap: 8px;
+    }
+
+    .hero__legend span {
+      padding: 9px 12px;
+      border-radius: 999px;
+      background: #111214;
+      color: white;
+      font-size: 10px;
+      font-weight: 700;
+      letter-spacing: 0.09em;
+      text-transform: uppercase;
+    }
+
+    .section-heading {
+      display: flex;
+      align-items: end;
+      justify-content: space-between;
+      gap: 24px;
+      margin: 64px 4px 20px;
+    }
+
+    .section-heading h2 {
+      margin: 0;
+      font-size: clamp(27px, 3.2vw, 44px);
+      font-weight: 600;
+      letter-spacing: -0.055em;
+    }
+
+    .section-heading p {
+      margin: 0 0 5px;
+      color: var(--muted);
+      font-size: 12px;
+      letter-spacing: 0.07em;
+      text-transform: uppercase;
+    }
+
+    .gallery {
+      display: grid;
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      gap: 16px;
+    }
+
+    .concept {
+      position: relative;
+      min-width: 0;
+      padding: 16px;
+      border: 1px solid var(--line);
+      border-radius: 26px;
+      background: var(--card);
+      box-shadow: 0 14px 35px rgba(46, 42, 32, 0.045);
+      backdrop-filter: blur(14px);
+      transition:
+        transform 500ms var(--ease-out),
+        box-shadow 500ms var(--ease-out),
+        border-color 500ms var(--ease-out);
+    }
+
+    .concept:hover {
+      z-index: 2;
+      border-color: rgba(17, 18, 20, 0.22);
+      box-shadow: 0 24px 55px rgba(46, 42, 32, 0.1);
+      transform: translateY(-4px);
+    }
+
+    .concept__head,
+    .concept__foot {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 16px;
+    }
+
+    .concept__head {
+      min-height: 52px;
+      padding: 2px 3px 14px;
+    }
+
+    .concept__identity {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      min-width: 0;
+    }
+
+    .concept__number {
+      display: grid;
+      width: 30px;
+      height: 30px;
+      flex: 0 0 auto;
+      place-items: center;
+      border: 1px solid var(--line);
+      border-radius: 9px;
+      color: #77756e;
+      font-size: 10px;
+      font-weight: 700;
+    }
+
+    .concept__title {
+      overflow: hidden;
+      margin: 0;
+      font-size: 13px;
+      font-weight: 700;
+      letter-spacing: -0.02em;
+      text-overflow: ellipsis;
+      white-space: nowrap;
+    }
+
+    .concept__tag {
+      flex: 0 0 auto;
+      padding: 6px 8px;
+      border-radius: 7px;
+      background: rgba(17, 18, 20, 0.06);
+      color: #706f69;
+      font-size: 8px;
+      font-weight: 700;
+      letter-spacing: 0.11em;
+      text-transform: uppercase;
+    }
+
+    .stage {
+      position: relative;
+      display: grid;
+      min-height: 236px;
+      overflow: hidden;
+      place-items: center;
+      border-radius: 18px;
+      isolation: isolate;
+    }
+
+    .stage::before {
+      position: absolute;
+      z-index: -1;
+      inset: 0;
+      content: "";
+      pointer-events: none;
+    }
+
+    .concept__foot {
+      min-height: 44px;
+      padding: 14px 3px 0;
+      color: #77756f;
+      font-size: 10px;
+      font-weight: 600;
+    }
+
+    .concept__signal {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      flex: 0 0 auto;
+      font-size: 8px;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+    }
+
+    .concept__signal i {
+      width: 5px;
+      height: 5px;
+      border-radius: 50%;
+      background: #69bf7b;
+      box-shadow: 0 0 0 3px rgba(105, 191, 123, 0.14);
+    }
+
+    .concept.is-triggered .concept__number {
+      border-color: #111214;
+      background: #111214;
+      color: white;
+      animation: number-pop 620ms var(--ease-spring);
+    }
+
+    @keyframes number-pop {
+      35% { transform: rotate(-8deg) scale(1.2); }
+    }
+
+    .case-button {
+      --pointer-x: 50%;
+      --pointer-y: 50%;
+      position: relative;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      border: 0;
+      cursor: pointer;
+      user-select: none;
+      -webkit-tap-highlight-color: transparent;
+    }
+
+    .case-button .arrow {
+      display: block;
+      width: 19px;
+      height: 19px;
+      fill: none;
+      stroke: currentColor;
+      stroke-linecap: round;
+      stroke-linejoin: round;
+      stroke-width: 1.8;
+    }
+
+    .click-ripple {
+      position: absolute;
+      z-index: 20;
+      width: 12px;
+      height: 12px;
+      border: 1px solid currentColor;
+      border-radius: 50%;
+      pointer-events: none;
+      transform: translate(-50%, -50%) scale(0);
+      animation: click-ripple 680ms var(--ease-out) forwards;
+    }
+
+    @keyframes click-ripple {
+      55% { opacity: 0.32; }
+      to {
+        opacity: 0;
+        transform: translate(-50%, -50%) scale(12);
+      }
+    }
+
+    /* 01 — Magnetic mono */
+    .stage--magnetic {
+      background:
+        radial-gradient(circle at 50% 115%, rgba(123, 107, 255, 0.3), transparent 48%),
+        #111214;
+    }
+
+    .stage--magnetic::before {
+      opacity: 0.12;
+      background-image: radial-gradient(circle, white 0 1px, transparent 1px);
+      background-size: 17px 17px;
+    }
+
+    .btn-magnetic {
+      --mag-x: 0px;
+      --mag-y: 0px;
+      --inner-x: 0px;
+      --inner-y: 0px;
+      gap: 26px;
+      min-width: 224px;
+      height: 64px;
+      padding: 7px 8px 7px 25px;
+      overflow: hidden;
+      border: 1px solid rgba(255, 255, 255, 0.2);
+      border-radius: 999px;
+      background: rgba(255, 255, 255, 0.08);
+      color: white;
+      box-shadow: inset 0 1px rgba(255, 255, 255, 0.13);
+      transform: translate3d(var(--mag-x), var(--mag-y), 0);
+      transition:
+        transform 180ms ease-out,
+        background 350ms ease,
+        border-color 350ms ease;
+      backdrop-filter: blur(10px);
+    }
+
+    .btn-magnetic:hover {
+      border-color: rgba(255, 255, 255, 0.42);
+      background: rgba(255, 255, 255, 0.13);
+    }
+
+    .btn-magnetic__label {
+      position: relative;
+      z-index: 2;
+      font-size: 13px;
+      font-weight: 600;
+      transform: translate3d(var(--inner-x), var(--inner-y), 0);
+      transition: transform 220ms ease-out;
+    }
+
+    .btn-magnetic__disc {
+      position: relative;
+      z-index: 2;
+      display: grid;
+      width: 48px;
+      height: 48px;
+      flex: 0 0 auto;
+      place-items: center;
+      border-radius: 50%;
+      background: #f4f2eb;
+      color: #111214;
+      transform: translate3d(var(--inner-x), var(--inner-y), 0);
+      transition: transform 280ms var(--ease-spring);
+    }
+
+    .btn-magnetic:hover .btn-magnetic__disc {
+      transform: translate3d(var(--inner-x), var(--inner-y), 0) rotate(45deg);
+    }
+
+    .btn-magnetic.is-clicked .btn-magnetic__disc {
+      animation: magnetic-launch 650ms var(--ease-out);
+    }
+
+    @keyframes magnetic-launch {
+      45% {
+        box-shadow: 0 0 0 18px rgba(255, 255, 255, 0.1);
+        transform: scale(0.86) rotate(45deg);
+      }
+    }
+
+    /* 02 — Color wipe */
+    .stage--wipe {
+      background: #ff5b4d;
+    }
+
+    .stage--wipe::before {
+      opacity: 0.18;
+      background:
+        linear-gradient(135deg, transparent 48%, rgba(63, 20, 12, 0.3) 49% 51%, transparent 52%) 0 0 / 34px 34px;
+    }
+
+    .btn-wipe {
+      min-width: 230px;
+      height: 62px;
+      gap: 22px;
+      padding: 0 10px 0 24px;
+      overflow: hidden;
+      border: 1px solid #21120f;
+      border-radius: 8px;
+      background: #fff6ec;
+      color: #21120f;
+      box-shadow: 5px 5px 0 #21120f;
+      transition:
+        box-shadow 300ms var(--ease-out),
+        transform 300ms var(--ease-out);
+    }
+
+    .btn-wipe::before {
+      position: absolute;
+      inset: 0;
+      content: "";
+      background: #21120f;
+      transform: translateX(-102%);
+      transition: transform 500ms var(--ease-out);
+    }
+
+    .btn-wipe__label,
+    .btn-wipe__icon {
+      position: relative;
+      z-index: 1;
+    }
+
+    .btn-wipe__label {
+      font-size: 13px;
+      font-weight: 700;
+    }
+
+    .btn-wipe__icon {
+      display: grid;
+      width: 43px;
+      height: 43px;
+      flex: 0 0 auto;
+      place-items: center;
+      border-radius: 6px;
+      background: #ff5b4d;
+      transition:
+        background 350ms ease,
+        color 350ms ease,
+        transform 500ms var(--ease-spring);
+    }
+
+    .btn-wipe:hover {
+      color: #fff6ec;
+      box-shadow: 8px 8px 0 #21120f;
+      transform: translate(-3px, -3px);
+    }
+
+    .btn-wipe:hover::before {
+      transform: translateX(0);
+    }
+
+    .btn-wipe:hover .btn-wipe__icon {
+      background: #fff6ec;
+      color: #21120f;
+      transform: rotate(45deg);
+    }
+
+    .btn-wipe.is-clicked {
+      box-shadow: 1px 1px 0 #21120f;
+      transform: translate(4px, 4px);
+    }
+
+    /* 03 — Orbit */
+    .stage--orbit {
+      background:
+        radial-gradient(circle at 24% 20%, rgba(255, 255, 255, 0.52), transparent 18%),
+        #cabdff;
+    }
+
+    .stage--orbit::before {
+      top: 25%;
+      left: 23%;
+      width: 230px;
+      height: 230px;
+      border: 1px solid rgba(45, 27, 105, 0.13);
+      border-radius: 50%;
+      box-shadow:
+        0 0 0 28px rgba(255, 255, 255, 0.08),
+        0 0 0 29px rgba(45, 27, 105, 0.08);
+    }
+
+    .btn-orbit {
+      min-width: 236px;
+      height: 66px;
+      gap: 22px;
+      padding: 7px 8px 7px 26px;
+      overflow: visible;
+      border: 1px solid #2e1e63;
+      border-radius: 999px;
+      background: rgba(255, 255, 255, 0.75);
+      color: #2e1e63;
+      box-shadow: 0 12px 30px rgba(46, 30, 99, 0.13);
+      transition:
+        color 450ms var(--ease-out),
+        background 450ms var(--ease-out),
+        transform 450ms var(--ease-spring);
+      backdrop-filter: blur(9px);
+    }
+
+    .btn-orbit__label {
+      font-size: 13px;
+      font-weight: 700;
+    }
+
+    .btn-orbit__track {
+      position: relative;
+      display: grid;
+      width: 50px;
+      height: 50px;
+      flex: 0 0 auto;
+      place-items: center;
+      border: 1px solid currentColor;
+      border-radius: 50%;
+    }
+
+    .btn-orbit__satellite {
+      position: absolute;
+      top: -4px;
+      left: 20px;
+      width: 8px;
+      height: 8px;
+      border: 2px solid white;
+      border-radius: 50%;
+      background: #6a4fff;
+      box-shadow: 0 2px 5px rgba(46, 30, 99, 0.3);
+      transform-origin: 4px 29px;
+    }
+
+    .btn-orbit:hover {
+      background: #2e1e63;
+      color: white;
+      transform: scale(1.035);
+    }
+
+    .btn-orbit:hover .btn-orbit__satellite {
+      animation: satellite-orbit 1.25s linear infinite;
+    }
+
+    .btn-orbit:hover .arrow {
+      animation: orbit-arrow 650ms var(--ease-spring);
+    }
+
+    @keyframes satellite-orbit {
+      to { transform: rotate(360deg); }
+    }
+
+    @keyframes orbit-arrow {
+      50% { transform: translate(5px, -5px); }
+    }
+
+    .btn-orbit.is-clicked .btn-orbit__track {
+      animation: orbit-confirm 700ms var(--ease-out);
+    }
+
+    @keyframes orbit-confirm {
+      45% {
+        color: #2e1e63;
+        background: #8ff0ad;
+        box-shadow: 0 0 0 20px rgba(143, 240, 173, 0.18);
+        transform: rotate(45deg);
+      }
+    }
+
+    /* 04 — Liquid glass */
+    .stage--glass {
+      background:
+        radial-gradient(circle at 10% 95%, #ffbc80 0, transparent 40%),
+        radial-gradient(circle at 100% 0%, #7e75ff 0, transparent 42%),
+        linear-gradient(145deg, #ffc5d5, #8ddde2);
+    }
+
+    .stage--glass::before {
+      inset: -45%;
+      opacity: 0.65;
+      background: conic-gradient(from 90deg, transparent, rgba(255, 255, 255, 0.82), transparent 28%);
+      animation: glass-light 7s linear infinite;
+    }
+
+    @keyframes glass-light {
+      to { transform: rotate(360deg); }
+    }
+
+    .btn-glass {
+      min-width: 238px;
+      height: 68px;
+      gap: 25px;
+      padding: 8px 9px 8px 26px;
+      overflow: hidden;
+      border: 1px solid rgba(255, 255, 255, 0.54);
+      border-radius: 20px;
+      background:
+        radial-gradient(circle at var(--pointer-x) var(--pointer-y), rgba(255, 255, 255, 0.48), transparent 38%),
+        rgba(255, 255, 255, 0.19);
+      color: #172229;
+      box-shadow:
+        inset 0 1px rgba(255, 255, 255, 0.6),
+        inset 0 -1px rgba(255, 255, 255, 0.12),
+        0 15px 38px rgba(42, 54, 70, 0.16);
+      transition:
+        border-radius 450ms var(--ease-spring),
+        transform 450ms var(--ease-spring),
+        background 120ms linear;
+      backdrop-filter: blur(17px) saturate(140%);
+    }
+
+    .btn-glass::after {
+      position: absolute;
+      top: 4px;
+      right: 18px;
+      left: 18px;
+      height: 1px;
+      content: "";
+      background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.9), transparent);
+    }
+
+    .btn-glass__label {
+      font-size: 13px;
+      font-weight: 700;
+    }
+
+    .btn-glass__icon {
+      display: grid;
+      width: 50px;
+      height: 50px;
+      flex: 0 0 auto;
+      place-items: center;
+      border: 1px solid rgba(255, 255, 255, 0.58);
+      border-radius: 15px;
+      background: rgba(255, 255, 255, 0.3);
+      box-shadow: inset 0 1px rgba(255, 255, 255, 0.55);
+      transition:
+        border-radius 450ms var(--ease-spring),
+        transform 450ms var(--ease-spring);
+    }
+
+    .btn-glass:hover {
+      border-radius: 34px;
+      transform: translateY(-3px) scale(1.02);
+    }
+
+    .btn-glass:hover .btn-glass__icon {
+      border-radius: 50%;
+      transform: rotate(45deg);
+    }
+
+    .btn-glass.is-clicked {
+      animation: glass-press 650ms var(--ease-spring);
+    }
+
+    @keyframes glass-press {
+      35% { filter: brightness(1.18); transform: scale(0.96); }
+    }
+
+    /* 05 — Editorial */
+    .stage--editorial {
+      background: #e9e2d3;
+    }
+
+    .stage--editorial::before {
+      inset: 22px;
+      border: 1px solid rgba(28, 25, 21, 0.14);
+    }
+
+    .btn-editorial {
+      width: 245px;
+      height: 70px;
+      justify-content: space-between;
+      padding: 0 0 8px;
+      overflow: visible;
+      border-bottom: 1px solid #1c1915;
+      background: transparent;
+      color: #1c1915;
+    }
+
+    .btn-editorial__index {
+      position: absolute;
+      top: 6px;
+      left: 0;
+      color: #8e877b;
+      font-size: 9px;
+      font-weight: 700;
+      letter-spacing: 0.14em;
+    }
+
+    .btn-editorial__label {
+      align-self: end;
+      font-family: "DM Serif Display", Georgia, "Times New Roman", serif;
+      font-size: 24px;
+      letter-spacing: -0.035em;
+      transition:
+        letter-spacing 450ms var(--ease-out),
+        transform 450ms var(--ease-out);
+    }
+
+    .btn-editorial__arrow {
+      display: grid;
+      width: 44px;
+      height: 44px;
+      align-self: end;
+      place-items: center;
+      border: 1px solid #1c1915;
+      border-radius: 50%;
+      transition:
+        background 450ms var(--ease-out),
+        color 450ms var(--ease-out),
+        transform 450ms var(--ease-spring);
+    }
+
+    .btn-editorial::after {
+      position: absolute;
+      right: 0;
+      bottom: -1px;
+      left: 0;
+      height: 3px;
+      content: "";
+      background: #1c1915;
+      transform: scaleX(0);
+      transform-origin: right;
+      transition: transform 600ms var(--ease-out);
+    }
+
+    .btn-editorial:hover::after {
+      transform: scaleX(1);
+      transform-origin: left;
+    }
+
+    .btn-editorial:hover .btn-editorial__label {
+      letter-spacing: -0.055em;
+      transform: translateX(5px);
+    }
+
+    .btn-editorial:hover .btn-editorial__arrow {
+      background: #1c1915;
+      color: #e9e2d3;
+      transform: rotate(45deg);
+    }
+
+    .btn-editorial.is-clicked .btn-editorial__label {
+      animation: editorial-flip 620ms var(--ease-spring);
+    }
+
+    @keyframes editorial-flip {
+      45% { opacity: 0; transform: translateY(-12px); }
+      46% { transform: translateY(12px); }
+    }
+
+    /* 06 — Neo brutal */
+    .stage--brutal {
+      background: #62a9ff;
+    }
+
+    .stage--brutal::before {
+      background:
+        linear-gradient(rgba(17, 18, 20, 0.11) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(17, 18, 20, 0.11) 1px, transparent 1px);
+      background-size: 26px 26px;
+    }
+
+    .btn-brutal {
+      min-width: 237px;
+      height: 64px;
+      gap: 22px;
+      padding: 0 9px 0 23px;
+      overflow: visible;
+      border: 2px solid #111214;
+      border-radius: 0;
+      background: #ffe462;
+      color: #111214;
+      box-shadow: 8px 8px 0 #111214;
+      text-transform: uppercase;
+      transition:
+        box-shadow 220ms ease,
+        transform 220ms ease;
+    }
+
+    .btn-brutal__label {
+      font-size: 11px;
+      font-weight: 800;
+      letter-spacing: 0.08em;
+    }
+
+    .btn-brutal__icon {
+      display: grid;
+      width: 44px;
+      height: 44px;
+      place-items: center;
+      border: 2px solid #111214;
+      background: #ff6d58;
+      transition: transform 420ms var(--ease-spring);
+    }
+
+    .btn-brutal:hover {
+      box-shadow: 12px 12px 0 #111214;
+      transform: translate(-4px, -4px);
+    }
+
+    .btn-brutal:hover .btn-brutal__icon {
+      transform: rotate(-8deg) scale(1.06);
+    }
+
+    .btn-brutal:active,
+    .btn-brutal.is-clicked {
+      box-shadow: 1px 1px 0 #111214;
+      transform: translate(7px, 7px);
+    }
+
+    .btn-brutal.is-clicked .btn-brutal__icon {
+      animation: brutal-jolt 480ms steps(2, end);
+    }
+
+    @keyframes brutal-jolt {
+      35% { transform: translateX(-5px) rotate(-12deg); }
+      70% { transform: translateX(5px) rotate(12deg); }
+    }
+
+    /* 07 — Elastic capsule */
+    .stage--elastic {
+      background:
+        radial-gradient(circle at 80% 22%, rgba(255, 255, 255, 0.72) 0 5px, transparent 6px),
+        radial-gradient(circle at 18% 80%, rgba(255, 255, 255, 0.5) 0 3px, transparent 4px),
+        #dedcff;
+    }
+
+    .btn-elastic {
+      min-width: 238px;
+      height: 66px;
+      justify-content: space-between;
+      padding: 7px 8px 7px 25px;
+      overflow: hidden;
+      border-radius: 999px;
+      background: #5257ea;
+      color: white;
+      box-shadow: 0 17px 34px rgba(67, 62, 190, 0.25);
+      transition:
+        border-radius 520ms var(--ease-spring),
+        transform 520ms var(--ease-spring);
+    }
+
+    .btn-elastic__label {
+      position: relative;
+      z-index: 2;
+      font-size: 13px;
+      font-weight: 700;
+      transition:
+        color 450ms ease,
+        transform 520ms var(--ease-spring);
+    }
+
+    .btn-elastic__bubble {
+      position: relative;
+      z-index: 1;
+      display: grid;
+      width: 50px;
+      height: 50px;
+      flex: 0 0 auto;
+      place-items: center;
+      overflow: hidden;
+      border-radius: 999px;
+      background: white;
+      color: #3034ad;
+      transition:
+        width 520ms var(--ease-spring),
+        transform 520ms var(--ease-spring);
+    }
+
+    .btn-elastic:hover {
+      border-radius: 20px;
+      transform: scale(1.025);
+    }
+
+    .btn-elastic:hover .btn-elastic__label {
+      transform: translateX(4px);
+    }
+
+    .btn-elastic:hover .btn-elastic__bubble {
+      width: 82px;
+    }
+
+    .btn-elastic:hover .arrow {
+      transform: translateX(12px) rotate(45deg);
+      transition: transform 520ms var(--ease-spring);
+    }
+
+    .btn-elastic.is-clicked {
+      animation: elastic-squash 720ms var(--ease-spring);
+    }
+
+    @keyframes elastic-squash {
+      30% { transform: scaleX(0.92) scaleY(1.08); }
+      60% { transform: scaleX(1.05) scaleY(0.96); }
+    }
+
+    /* 08 — Aurora border */
+    .stage--aurora {
+      background:
+        radial-gradient(circle at 50% 140%, #353a8f 0, transparent 55%),
+        #080914;
+    }
+
+    .stage--aurora::before {
+      opacity: 0.22;
+      background-image:
+        radial-gradient(circle at 20% 30%, #7f5cff 0 1px, transparent 2px),
+        radial-gradient(circle at 70% 22%, #68ffe2 0 1px, transparent 2px),
+        radial-gradient(circle at 80% 72%, #ff6fcb 0 1px, transparent 2px);
+      background-size: 48px 48px, 72px 72px, 61px 61px;
+    }
+
+    .aurora-shell {
+      position: relative;
+      display: grid;
+      overflow: hidden;
+      padding: 2px;
+      border-radius: 999px;
+      place-items: center;
+      box-shadow: 0 18px 45px rgba(0, 0, 0, 0.42);
+    }
+
+    .aurora-shell::before {
+      position: absolute;
+      width: 150%;
+      aspect-ratio: 1;
+      content: "";
+      background: conic-gradient(from 0deg, #7f5cff, #59f4d3, #f8eb73, #ff62c0, #7f5cff);
+      transition: filter 400ms ease;
+    }
+
+    .aurora-shell:hover::before {
+      animation: aurora-spin 1.7s linear infinite;
+      filter: saturate(1.4) brightness(1.2);
+    }
+
+    @keyframes aurora-spin {
+      to { transform: rotate(360deg); }
+    }
+
+    .btn-aurora {
+      z-index: 1;
+      min-width: 236px;
+      height: 62px;
+      gap: 25px;
+      padding: 7px 8px 7px 25px;
+      overflow: hidden;
+      border-radius: 999px;
+      background: #0c0d19;
+      color: white;
+    }
+
+    .btn-aurora::before {
+      position: absolute;
+      inset: 0;
+      content: "";
+      background: radial-gradient(circle at var(--pointer-x) var(--pointer-y), rgba(127, 92, 255, 0.26), transparent 38%);
+    }
+
+    .btn-aurora__label,
+    .btn-aurora__icon {
+      position: relative;
+      z-index: 1;
+    }
+
+    .btn-aurora__label {
+      font-size: 13px;
+      font-weight: 600;
+    }
+
+    .btn-aurora__icon {
+      display: grid;
+      width: 46px;
+      height: 46px;
+      place-items: center;
+      border-radius: 50%;
+      background: linear-gradient(135deg, #7f5cff, #ff62c0);
+      color: white;
+      transition: transform 500ms var(--ease-spring);
+    }
+
+    .btn-aurora:hover .btn-aurora__icon {
+      transform: rotate(45deg) scale(1.06);
+    }
+
+    .concept.is-triggered .aurora-shell {
+      animation: aurora-flash 650ms var(--ease-out);
+    }
+
+    @keyframes aurora-flash {
+      45% {
+        box-shadow:
+          0 0 0 15px rgba(103, 245, 217, 0.13),
+          0 0 45px rgba(127, 92, 255, 0.55);
+      }
+    }
+
+    /* 09 — Layer stack */
+    .stage--stack {
+      background: #bde9d0;
+    }
+
+    .stage--stack::before {
+      opacity: 0.32;
+      background:
+        repeating-linear-gradient(-45deg, transparent 0 12px, rgba(14, 50, 34, 0.08) 12px 13px);
+    }
+
+    .stack-shell {
+      position: relative;
+      width: 234px;
+      height: 64px;
+    }
+
+    .stack-shell::before,
+    .stack-shell::after {
+      position: absolute;
+      inset: 0;
+      content: "";
+      border: 1px solid #123a29;
+      border-radius: 15px;
+      transition: transform 520ms var(--ease-spring);
+    }
+
+    .stack-shell::before {
+      background: #ff8e73;
+      transform: translate(8px, 8px);
+    }
+
+    .stack-shell::after {
+      background: #ffe274;
+      transform: translate(4px, 4px);
+    }
+
+    .btn-stack {
+      z-index: 2;
+      width: 100%;
+      height: 100%;
+      justify-content: space-between;
+      padding: 0 10px 0 23px;
+      overflow: hidden;
+      border: 1px solid #123a29;
+      border-radius: 15px;
+      background: #fffef8;
+      color: #123a29;
+      transition: transform 520ms var(--ease-spring);
+    }
+
+    .btn-stack__label {
+      font-size: 13px;
+      font-weight: 700;
+    }
+
+    .btn-stack__icon {
+      display: grid;
+      width: 42px;
+      height: 42px;
+      place-items: center;
+      border-radius: 11px;
+      background: #123a29;
+      color: white;
+      transition: transform 520ms var(--ease-spring);
+    }
+
+    .stack-shell:hover::before {
+      transform: translate(12px, 11px) rotate(4deg);
+    }
+
+    .stack-shell:hover::after {
+      transform: translate(6px, 5px) rotate(-3deg);
+    }
+
+    .stack-shell:hover .btn-stack {
+      transform: translate(-3px, -5px) rotate(-1deg);
+    }
+
+    .stack-shell:hover .btn-stack__icon {
+      transform: rotate(45deg);
+    }
+
+    .concept.is-triggered .stack-shell::before,
+    .concept.is-triggered .stack-shell::after {
+      transform: translate(0, 0);
+    }
+
+    .concept.is-triggered .btn-stack {
+      animation: stack-tap 600ms var(--ease-spring);
+    }
+
+    @keyframes stack-tap {
+      45% { transform: translate(7px, 7px); }
+    }
+
+    /* 10 — Marquee */
+    .stage--marquee {
+      background: #ff894f;
+    }
+
+    .stage--marquee::before {
+      opacity: 0.12;
+      background: repeating-radial-gradient(circle at 0 0, #111214 0 1px, transparent 1px 9px);
+    }
+
+    .btn-marquee {
+      width: 244px;
+      height: 64px;
+      overflow: hidden;
+      border: 1px solid #111214;
+      border-radius: 999px;
+      background: #111214;
+      color: white;
+      box-shadow: 0 12px 28px rgba(80, 31, 11, 0.2);
+    }
+
+    .btn-marquee__track {
+      position: absolute;
+      top: 0;
+      right: 0;
+      left: 0;
+      height: 128px;
+      transition: transform 600ms var(--ease-out);
+    }
+
+    .btn-marquee__line {
+      display: flex;
+      width: 100%;
+      height: 64px;
+      align-items: center;
+      justify-content: space-between;
+      padding: 0 18px 0 25px;
+      font-size: 13px;
+      font-weight: 700;
+    }
+
+    .btn-marquee__line:last-child {
+      background: #d9ff63;
+      color: #111214;
+    }
+
+    .btn-marquee__line .arrow {
+      width: 21px;
+      height: 21px;
+    }
+
+    .btn-marquee:hover .btn-marquee__track {
+      transform: translateY(-64px);
+    }
+
+    .btn-marquee:hover .btn-marquee__line:last-child .arrow {
+      animation: marquee-arrow 780ms var(--ease-out) infinite;
+    }
+
+    @keyframes marquee-arrow {
+      45% { opacity: 0; transform: translate(12px, -12px); }
+      46% { transform: translate(-10px, 10px); }
+    }
+
+    .btn-marquee.is-clicked {
+      animation: marquee-snap 600ms var(--ease-spring);
+    }
+
+    @keyframes marquee-snap {
+      40% { border-radius: 12px; transform: scale(0.96); }
+    }
+
+    /* 11 — Arrow trail */
+    .stage--trail {
+      background: #181a1c;
+    }
+
+    .stage--trail::before {
+      background:
+        radial-gradient(circle at 50% 50%, rgba(255, 255, 255, 0.055), transparent 48%),
+        linear-gradient(90deg, transparent 49.7%, rgba(255, 255, 255, 0.06) 50%, transparent 50.3%),
+        linear-gradient(transparent 49.7%, rgba(255, 255, 255, 0.06) 50%, transparent 50.3%);
+    }
+
+    .btn-trail {
+      width: 240px;
+      height: 64px;
+      justify-content: space-between;
+      padding: 0 19px 0 24px;
+      overflow: hidden;
+      border: 1px solid rgba(255, 255, 255, 0.28);
+      border-radius: 12px;
+      background:
+        radial-gradient(circle at var(--pointer-x) var(--pointer-y), rgba(255, 255, 255, 0.14), transparent 34%),
+        rgba(255, 255, 255, 0.025);
+      color: white;
+      transition:
+        border-color 350ms ease,
+        background 120ms linear;
+    }
+
+    .btn-trail__label {
+      font-size: 13px;
+      font-weight: 600;
+    }
+
+    .btn-trail__arrows {
+      position: relative;
+      width: 48px;
+      height: 24px;
+    }
+
+    .btn-trail__arrows .arrow {
+      position: absolute;
+      top: 2px;
+      right: 0;
+      transition:
+        opacity 450ms var(--ease-out),
+        transform 450ms var(--ease-out);
+    }
+
+    .btn-trail__arrows .arrow:nth-child(1) {
+      opacity: 0.2;
+      transform: translateX(-20px);
+    }
+
+    .btn-trail__arrows .arrow:nth-child(2) {
+      opacity: 0.45;
+      transform: translateX(-10px);
+    }
+
+    .btn-trail:hover {
+      border-color: rgba(255, 255, 255, 0.72);
+    }
+
+    .btn-trail:hover .btn-trail__arrows .arrow:nth-child(1) {
+      opacity: 0;
+      transform: translate(0, -20px);
+    }
+
+    .btn-trail:hover .btn-trail__arrows .arrow:nth-child(2) {
+      opacity: 0.24;
+      transform: translate(-4px, -4px);
+    }
+
+    .btn-trail:hover .btn-trail__arrows .arrow:nth-child(3) {
+      transform: translate(5px, -5px);
+    }
+
+    .btn-trail.is-clicked::after {
+      position: absolute;
+      right: 26px;
+      width: 6px;
+      height: 6px;
+      content: "";
+      border-radius: 50%;
+      background: #fff;
+      box-shadow:
+        0 -25px #b9ff6c,
+        21px -13px #75d9ff,
+        23px 14px #ff8dce,
+        0 25px #ffe476,
+        -22px 13px #ae91ff,
+        -21px -13px #ff8a6d;
+      animation: trail-burst 650ms var(--ease-out) forwards;
+    }
+
+    @keyframes trail-burst {
+      from { opacity: 0; transform: scale(0.2); }
+      45% { opacity: 1; }
+      to { opacity: 0; transform: scale(1.45); }
+    }
+
+    /* 12 — Morph to confirmation */
+    .stage--morph {
+      background:
+        radial-gradient(circle at 18% 15%, rgba(255, 255, 255, 0.28), transparent 28%),
+        #ed6f82;
+    }
+
+    .stage--morph::before {
+      inset: auto auto 20px 20px;
+      width: 75px;
+      height: 75px;
+      border: 1px solid rgba(54, 14, 20, 0.18);
+      border-radius: 50%;
+      box-shadow:
+        0 0 0 18px rgba(255, 255, 255, 0.06),
+        0 0 0 19px rgba(54, 14, 20, 0.08);
+    }
+
+    .btn-morph {
+      min-width: 244px;
+      height: 66px;
+      justify-content: space-between;
+      padding: 7px 8px 7px 25px;
+      overflow: hidden;
+      border: 1px solid rgba(52, 17, 22, 0.92);
+      border-radius: 999px;
+      background: #fff6ed;
+      color: #341116;
+      box-shadow: 0 15px 34px rgba(77, 20, 29, 0.16);
+      transition:
+        border-radius 480ms var(--ease-spring),
+        transform 480ms var(--ease-spring);
+    }
+
+    .btn-morph__label {
+      position: relative;
+      z-index: 2;
+      font-size: 13px;
+      font-weight: 700;
+    }
+
+    .btn-morph__icon {
+      position: relative;
+      display: grid;
+      width: 50px;
+      height: 50px;
+      flex: 0 0 auto;
+      place-items: center;
+      border-radius: 50%;
+      background: #341116;
+      color: white;
+      transition:
+        width 480ms var(--ease-spring),
+        border-radius 480ms var(--ease-spring),
+        background 480ms ease,
+        color 480ms ease;
+    }
+
+    .btn-morph__icon .check {
+      position: absolute;
+      width: 20px;
+      height: 20px;
+      opacity: 0;
+      fill: none;
+      stroke: currentColor;
+      stroke-linecap: round;
+      stroke-linejoin: round;
+      stroke-width: 2;
+      transform: scale(0.3) rotate(-20deg);
+    }
+
+    .btn-morph:hover {
+      border-radius: 18px;
+      transform: translateY(-3px);
+    }
+
+    .btn-morph:hover .btn-morph__icon {
+      width: 70px;
+      border-radius: 13px;
+      background: #ffdc62;
+      color: #341116;
+    }
+
+    .btn-morph:hover .arrow {
+      transform: rotate(45deg);
+      transition: transform 480ms var(--ease-spring);
+    }
+
+    .btn-morph.is-clicked {
+      border-radius: 18px;
+      background: #ecffe8;
+    }
+
+    .btn-morph.is-clicked .btn-morph__icon {
+      width: 70px;
+      border-radius: 13px;
+      background: #5cbf72;
+      color: white;
+    }
+
+    .btn-morph.is-clicked .arrow {
+      opacity: 0;
+      transform: scale(0.2);
+    }
+
+    .btn-morph.is-clicked .check {
+      opacity: 1;
+      transform: scale(1) rotate(0);
+      transition:
+        opacity 220ms ease 80ms,
+        transform 480ms var(--ease-spring) 80ms;
+    }
+
+    /* 13 — Aqua gel: glossy lift on hover, elastic water press on click */
+    .stage--aqua-gel {
+      background:
+        radial-gradient(circle at 78% 18%, rgba(255, 255, 255, 0.98) 0 3px, transparent 4px),
+        radial-gradient(circle at 84% 29%, rgba(255, 255, 255, 0.66) 0 6px, transparent 7px),
+        radial-gradient(circle at 12% 92%, rgba(95, 214, 244, 0.26), transparent 38%),
+        linear-gradient(145deg, #f9fdff, #dff7fb);
+    }
+
+    .stage--aqua-gel::before {
+      inset: 18px;
+      border: 1px solid rgba(85, 190, 221, 0.16);
+      border-radius: 50%;
+      transform: scaleX(1.65);
+    }
+
+    .btn-aqua-gel {
+      width: 250px;
+      height: 74px;
+      justify-content: space-between;
+      padding: 8px 9px 8px 25px;
+      overflow: hidden;
+      border: 1px solid rgba(255, 255, 255, 0.92);
+      border-radius: 29px;
+      background:
+        radial-gradient(circle at var(--pointer-x) var(--pointer-y), rgba(255, 255, 255, 0.64), transparent 34%),
+        linear-gradient(135deg, rgba(187, 245, 255, 0.82), rgba(72, 196, 239, 0.72));
+      color: #07506c;
+      box-shadow:
+        inset 0 3px 4px rgba(255, 255, 255, 0.86),
+        inset 0 -5px 9px rgba(10, 150, 205, 0.18),
+        inset 4px 0 8px rgba(255, 255, 255, 0.34),
+        0 13px 0 rgba(57, 176, 220, 0.17),
+        0 24px 40px rgba(28, 135, 174, 0.2);
+      transition:
+        border-radius 560ms var(--ease-spring),
+        box-shadow 560ms var(--ease-out),
+        transform 560ms var(--ease-spring),
+        background 100ms linear;
+      backdrop-filter: blur(14px) saturate(1.3);
+    }
+
+    .btn-aqua-gel::before {
+      position: absolute;
+      top: 5px;
+      right: 22px;
+      left: 22px;
+      height: 10px;
+      content: "";
+      border-radius: 50%;
+      background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.88), transparent);
+      filter: blur(1px);
+      opacity: 0.82;
+      transform: translateX(-35%);
+      transition: transform 700ms var(--ease-out);
+    }
+
+    .btn-aqua-gel__label {
+      position: relative;
+      z-index: 2;
+      font-size: 13px;
+      font-weight: 750;
+      letter-spacing: -0.01em;
+    }
+
+    .btn-aqua-gel__icon {
+      position: relative;
+      z-index: 2;
+      display: grid;
+      width: 56px;
+      height: 56px;
+      place-items: center;
+      overflow: hidden;
+      border: 1px solid rgba(255, 255, 255, 0.78);
+      border-radius: 22px;
+      background:
+        linear-gradient(145deg, rgba(143, 229, 255, 0.78), rgba(28, 171, 229, 0.82));
+      color: white;
+      box-shadow:
+        inset 2px 3px 5px rgba(255, 255, 255, 0.76),
+        inset -2px -4px 7px rgba(0, 123, 190, 0.2),
+        0 7px 13px rgba(0, 128, 184, 0.2);
+      text-shadow: 0 2px 5px rgba(0, 105, 164, 0.3);
+      transition:
+        border-radius 560ms var(--ease-spring),
+        transform 560ms var(--ease-spring);
+    }
+
+    .btn-aqua-gel:hover {
+      border-radius: 39px;
+      box-shadow:
+        inset 0 3px 4px rgba(255, 255, 255, 0.94),
+        inset 0 -5px 9px rgba(10, 150, 205, 0.15),
+        0 8px 0 rgba(57, 176, 220, 0.12),
+        0 31px 48px rgba(28, 135, 174, 0.25);
+      transform: translateY(-8px) rotate(-1deg);
+    }
+
+    .btn-aqua-gel:hover::before {
+      transform: translateX(35%);
+    }
+
+    .btn-aqua-gel:hover .btn-aqua-gel__icon {
+      border-radius: 50%;
+      transform: translateY(-2px) rotate(45deg) scale(1.04);
+    }
+
+    .btn-aqua-gel.is-clicked {
+      animation: aqua-gel-press 780ms var(--ease-spring);
+    }
+
+    .btn-aqua-gel.is-clicked .btn-aqua-gel__icon {
+      animation: aqua-gel-bloom 780ms var(--ease-out);
+    }
+
+    @keyframes aqua-gel-press {
+      28% { border-radius: 42px 25px 38px 27px; transform: translateY(5px) scaleX(1.045) scaleY(0.88); }
+      58% { border-radius: 25px 42px 27px 38px; transform: translateY(-2px) scaleX(0.98) scaleY(1.04); }
+    }
+
+    @keyframes aqua-gel-bloom {
+      38% { box-shadow: inset 2px 3px 5px rgba(255, 255, 255, 0.76), 0 0 0 22px rgba(84, 212, 246, 0.2); }
+    }
+
+    /* 14 — Figma node 84:812: exact default, derived interaction states */
+    .stage--violet-split {
+      background:
+        radial-gradient(circle at 50% 90%, rgba(8, 79, 223, 0.28), transparent 48%),
+        #101019;
+    }
+
+    .stage--violet-split::before {
+      opacity: 0.2;
+      background:
+        linear-gradient(115deg, transparent 35%, rgba(159, 181, 255, 0.18) 50%, transparent 65%);
+      transform: translateX(-70%);
+      animation: violet-stage-scan 5.5s ease-in-out infinite;
+    }
+
+    @keyframes violet-stage-scan {
+      50%, 100% { transform: translateX(70%); }
+    }
+
+    .btn-violet-split {
+      width: auto;
+      height: 38px;
+      gap: 4px;
+      padding: 0;
+      overflow: visible;
+      border: 0;
+      border-radius: 0;
+      appearance: none;
+      background: transparent;
+      color: #ededed;
+      filter: none;
+      transition:
+        gap 360ms var(--ease-out),
+        transform 180ms ease;
+    }
+
+    .btn-violet-split__label,
+    .btn-violet-split__segment {
+      position: relative;
+      display: flex;
+      height: 38px;
+      align-items: center;
+      overflow: hidden;
+      border-color: #9fb5ff;
+      border-style: solid;
+      border-width: 1px 1px 4px;
+      background:
+        linear-gradient(180deg, rgba(255, 255, 255, 0) 0%, rgba(255, 255, 255, 0.06) 42%, rgba(46, 0, 122, 0.12) 100%),
+        linear-gradient(90deg, #084fdf 0%, #084fdf 100%);
+      transition:
+        background 260ms ease,
+        border-color 260ms ease,
+        border-bottom-width 140ms ease,
+        box-shadow 360ms var(--ease-out),
+        transform 420ms var(--ease-spring);
+    }
+
+    .btn-violet-split__label {
+      flex: 0 0 auto;
+      justify-content: flex-start;
+      padding: 0 24px;
+      border-radius: 8px 0 0 8px;
+      color: #ededed;
+      font-family: "Geist Mono", monospace;
+      font-size: 16px;
+      font-weight: 500;
+      letter-spacing: -1px;
+      line-height: normal;
+      white-space: nowrap;
+    }
+
+    .btn-violet-split__segment {
+      width: 38px;
+      flex: 0 0 auto;
+      justify-content: center;
+      border-radius: 0 8px 8px 0;
+      color: #fff;
+    }
+
+    .btn-violet-split__icon {
+      display: grid;
+      width: 24px;
+      height: 24px;
+      place-items: center;
+      transform-origin: center;
+      transition: transform 420ms var(--ease-spring);
+    }
+
+    .btn-violet-split__icon img {
+      display: block;
+      width: 11px;
+      height: 11px;
+    }
+
+    .btn-violet-split:hover {
+      gap: 10px;
+    }
+
+    .btn-violet-split:hover .btn-violet-split__label,
+    .btn-violet-split:hover .btn-violet-split__segment {
+      border-color: #b4c6ff;
+      background:
+        linear-gradient(180deg, rgba(255, 255, 255, 0.08) 0%, rgba(255, 255, 255, 0.09) 42%, rgba(46, 0, 122, 0.1) 100%),
+        linear-gradient(90deg, #0b5bf3 0%, #0b5bf3 100%);
+      box-shadow:
+        0 0 0 1px rgba(159, 181, 255, 0.12),
+        0 8px 22px rgba(8, 79, 223, 0.38);
+    }
+
+    .btn-violet-split:hover .btn-violet-split__label {
+      transform: translateX(-3px);
+    }
+
+    .btn-violet-split:hover .btn-violet-split__segment {
+      transform: translateX(3px);
+    }
+
+    .btn-violet-split:hover .btn-violet-split__icon {
+      transform: rotate(45deg);
+    }
+
+    .btn-violet-split:active {
+      gap: 1px;
+      transform: translateY(3px);
+    }
+
+    .btn-violet-split:active .btn-violet-split__label,
+    .btn-violet-split:active .btn-violet-split__segment {
+      border-bottom-width: 1px;
+      background:
+        linear-gradient(180deg, rgba(46, 0, 122, 0.12), rgba(255, 255, 255, 0.02)),
+        linear-gradient(90deg, #0644c4 0%, #0644c4 100%);
+      box-shadow: inset 0 2px 5px rgba(19, 27, 76, 0.28);
+      transform: none;
+    }
+
+    .btn-violet-split:active .btn-violet-split__icon {
+      transform: rotate(12deg);
+    }
+
+    .btn-violet-split:focus-visible {
+      outline: none;
+    }
+
+    .btn-violet-split:focus-visible .btn-violet-split__label,
+    .btn-violet-split:focus-visible .btn-violet-split__segment {
+      box-shadow:
+        0 0 0 2px #101019,
+        0 0 0 4px #9fb5ff,
+        0 0 22px rgba(8, 79, 223, 0.48);
+    }
+
+    .btn-violet-split.is-clicked {
+      animation: violet-button-settle 620ms var(--ease-spring);
+    }
+
+    .btn-violet-split.is-clicked .btn-violet-split__label {
+      animation: violet-left-snap 620ms var(--ease-spring);
+    }
+
+    .btn-violet-split.is-clicked .btn-violet-split__segment {
+      animation: violet-right-snap 620ms var(--ease-spring);
+    }
+
+    @keyframes violet-button-settle {
+      32% { gap: 1px; transform: translateY(3px); }
+      68% { gap: 7px; transform: translateY(0); }
+    }
+
+    @keyframes violet-left-snap {
+      32% {
+        border-bottom-width: 1px;
+        filter: brightness(0.9);
+        transform: translateX(3px) scaleX(0.98);
+      }
+      68% { filter: brightness(1.08); transform: translateX(-2px); }
+    }
+
+    @keyframes violet-right-snap {
+      32% {
+        border-bottom-width: 1px;
+        filter: brightness(0.9);
+        transform: translateX(-3px) scaleX(0.96);
+      }
+      68% {
+        filter: brightness(1.12);
+        box-shadow: 0 0 18px rgba(8, 79, 223, 0.5);
+        transform: translateX(2px);
+      }
+    }
+
+    /* 15 — Caustic capsule: liquid fill on hover, concentric wave on click */
+    .stage--caustic {
+      background:
+        radial-gradient(ellipse at 25% 10%, rgba(255, 255, 255, 0.94), transparent 30%),
+        linear-gradient(155deg, #d8faff, #8ce2f2);
+    }
+
+    .stage--caustic::before {
+      inset: -40%;
+      opacity: 0.35;
+      background:
+        repeating-radial-gradient(ellipse at 50% 50%, transparent 0 18px, rgba(255, 255, 255, 0.7) 19px 20px, transparent 21px 34px);
+      transform: rotate(12deg);
+      animation: caustic-drift 9s linear infinite;
+    }
+
+    @keyframes caustic-drift {
+      to { transform: rotate(372deg) scale(1.08); }
+    }
+
+    .btn-caustic {
+      width: 248px;
+      height: 66px;
+      justify-content: space-between;
+      padding: 7px 9px 7px 25px;
+      overflow: hidden;
+      border: 1px solid rgba(255, 255, 255, 0.78);
+      border-radius: 999px;
+      background: rgba(232, 253, 255, 0.54);
+      color: #084c62;
+      box-shadow:
+        inset 0 2px rgba(255, 255, 255, 0.82),
+        inset 0 -3px 7px rgba(23, 147, 179, 0.14),
+        0 17px 34px rgba(16, 111, 137, 0.18);
+      backdrop-filter: blur(14px);
+      transition:
+        color 520ms var(--ease-out),
+        transform 520ms var(--ease-spring);
+    }
+
+    .btn-caustic::before {
+      position: absolute;
+      z-index: 0;
+      right: 8px;
+      width: 50px;
+      height: 50px;
+      content: "";
+      border-radius: 999px;
+      background:
+        radial-gradient(circle at 34% 27%, rgba(255, 255, 255, 0.95), transparent 22%),
+        linear-gradient(145deg, #72dcf2, #17a8da);
+      box-shadow:
+        inset 0 2px 5px rgba(255, 255, 255, 0.75),
+        inset 0 -4px 7px rgba(0, 102, 159, 0.18);
+      transition:
+        width 650ms var(--ease-spring),
+        transform 650ms var(--ease-spring);
+    }
+
+    .btn-caustic__label,
+    .btn-caustic__icon {
+      position: relative;
+      z-index: 1;
+    }
+
+    .btn-caustic__label {
+      font-size: 13px;
+      font-weight: 750;
+      transition:
+        color 400ms ease,
+        transform 600ms var(--ease-spring);
+    }
+
+    .btn-caustic__icon {
+      display: grid;
+      width: 50px;
+      height: 50px;
+      flex: 0 0 auto;
+      place-items: center;
+      color: white;
+      transition: transform 600ms var(--ease-spring);
+    }
+
+    .btn-caustic:hover {
+      color: white;
+      transform: scale(1.035);
+    }
+
+    .btn-caustic:hover::before {
+      width: calc(100% - 16px);
+      transform: rotate(-2deg);
+    }
+
+    .btn-caustic:hover .btn-caustic__label {
+      transform: translateX(4px);
+    }
+
+    .btn-caustic:hover .btn-caustic__icon {
+      transform: rotate(45deg) translate(1px, -1px);
+    }
+
+    .btn-caustic.is-clicked {
+      animation: caustic-wobble 820ms var(--ease-spring);
+    }
+
+    .btn-caustic.is-clicked::after {
+      position: absolute;
+      z-index: 3;
+      right: 32px;
+      width: 10px;
+      height: 10px;
+      content: "";
+      border: 2px solid rgba(255, 255, 255, 0.9);
+      border-radius: 50%;
+      animation: caustic-ring 780ms var(--ease-out) forwards;
+    }
+
+    @keyframes caustic-wobble {
+      24% { border-radius: 42% 58% 53% 47% / 55% 42% 58% 45%; transform: scaleX(1.04) scaleY(0.94); }
+      48% { border-radius: 57% 43% 46% 54% / 44% 57% 43% 56%; transform: scaleX(0.98) scaleY(1.04); }
+    }
+
+    @keyframes caustic-ring {
+      to { opacity: 0; transform: scale(8); }
+    }
+
+    /* 16 — Ultraviolet rail: beam scan on hover, arrow shuttle on click */
+    .stage--ultraviolet {
+      background:
+        radial-gradient(circle at 50% 110%, rgba(117, 51, 255, 0.56), transparent 50%),
+        linear-gradient(150deg, #181229, #08070e);
+    }
+
+    .stage--ultraviolet::before {
+      opacity: 0.18;
+      background:
+        linear-gradient(rgba(190, 156, 255, 0.18) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(190, 156, 255, 0.18) 1px, transparent 1px);
+      background-size: 30px 30px;
+      mask-image: radial-gradient(circle, black, transparent 72%);
+    }
+
+    .btn-ultraviolet {
+      width: 250px;
+      height: 66px;
+      justify-content: space-between;
+      padding: 7px 8px 7px 25px;
+      overflow: hidden;
+      border: 1px solid rgba(184, 142, 255, 0.38);
+      border-radius: 999px;
+      background: rgba(103, 48, 192, 0.17);
+      color: #f5efff;
+      box-shadow:
+        inset 0 1px rgba(255, 255, 255, 0.14),
+        0 18px 38px rgba(0, 0, 0, 0.34),
+        0 0 0 rgba(126, 58, 255, 0);
+      backdrop-filter: blur(14px);
+      transition:
+        border-color 480ms ease,
+        box-shadow 480ms ease,
+        transform 480ms var(--ease-spring);
+    }
+
+    .btn-ultraviolet::before {
+      position: absolute;
+      top: 7px;
+      bottom: 7px;
+      left: -48px;
+      width: 48px;
+      content: "";
+      border-radius: 999px;
+      background: linear-gradient(90deg, transparent, rgba(166, 101, 255, 0.85), transparent);
+      filter: blur(4px);
+      transition: left 750ms var(--ease-out);
+    }
+
+    .btn-ultraviolet__label {
+      position: relative;
+      z-index: 2;
+      font-size: 13px;
+      font-weight: 700;
+    }
+
+    .btn-ultraviolet__rail {
+      position: relative;
+      z-index: 2;
+      display: grid;
+      width: 52px;
+      height: 52px;
+      flex: 0 0 auto;
+      place-items: center;
+      border: 1px solid rgba(216, 192, 255, 0.45);
+      border-radius: 50%;
+      background:
+        radial-gradient(circle at 35% 25%, rgba(255, 255, 255, 0.35), transparent 24%),
+        linear-gradient(145deg, #9a5cff, #6423e8);
+      box-shadow:
+        inset 0 1px 2px rgba(255, 255, 255, 0.38),
+        0 0 20px rgba(132, 64, 255, 0.46);
+      transition:
+        border-radius 500ms var(--ease-spring),
+        box-shadow 500ms ease,
+        transform 500ms var(--ease-spring);
+    }
+
+    .btn-ultraviolet:hover {
+      border-color: rgba(205, 174, 255, 0.75);
+      box-shadow:
+        inset 0 1px rgba(255, 255, 255, 0.18),
+        0 20px 42px rgba(0, 0, 0, 0.38),
+        0 0 32px rgba(126, 58, 255, 0.34);
+      transform: translateY(-4px);
+    }
+
+    .btn-ultraviolet:hover::before {
+      left: calc(100% + 2px);
+    }
+
+    .btn-ultraviolet:hover .btn-ultraviolet__rail {
+      border-radius: 17px;
+      box-shadow:
+        inset 0 1px 2px rgba(255, 255, 255, 0.42),
+        0 0 31px rgba(151, 83, 255, 0.8);
+      transform: rotate(45deg);
+    }
+
+    .btn-ultraviolet.is-clicked .btn-ultraviolet__rail {
+      animation: ultraviolet-shuttle 850ms var(--ease-spring);
+    }
+
+    .btn-ultraviolet.is-clicked .btn-ultraviolet__label {
+      animation: ultraviolet-label-pulse 850ms var(--ease-out);
+    }
+
+    @keyframes ultraviolet-shuttle {
+      38% {
+        border-radius: 17px;
+        filter: brightness(1.35);
+        transform: translateX(-166px) rotate(-135deg) scale(0.78);
+      }
+      64% { transform: translateX(7px) rotate(55deg) scale(1.08); }
+    }
+
+    @keyframes ultraviolet-label-pulse {
+      34% { opacity: 0.26; transform: translateX(24px); }
+      62% { opacity: 1; transform: translateX(-3px); }
+    }
+
+    .page-note {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 24px;
+      margin-top: 22px;
+      padding: 18px 22px;
+      border: 1px solid var(--line);
+      border-radius: 16px;
+      color: #66645e;
+      font-size: 11px;
+      line-height: 1.6;
+    }
+
+    .page-note strong {
+      color: var(--ink);
+    }
+
+    .page-note__count {
+      flex: 0 0 auto;
+      font-family: "DM Serif Display", Georgia, "Times New Roman", serif;
+      font-size: 25px;
+      color: var(--ink);
+    }
+
+    .sr-only {
+      position: absolute;
+      width: 1px;
+      height: 1px;
+      padding: 0;
+      overflow: hidden;
+      clip: rect(0, 0, 0, 0);
+      white-space: nowrap;
+      border: 0;
+    }
+
+    @media (max-width: 1100px) {
+      .gallery {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+      }
+    }
+
+    @media (max-width: 720px) {
+      .page-shell {
+        width: min(100% - 22px, 520px);
+        padding-top: 11px;
+      }
+
+      .hero {
+        min-height: auto;
+        padding: 28px 22px;
+        border-radius: 24px;
+      }
+
+      .hero h1 {
+        font-size: clamp(50px, 17vw, 82px);
+      }
+
+      .hero__bottom {
+        align-items: flex-start;
+        flex-direction: column;
+        margin-top: 44px;
+      }
+
+      .hero__legend {
+        justify-content: flex-start;
+      }
+
+      .section-heading {
+        align-items: flex-start;
+        flex-direction: column;
+        margin-top: 44px;
+      }
+
+      .gallery {
+        grid-template-columns: 1fr;
+      }
+
+      .stage {
+        min-height: 220px;
+      }
+
+      .page-note {
+        align-items: flex-start;
+        flex-direction: column;
+      }
+    }
+
+    @media (max-width: 390px) {
+      .concept {
+        padding: 12px;
+      }
+
+      .btn-aqua-gel,
+      .btn-violet-split,
+      .btn-caustic,
+      .btn-ultraviolet {
+        width: min(250px, calc(100vw - 70px));
+      }
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      *,
+      *::before,
+      *::after {
+        scroll-behavior: auto !important;
+        animation-duration: 0.01ms !important;
+        animation-iteration-count: 1 !important;
+        transition-duration: 0.01ms !important;
+      }
+    }
+  </style>
+</head>
+<body>
+  <svg class="sr-only" aria-hidden="true" focusable="false">
+    <symbol id="arrow-up-right" viewBox="0 0 24 24">
+      <path d="M7 17 17 7M8 7h9v9"></path>
+    </symbol>
+    <symbol id="check-mark" viewBox="0 0 24 24">
+      <path d="m5 12.5 4.2 4.2L19 7"></path>
+    </symbol>
+  </svg>
+
+  <div class="page-shell">
+    <header class="hero">
+      <p class="eyebrow"><span class="eyebrow__dot" aria-hidden="true"></span>Interaction study · 01—16</p>
+      <h1>
+        <span>One action.</span>
+        <span>Sixteen <em>personalities.</em></span>
+      </h1>
+      <div class="hero__bottom">
+        <p class="hero__intro">
+          Sixteen expressive directions for a “Read case study” call to action—each with its own visual language, hover response, and tactile click moment.
+        </p>
+        <div class="hero__legend" aria-label="Interaction instructions">
+          <span>Move</span>
+          <span>Hover</span>
+          <span>Click</span>
+        </div>
+      </div>
+    </header>
+
+    <div class="section-heading">
+      <h2>Button playground</h2>
+      <p>Every concept is live · Try them all</p>
+    </div>
+
+    <main class="gallery" aria-label="Sixteen read case study button concepts">
+      <article class="concept">
+        <header class="concept__head">
+          <div class="concept__identity">
+            <span class="concept__number">01</span>
+            <h3 class="concept__title">Magnetic Mono</h3>
+          </div>
+          <span class="concept__tag">Cursor pull</span>
+        </header>
+        <div class="stage stage--magnetic">
+          <button class="case-button btn-magnetic" type="button" data-button-name="Magnetic Mono">
+            <span class="btn-magnetic__label" data-label-text>Read case study</span>
+            <span class="btn-magnetic__disc">
+              <svg class="arrow" aria-hidden="true"><use href="#arrow-up-right"></use></svg>
+            </span>
+          </button>
+        </div>
+        <footer class="concept__foot">
+          <span>Tracks your pointer</span>
+          <span class="concept__signal"><i></i>Hover + click</span>
+        </footer>
+      </article>
+
+      <article class="concept">
+        <header class="concept__head">
+          <div class="concept__identity">
+            <span class="concept__number">02</span>
+            <h3 class="concept__title">Chromatic Wipe</h3>
+          </div>
+          <span class="concept__tag">Color fill</span>
+        </header>
+        <div class="stage stage--wipe">
+          <button class="case-button btn-wipe" type="button" data-button-name="Chromatic Wipe" data-click-label="Opening study">
+            <span class="btn-wipe__label" data-label-text>Read case study</span>
+            <span class="btn-wipe__icon">
+              <svg class="arrow" aria-hidden="true"><use href="#arrow-up-right"></use></svg>
+            </span>
+          </button>
+        </div>
+        <footer class="concept__foot">
+          <span>Direction-aware energy</span>
+          <span class="concept__signal"><i></i>Hover + click</span>
+        </footer>
+      </article>
+
+      <article class="concept">
+        <header class="concept__head">
+          <div class="concept__identity">
+            <span class="concept__number">03</span>
+            <h3 class="concept__title">Orbital Launch</h3>
+          </div>
+          <span class="concept__tag">Kinetic</span>
+        </header>
+        <div class="stage stage--orbit">
+          <button class="case-button btn-orbit" type="button" data-button-name="Orbital Launch">
+            <span class="btn-orbit__label" data-label-text>Read case study</span>
+            <span class="btn-orbit__track">
+              <span class="btn-orbit__satellite" aria-hidden="true"></span>
+              <svg class="arrow" aria-hidden="true"><use href="#arrow-up-right"></use></svg>
+            </span>
+          </button>
+        </div>
+        <footer class="concept__foot">
+          <span>Satellite loop</span>
+          <span class="concept__signal"><i></i>Hover + click</span>
+        </footer>
+      </article>
+
+      <article class="concept">
+        <header class="concept__head">
+          <div class="concept__identity">
+            <span class="concept__number">04</span>
+            <h3 class="concept__title">Liquid Glass</h3>
+          </div>
+          <span class="concept__tag">Spotlight</span>
+        </header>
+        <div class="stage stage--glass">
+          <button class="case-button btn-glass" type="button" data-button-name="Liquid Glass">
+            <span class="btn-glass__label" data-label-text>Read case study</span>
+            <span class="btn-glass__icon">
+              <svg class="arrow" aria-hidden="true"><use href="#arrow-up-right"></use></svg>
+            </span>
+          </button>
+        </div>
+        <footer class="concept__foot">
+          <span>Pointer-lit surface</span>
+          <span class="concept__signal"><i></i>Hover + click</span>
+        </footer>
+      </article>
+
+      <article class="concept">
+        <header class="concept__head">
+          <div class="concept__identity">
+            <span class="concept__number">05</span>
+            <h3 class="concept__title">Editorial Line</h3>
+          </div>
+          <span class="concept__tag">Refined</span>
+        </header>
+        <div class="stage stage--editorial">
+          <button class="case-button btn-editorial" type="button" data-button-name="Editorial Line">
+            <span class="btn-editorial__index">SELECTED WORK</span>
+            <span class="btn-editorial__label" data-label-text>Read case study</span>
+            <span class="btn-editorial__arrow">
+              <svg class="arrow" aria-hidden="true"><use href="#arrow-up-right"></use></svg>
+            </span>
+          </button>
+        </div>
+        <footer class="concept__foot">
+          <span>Underline sweep</span>
+          <span class="concept__signal"><i></i>Hover + click</span>
+        </footer>
+      </article>
+
+      <article class="concept">
+        <header class="concept__head">
+          <div class="concept__identity">
+            <span class="concept__number">06</span>
+            <h3 class="concept__title">Neo Brutal</h3>
+          </div>
+          <span class="concept__tag">Tactile</span>
+        </header>
+        <div class="stage stage--brutal">
+          <button class="case-button btn-brutal" type="button" data-button-name="Neo Brutal">
+            <span class="btn-brutal__label" data-label-text>Read case study</span>
+            <span class="btn-brutal__icon">
+              <svg class="arrow" aria-hidden="true"><use href="#arrow-up-right"></use></svg>
+            </span>
+          </button>
+        </div>
+        <footer class="concept__foot">
+          <span>Hard press + jolt</span>
+          <span class="concept__signal"><i></i>Hover + click</span>
+        </footer>
+      </article>
+
+      <article class="concept">
+        <header class="concept__head">
+          <div class="concept__identity">
+            <span class="concept__number">07</span>
+            <h3 class="concept__title">Elastic Capsule</h3>
+          </div>
+          <span class="concept__tag">Spring</span>
+        </header>
+        <div class="stage stage--elastic">
+          <button class="case-button btn-elastic" type="button" data-button-name="Elastic Capsule">
+            <span class="btn-elastic__label" data-label-text>Read case study</span>
+            <span class="btn-elastic__bubble">
+              <svg class="arrow" aria-hidden="true"><use href="#arrow-up-right"></use></svg>
+            </span>
+          </button>
+        </div>
+        <footer class="concept__foot">
+          <span>Shape-shifting capsule</span>
+          <span class="concept__signal"><i></i>Hover + click</span>
+        </footer>
+      </article>
+
+      <article class="concept">
+        <header class="concept__head">
+          <div class="concept__identity">
+            <span class="concept__number">08</span>
+            <h3 class="concept__title">Aurora Ring</h3>
+          </div>
+          <span class="concept__tag">Luminous</span>
+        </header>
+        <div class="stage stage--aurora">
+          <div class="aurora-shell">
+            <button class="case-button btn-aurora" type="button" data-button-name="Aurora Ring">
+              <span class="btn-aurora__label" data-label-text>Read case study</span>
+              <span class="btn-aurora__icon">
+                <svg class="arrow" aria-hidden="true"><use href="#arrow-up-right"></use></svg>
+              </span>
+            </button>
+          </div>
+        </div>
+        <footer class="concept__foot">
+          <span>Animated spectrum</span>
+          <span class="concept__signal"><i></i>Hover + click</span>
+        </footer>
+      </article>
+
+      <article class="concept">
+        <header class="concept__head">
+          <div class="concept__identity">
+            <span class="concept__number">09</span>
+            <h3 class="concept__title">Layer Stack</h3>
+          </div>
+          <span class="concept__tag">Dimensional</span>
+        </header>
+        <div class="stage stage--stack">
+          <div class="stack-shell">
+            <button class="case-button btn-stack" type="button" data-button-name="Layer Stack">
+              <span class="btn-stack__label" data-label-text>Read case study</span>
+              <span class="btn-stack__icon">
+                <svg class="arrow" aria-hidden="true"><use href="#arrow-up-right"></use></svg>
+              </span>
+            </button>
+          </div>
+        </div>
+        <footer class="concept__foot">
+          <span>Peeling color layers</span>
+          <span class="concept__signal"><i></i>Hover + click</span>
+        </footer>
+      </article>
+
+      <article class="concept">
+        <header class="concept__head">
+          <div class="concept__identity">
+            <span class="concept__number">10</span>
+            <h3 class="concept__title">Marquee Flip</h3>
+          </div>
+          <span class="concept__tag">Dual state</span>
+        </header>
+        <div class="stage stage--marquee">
+          <button class="case-button btn-marquee" type="button" data-button-name="Marquee Flip">
+            <span class="btn-marquee__track">
+              <span class="btn-marquee__line">
+                <span data-label-text>Read case study</span>
+                <svg class="arrow" aria-hidden="true"><use href="#arrow-up-right"></use></svg>
+              </span>
+              <span class="btn-marquee__line" aria-hidden="true">
+                <span>Read case study</span>
+                <svg class="arrow" aria-hidden="true"><use href="#arrow-up-right"></use></svg>
+              </span>
+            </span>
+          </button>
+        </div>
+        <footer class="concept__foot">
+          <span>Vertical state switch</span>
+          <span class="concept__signal"><i></i>Hover + click</span>
+        </footer>
+      </article>
+
+      <article class="concept">
+        <header class="concept__head">
+          <div class="concept__identity">
+            <span class="concept__number">11</span>
+            <h3 class="concept__title">Arrow Trail</h3>
+          </div>
+          <span class="concept__tag">Minimal</span>
+        </header>
+        <div class="stage stage--trail">
+          <button class="case-button btn-trail" type="button" data-button-name="Arrow Trail">
+            <span class="btn-trail__label" data-label-text>Read case study</span>
+            <span class="btn-trail__arrows" aria-hidden="true">
+              <svg class="arrow"><use href="#arrow-up-right"></use></svg>
+              <svg class="arrow"><use href="#arrow-up-right"></use></svg>
+              <svg class="arrow"><use href="#arrow-up-right"></use></svg>
+            </span>
+          </button>
+        </div>
+        <footer class="concept__foot">
+          <span>Cursor light + burst</span>
+          <span class="concept__signal"><i></i>Hover + click</span>
+        </footer>
+      </article>
+
+      <article class="concept">
+        <header class="concept__head">
+          <div class="concept__identity">
+            <span class="concept__number">12</span>
+            <h3 class="concept__title">Morph Confirm</h3>
+          </div>
+          <span class="concept__tag">Feedback</span>
+        </header>
+        <div class="stage stage--morph">
+          <button class="case-button btn-morph" type="button" data-button-name="Morph Confirm" data-click-label="Study selected">
+            <span class="btn-morph__label" data-label-text>Read case study</span>
+            <span class="btn-morph__icon">
+              <svg class="arrow" aria-hidden="true"><use href="#arrow-up-right"></use></svg>
+              <svg class="check" aria-hidden="true"><use href="#check-mark"></use></svg>
+            </span>
+          </button>
+        </div>
+        <footer class="concept__foot">
+          <span>Clear selected state</span>
+          <span class="concept__signal"><i></i>Hover + click</span>
+        </footer>
+      </article>
+
+      <article class="concept">
+        <header class="concept__head">
+          <div class="concept__identity">
+            <span class="concept__number">13</span>
+            <h3 class="concept__title">Aqua Gel</h3>
+          </div>
+          <span class="concept__tag">Glossy 3D</span>
+        </header>
+        <div class="stage stage--aqua-gel">
+          <button class="case-button btn-aqua-gel" type="button" data-button-name="Aqua Gel">
+            <span class="btn-aqua-gel__label" data-label-text>Read case study</span>
+            <span class="btn-aqua-gel__icon">
+              <svg class="arrow" aria-hidden="true"><use href="#arrow-up-right"></use></svg>
+            </span>
+          </button>
+        </div>
+        <footer class="concept__foot">
+          <span>Sheen lift + gel squash</span>
+          <span class="concept__signal"><i></i>Hover + click</span>
+        </footer>
+      </article>
+
+      <article class="concept" id="violet-split">
+        <header class="concept__head">
+          <div class="concept__identity">
+            <span class="concept__number">14</span>
+            <h3 class="concept__title">Violet Split</h3>
+          </div>
+          <span class="concept__tag">Segmented</span>
+        </header>
+        <div class="stage stage--violet-split">
+          <button class="case-button btn-violet-split" type="button" data-button-name="Violet Split">
+            <span class="btn-violet-split__label" data-label-text>Read case study</span>
+            <span class="btn-violet-split__segment">
+              <span class="btn-violet-split__icon" aria-hidden="true">
+                <img src="assets/violet-split-arrow.svg" alt="" width="11" height="11">
+              </span>
+            </span>
+          </button>
+        </div>
+        <footer class="concept__foot">
+          <span>Figma exact · split + press</span>
+          <span class="concept__signal"><i></i>Hover + click</span>
+        </footer>
+      </article>
+
+      <article class="concept">
+        <header class="concept__head">
+          <div class="concept__identity">
+            <span class="concept__number">15</span>
+            <h3 class="concept__title">Caustic Capsule</h3>
+          </div>
+          <span class="concept__tag">Liquid fill</span>
+        </header>
+        <div class="stage stage--caustic">
+          <button class="case-button btn-caustic" type="button" data-button-name="Caustic Capsule">
+            <span class="btn-caustic__label" data-label-text>Read case study</span>
+            <span class="btn-caustic__icon">
+              <svg class="arrow" aria-hidden="true"><use href="#arrow-up-right"></use></svg>
+            </span>
+          </button>
+        </div>
+        <footer class="concept__foot">
+          <span>Flood fill + water ripple</span>
+          <span class="concept__signal"><i></i>Hover + click</span>
+        </footer>
+      </article>
+
+      <article class="concept">
+        <header class="concept__head">
+          <div class="concept__identity">
+            <span class="concept__number">16</span>
+            <h3 class="concept__title">Ultraviolet Rail</h3>
+          </div>
+          <span class="concept__tag">Neon beam</span>
+        </header>
+        <div class="stage stage--ultraviolet">
+          <button class="case-button btn-ultraviolet" type="button" data-button-name="Ultraviolet Rail">
+            <span class="btn-ultraviolet__label" data-label-text>Read case study</span>
+            <span class="btn-ultraviolet__rail">
+              <svg class="arrow" aria-hidden="true"><use href="#arrow-up-right"></use></svg>
+            </span>
+          </button>
+        </div>
+        <footer class="concept__foot">
+          <span>Beam scan + arrow shuttle</span>
+          <span class="concept__signal"><i></i>Hover + click</span>
+        </footer>
+      </article>
+    </main>
+
+    <footer class="page-note">
+      <span><strong>Prototype note:</strong> Buttons intentionally do not navigate, so every interaction can be reviewed in place. Keyboard focus and reduced-motion preferences are supported.</span>
+      <span class="page-note__count">16 / 16</span>
+    </footer>
+  </div>
+
+  <p class="sr-only" role="status" aria-live="polite" id="interaction-status"></p>
+
+  <script>
+    (() => {
+      const buttons = document.querySelectorAll(".case-button");
+      const status = document.querySelector("#interaction-status");
+      const reducedMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+
+      const resetMagnet = (button) => {
+        button.style.setProperty("--mag-x", "0px");
+        button.style.setProperty("--mag-y", "0px");
+        button.style.setProperty("--inner-x", "0px");
+        button.style.setProperty("--inner-y", "0px");
+      };
+
+      buttons.forEach((button) => {
+        let resetTimer;
+
+        button.addEventListener("pointermove", (event) => {
+          const bounds = button.getBoundingClientRect();
+          const localX = event.clientX - bounds.left;
+          const localY = event.clientY - bounds.top;
+          const percentX = (localX / bounds.width) * 100;
+          const percentY = (localY / bounds.height) * 100;
+
+          button.style.setProperty("--pointer-x", `${percentX}%`);
+          button.style.setProperty("--pointer-y", `${percentY}%`);
+
+          if (button.classList.contains("btn-magnetic") && !reducedMotion) {
+            const offsetX = localX - bounds.width / 2;
+            const offsetY = localY - bounds.height / 2;
+            button.style.setProperty("--mag-x", `${offsetX * 0.1}px`);
+            button.style.setProperty("--mag-y", `${offsetY * 0.12}px`);
+            button.style.setProperty("--inner-x", `${offsetX * 0.08}px`);
+            button.style.setProperty("--inner-y", `${offsetY * 0.1}px`);
+          }
+        });
+
+        button.addEventListener("pointerleave", () => {
+          if (button.classList.contains("btn-magnetic")) resetMagnet(button);
+          button.style.setProperty("--pointer-x", "50%");
+          button.style.setProperty("--pointer-y", "50%");
+        });
+
+        button.addEventListener("click", (event) => {
+          window.clearTimeout(resetTimer);
+
+          const concept = button.closest(".concept");
+          const label = button.querySelector("[data-label-text]");
+          const clickLabel = button.dataset.clickLabel;
+          const bounds = button.getBoundingClientRect();
+          const ripple = document.createElement("span");
+          const hasPointerPosition = event.detail > 0;
+
+          ripple.className = "click-ripple";
+          ripple.setAttribute("aria-hidden", "true");
+          ripple.style.left = `${hasPointerPosition ? event.clientX - bounds.left : bounds.width / 2}px`;
+          ripple.style.top = `${hasPointerPosition ? event.clientY - bounds.top : bounds.height / 2}px`;
+          button.appendChild(ripple);
+          ripple.addEventListener("animationend", () => ripple.remove(), { once: true });
+
+          button.classList.remove("is-clicked");
+          concept.classList.remove("is-triggered");
+          void button.offsetWidth;
+          button.classList.add("is-clicked");
+          concept.classList.add("is-triggered");
+
+          if (clickLabel && label) {
+            label.dataset.originalLabel ||= label.textContent;
+            label.textContent = clickLabel;
+          }
+
+          status.textContent = `${button.dataset.buttonName} interaction triggered.`;
+
+          resetTimer = window.setTimeout(() => {
+            button.classList.remove("is-clicked");
+            concept.classList.remove("is-triggered");
+            if (clickLabel && label) label.textContent = label.dataset.originalLabel;
+          }, 1200);
+        });
+      });
+    })();
+  </script>
+</body>
+</html>

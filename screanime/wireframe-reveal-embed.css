@@ -1,0 +1,99 @@
+/* Wireframe reveal — embedded in Fiserv case study panel */
+.work-card__panel--fiserv-main .ui-reveal--embed {
+  display: block;
+  width: 100%;
+  height: 100%;
+}
+
+.work-card__panel--fiserv-main .ui-reveal__card {
+  width: 100%;
+  height: 100%;
+  background: #121416;
+  overflow: hidden;
+  flex-shrink: 0;
+}
+
+.work-card__panel--fiserv-main .ui-reveal__stage {
+  padding-top: 75px;
+  display: flex;
+  justify-content: center;
+}
+
+.work-card__panel--fiserv-main .ui-reveal__viewport {
+  position: relative;
+  width: 397px;
+  height: 856px;
+  overflow: hidden;
+  border-radius: 46px;
+  transform-origin: 50% 50%;
+  will-change: transform;
+  background: #121416;
+  isolation: isolate;
+  flex-shrink: 0;
+}
+
+.work-card__panel--fiserv-main .ui-reveal__hifi,
+.work-card__panel--fiserv-main .ui-reveal__wireframe-host,
+.work-card__panel--fiserv-main .ui-reveal__wireframe-host svg,
+.work-card__panel--fiserv-main .ui-reveal__wireframe-object,
+.work-card__panel--fiserv-main .ui-reveal__stroke-layer {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+}
+
+.work-card__panel--fiserv-main .ui-reveal__wireframe-object {
+  display: block;
+  pointer-events: none;
+  opacity: 0;
+}
+
+.work-card__panel--fiserv-main .ui-reveal__hifi {
+  top: -3.35px;
+  left: -0.25px;
+  object-fit: cover;
+  object-position: top center;
+  opacity: 0;
+  will-change: opacity, filter;
+}
+
+.work-card__panel--fiserv-main .ui-reveal__wireframe-host svg {
+  display: block;
+}
+
+.work-card__panel--fiserv-main .ui-reveal__wireframe-host [data-wf-fill] {
+  opacity: 0;
+  transform-origin: center;
+  will-change: opacity, transform;
+}
+
+.work-card__panel--fiserv-main .ui-reveal__stroke-layer {
+  overflow: visible;
+  pointer-events: none;
+}
+
+.work-card__panel--fiserv-main .ui-reveal__stroke-layer [data-wf-stroke] {
+  fill: none;
+  stroke: rgba(255, 255, 255, 0.82);
+  stroke-width: 1.25;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+  vector-effect: non-scaling-stroke;
+}
+
+.work-card__panel--fiserv-main .ui-reveal__stroke-layer [data-wf-stroke-weight="native"] {
+  stroke-width: 2;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .work-card__panel--fiserv-main .ui-reveal__hifi {
+    opacity: 1 !important;
+    filter: none !important;
+  }
+
+  .work-card__panel--fiserv-main .ui-reveal__wireframe-host,
+  .work-card__panel--fiserv-main .ui-reveal__stroke-layer {
+    display: none;
+  }
+}

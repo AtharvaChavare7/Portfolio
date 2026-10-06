@@ -1,0 +1,1885 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <script src="clock-favicon.js"></script>
+  <meta name="theme-color" content="#f2f0e9">
+  <title>Atharva Chavare — Hero Explorations</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Geist+Mono:wght@500;600&family=Newsreader:ital,wght@0,400;0,500;1,400;1,500&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/geist@1.3.1/dist/font.css">
+  <style>
+    :root {
+      --ink: #141414;
+      --paper: #f4f2eb;
+      --muted: rgba(20, 20, 20, 0.56);
+      --line: rgba(20, 20, 20, 0.16);
+      --sans: "Geist", system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+      --serif: "Newsreader", Georgia, "Times New Roman", serif;
+      --mono: "Geist Mono", "SFMono-Regular", Consolas, monospace;
+      --ease: cubic-bezier(0.16, 1, 0.3, 1);
+    }
+
+    *,
+    *::before,
+    *::after {
+      box-sizing: border-box;
+    }
+
+    html {
+      scroll-behavior: smooth;
+      scroll-snap-type: y proximity;
+    }
+
+    body {
+      min-width: 320px;
+      margin: 0;
+      color: var(--ink);
+      background: var(--paper);
+      font-family: var(--sans);
+      -webkit-font-smoothing: antialiased;
+      text-rendering: optimizeLegibility;
+    }
+
+    a {
+      color: inherit;
+    }
+
+    button,
+    a {
+      -webkit-tap-highlight-color: transparent;
+    }
+
+    .study-bar {
+      position: fixed;
+      z-index: 100;
+      top: 16px;
+      left: 50%;
+      display: grid;
+      grid-template-columns: 1fr auto 1fr;
+      align-items: center;
+      width: min(920px, calc(100% - 32px));
+      min-height: 48px;
+      padding: 7px 9px 7px 16px;
+      border: 1px solid rgba(20, 20, 20, 0.12);
+      border-radius: 999px;
+      background: rgba(250, 249, 245, 0.82);
+      box-shadow: 0 12px 40px rgba(20, 20, 20, 0.08);
+      backdrop-filter: blur(18px);
+      transform: translateX(-50%);
+    }
+
+    .study-bar__title,
+    .study-bar__count {
+      margin: 0;
+      font-family: var(--mono);
+      font-size: 10px;
+      font-weight: 600;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+    }
+
+    .study-bar__count {
+      justify-self: end;
+      min-width: 54px;
+      padding: 8px 10px;
+      border-radius: 999px;
+      background: #141414;
+      color: #fff;
+      text-align: center;
+    }
+
+    .study-nav {
+      display: flex;
+      align-items: center;
+      gap: 5px;
+    }
+
+    .study-nav a {
+      display: grid;
+      place-items: center;
+      width: 28px;
+      height: 28px;
+      border-radius: 50%;
+      color: rgba(20, 20, 20, 0.46);
+      font-family: var(--mono);
+      font-size: 9px;
+      text-decoration: none;
+      transition:
+        color 180ms ease,
+        background 180ms ease,
+        transform 180ms ease;
+    }
+
+    .study-nav a:hover,
+    .study-nav a:focus-visible,
+    .study-nav a.is-active {
+      color: #fff;
+      background: #141414;
+      outline: none;
+      transform: scale(1.06);
+    }
+
+    .variation {
+      position: relative;
+      display: flex;
+      min-height: 100vh;
+      min-height: 100svh;
+      padding: clamp(88px, 10vh, 120px) clamp(20px, 4vw, 68px) clamp(28px, 5vh, 56px);
+      overflow: hidden;
+      isolation: isolate;
+      scroll-snap-align: start;
+    }
+
+    .variation__inner {
+      position: relative;
+      z-index: 2;
+      width: min(1500px, 100%);
+      min-height: min(780px, calc(100svh - 148px));
+      margin: auto;
+    }
+
+    .variation__marker {
+      position: absolute;
+      z-index: 8;
+      top: clamp(84px, 9vh, 104px);
+      right: clamp(20px, 4vw, 68px);
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      margin: 0;
+      font-family: var(--mono);
+      font-size: 9px;
+      font-weight: 600;
+      letter-spacing: 0.13em;
+      text-transform: uppercase;
+    }
+
+    .variation__marker::before {
+      width: 22px;
+      height: 1px;
+      background: currentColor;
+      content: "";
+      opacity: 0.55;
+    }
+
+    .eyebrow {
+      margin: 0;
+      font-family: var(--mono);
+      font-size: 10px;
+      font-weight: 600;
+      line-height: 1.5;
+      letter-spacing: 0.15em;
+      text-transform: uppercase;
+    }
+
+    .eyebrow span {
+      color: currentColor;
+      opacity: 0.48;
+    }
+
+    .word-serif {
+      font-family: var(--serif);
+      font-style: italic;
+      font-weight: 400;
+    }
+
+    .proof-list {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 7px;
+      margin: 0;
+      padding: 0;
+      list-style: none;
+    }
+
+    .proof-list li {
+      padding: 9px 12px;
+      border: 1px solid currentColor;
+      border-radius: 999px;
+      font-family: var(--mono);
+      font-size: 9px;
+      font-weight: 600;
+      letter-spacing: 0.07em;
+      text-transform: uppercase;
+    }
+
+    .arrow-link {
+      display: inline-flex;
+      align-items: center;
+      gap: 12px;
+      width: fit-content;
+      font-size: 12px;
+      font-weight: 600;
+      text-decoration: none;
+    }
+
+    .arrow-link::after {
+      display: grid;
+      place-items: center;
+      width: 30px;
+      height: 30px;
+      border: 1px solid currentColor;
+      border-radius: 50%;
+      content: "↓";
+      transition: transform 250ms var(--ease);
+    }
+
+    .arrow-link:hover::after {
+      transform: translateY(4px);
+    }
+
+    /* 01 — Editorial offset */
+    .v1 {
+      background:
+        linear-gradient(90deg, rgba(20, 20, 20, 0.045) 1px, transparent 1px) 0 0 / 8.333vw 100%,
+        #f2f0e9;
+    }
+
+    .v1::before {
+      position: absolute;
+      z-index: -1;
+      right: -10vw;
+      bottom: -35vw;
+      width: 70vw;
+      height: 70vw;
+      border: 1px solid rgba(20, 20, 20, 0.12);
+      border-radius: 50%;
+      box-shadow:
+        0 0 0 7vw rgba(255, 255, 255, 0.18),
+        0 0 0 calc(7vw + 1px) rgba(20, 20, 20, 0.08),
+        0 0 0 14vw rgba(255, 255, 255, 0.13),
+        0 0 0 calc(14vw + 1px) rgba(20, 20, 20, 0.06);
+      content: "";
+    }
+
+    .v1 .variation__inner {
+      display: grid;
+      grid-template-columns: minmax(0, 1.55fr) minmax(280px, 0.45fr);
+      gap: clamp(36px, 6vw, 100px);
+      align-items: center;
+    }
+
+    .v1-copy {
+      align-self: center;
+    }
+
+    .v1 h1 {
+      max-width: 1050px;
+      margin: clamp(26px, 4vh, 48px) 0 0;
+      font-size: clamp(64px, 8.4vw, 148px);
+      font-weight: 850;
+      letter-spacing: -0.078em;
+      line-height: 0.78;
+      text-transform: uppercase;
+    }
+
+    .v1 h1 .word-serif {
+      display: inline-block;
+      margin-left: 0.03em;
+      font-size: 0.89em;
+      letter-spacing: -0.055em;
+      text-transform: none;
+      transform: translateY(-0.03em);
+    }
+
+    .v1 h1 .line-indent {
+      display: inline-block;
+      margin-left: 0.72em;
+    }
+
+    .v1-meta {
+      display: flex;
+      align-items: flex-end;
+      justify-content: space-between;
+      gap: 28px;
+      max-width: 980px;
+      margin-top: clamp(36px, 6vh, 72px);
+      padding-top: 16px;
+      border-top: 1px solid var(--line);
+    }
+
+    .v1-meta p {
+      max-width: 420px;
+      margin: 0;
+      color: var(--muted);
+      font-size: 13px;
+      line-height: 1.55;
+    }
+
+    .v1-stack {
+      position: relative;
+      display: grid;
+      gap: 9px;
+      padding-top: 44px;
+    }
+
+    .v1-stack::before {
+      position: absolute;
+      top: 4px;
+      left: 0;
+      font-family: var(--mono);
+      font-size: 9px;
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+      content: "Selected signals / 05";
+    }
+
+    .v1-card {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      min-height: 72px;
+      padding: 12px 14px 12px 20px;
+      border: 1px solid rgba(20, 20, 20, 0.14);
+      border-radius: 4px;
+      background: rgba(255, 255, 255, 0.76);
+      box-shadow: 0 14px 35px rgba(20, 20, 20, 0.06);
+      transform: rotate(var(--tilt));
+      transition: transform 350ms var(--ease);
+    }
+
+    .v1-card:hover {
+      transform: rotate(0) translateX(-8px);
+    }
+
+    .v1-card span:first-child {
+      font-size: 13px;
+      font-weight: 650;
+    }
+
+    .v1-card span:last-child {
+      display: grid;
+      place-items: center;
+      width: 34px;
+      height: 34px;
+      border-radius: 50%;
+      background: var(--card-color);
+      font-family: var(--mono);
+      font-size: 8px;
+    }
+
+    /* 02 — Orbit system */
+    .v2 {
+      color: #f6f4ee;
+      background:
+        radial-gradient(circle at 74% 42%, rgba(205, 255, 70, 0.12), transparent 31vw),
+        #11120f;
+    }
+
+    .v2::before {
+      position: absolute;
+      inset: 0;
+      z-index: -1;
+      background-image: radial-gradient(rgba(255, 255, 255, 0.17) 0.7px, transparent 0.7px);
+      background-size: 16px 16px;
+      content: "";
+      opacity: 0.35;
+      mask-image: linear-gradient(to right, black, transparent 72%);
+    }
+
+    .v2 .variation__inner {
+      display: grid;
+      grid-template-columns: minmax(0, 0.85fr) minmax(430px, 1.15fr);
+      align-items: center;
+    }
+
+    .v2-copy {
+      position: relative;
+      z-index: 3;
+    }
+
+    .v2 h1 {
+      max-width: 760px;
+      margin: 34px 0;
+      font-size: clamp(70px, 9vw, 154px);
+      font-weight: 750;
+      letter-spacing: -0.08em;
+      line-height: 0.75;
+    }
+
+    .v2 h1 .acid {
+      display: block;
+      color: #cfee32;
+      font-family: var(--serif);
+      font-style: italic;
+      font-weight: 400;
+      letter-spacing: -0.055em;
+    }
+
+    .v2 .proof-list {
+      max-width: 620px;
+      color: rgba(246, 244, 238, 0.7);
+    }
+
+    .v2 .arrow-link {
+      margin-top: 44px;
+    }
+
+    .orbit-stage {
+      position: relative;
+      width: min(49vw, 760px);
+      aspect-ratio: 1;
+      justify-self: end;
+    }
+
+    .orbit-core,
+    .orbit-ring {
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      border-radius: 50%;
+      transform: translate(-50%, -50%);
+    }
+
+    .orbit-core {
+      z-index: 2;
+      display: grid;
+      place-items: center;
+      width: 29%;
+      aspect-ratio: 1;
+      color: #11120f;
+      background: #cfee32;
+      box-shadow: 0 0 100px rgba(207, 238, 50, 0.2);
+      text-align: center;
+    }
+
+    .orbit-core span {
+      display: block;
+      font-family: var(--mono);
+      font-size: clamp(8px, 0.7vw, 11px);
+      font-weight: 600;
+      line-height: 1.55;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+    }
+
+    .orbit-ring {
+      border: 1px solid rgba(246, 244, 238, 0.19);
+    }
+
+    .orbit-ring--one {
+      width: 57%;
+      aspect-ratio: 1;
+      animation: orbit-spin 26s linear infinite;
+    }
+
+    .orbit-ring--two {
+      width: 89%;
+      aspect-ratio: 1;
+      animation: orbit-spin 36s linear infinite reverse;
+    }
+
+    .orbit-ring::before,
+    .orbit-ring::after {
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      width: 8px;
+      height: 8px;
+      border-radius: 50%;
+      background: #cfee32;
+      box-shadow: 0 0 0 6px rgba(207, 238, 50, 0.1);
+      content: "";
+    }
+
+    .orbit-ring::before {
+      transform: translate(-50%, -50%) translateX(calc(var(--ring-size, 1) * 50%));
+    }
+
+    .orbit-ring--one::before {
+      left: 100%;
+    }
+
+    .orbit-ring--one::after {
+      top: 0;
+    }
+
+    .orbit-ring--two::before {
+      top: 100%;
+    }
+
+    .orbit-ring--two::after {
+      left: 0;
+    }
+
+    .orbit-pill {
+      position: absolute;
+      z-index: 4;
+      width: clamp(150px, 13vw, 220px);
+      filter: saturate(0.86);
+      animation: pill-float 5s ease-in-out infinite;
+    }
+
+    .orbit-pill--1 {
+      top: 5%;
+      left: 34%;
+      transform: rotate(-5deg);
+    }
+
+    .orbit-pill--2 {
+      top: 28%;
+      right: -3%;
+      animation-delay: -1s;
+      transform: rotate(4deg);
+    }
+
+    .orbit-pill--3 {
+      right: 5%;
+      bottom: 9%;
+      animation-delay: -2s;
+      transform: rotate(-3deg);
+    }
+
+    .orbit-pill--4 {
+      bottom: 0;
+      left: 13%;
+      animation-delay: -3s;
+      transform: rotate(5deg);
+    }
+
+    .orbit-pill--5 {
+      top: 34%;
+      left: -8%;
+      animation-delay: -4s;
+      transform: rotate(-4deg);
+    }
+
+    .v2-company-line {
+      position: absolute;
+      right: 0;
+      bottom: 0;
+      left: 0;
+      display: flex;
+      justify-content: space-between;
+      padding-top: 15px;
+      border-top: 1px solid rgba(255, 255, 255, 0.16);
+      color: rgba(255, 255, 255, 0.48);
+      font-family: var(--mono);
+      font-size: 9px;
+      letter-spacing: 0.13em;
+      text-transform: uppercase;
+    }
+
+    @keyframes orbit-spin {
+      to { transform: translate(-50%, -50%) rotate(360deg); }
+    }
+
+    @keyframes pill-float {
+      50% { margin-top: -10px; }
+    }
+
+    /* 03 — Desk collage */
+    .v3 {
+      background:
+        linear-gradient(rgba(20, 20, 20, 0.055) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(20, 20, 20, 0.055) 1px, transparent 1px),
+        #d9f75d;
+      background-size: 32px 32px;
+    }
+
+    .v3 .variation__inner {
+      display: grid;
+      grid-template-columns: minmax(300px, 0.72fr) minmax(0, 1.28fr);
+      gap: clamp(20px, 5vw, 76px);
+      align-items: stretch;
+      padding-top: 18px;
+    }
+
+    .profile-card {
+      position: relative;
+      align-self: center;
+      width: min(100%, 430px);
+      padding: 18px;
+      border: 1.5px solid var(--ink);
+      border-radius: 18px;
+      background: #fffdf4;
+      box-shadow: 12px 12px 0 #141414;
+      transform: rotate(-2.4deg);
+    }
+
+    .profile-card__top {
+      display: flex;
+      align-items: center;
+      gap: 14px;
+      padding-bottom: 18px;
+      border-bottom: 1px solid var(--line);
+    }
+
+    .profile-card__monogram {
+      display: grid;
+      flex: 0 0 auto;
+      place-items: center;
+      width: 60px;
+      height: 60px;
+      border-radius: 50%;
+      color: #fff;
+      background: #141414;
+      font-family: var(--serif);
+      font-size: 24px;
+      font-style: italic;
+    }
+
+    .profile-card h2,
+    .profile-card p {
+      margin: 0;
+    }
+
+    .profile-card h2 {
+      font-size: 16px;
+      letter-spacing: -0.025em;
+    }
+
+    .profile-card__role {
+      margin-top: 4px !important;
+      color: var(--muted);
+      font-family: var(--mono);
+      font-size: 9px;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+    }
+
+    .profile-card__about {
+      padding: 20px 3px 24px;
+      font-family: var(--serif);
+      font-size: clamp(23px, 2vw, 31px);
+      line-height: 1.03;
+    }
+
+    .profile-card dl {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 14px;
+      margin: 0;
+      padding: 18px 3px 3px;
+      border-top: 1px solid var(--line);
+    }
+
+    .profile-card dt {
+      color: var(--muted);
+      font-family: var(--mono);
+      font-size: 8px;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+    }
+
+    .profile-card dd {
+      margin: 4px 0 0;
+      font-size: 12px;
+      font-weight: 650;
+    }
+
+    .profile-card__clip {
+      position: absolute;
+      top: -23px;
+      left: 57%;
+      width: 14px;
+      height: 52px;
+      border: 3px solid #141414;
+      border-bottom: 0;
+      border-radius: 12px 12px 0 0;
+      transform: rotate(8deg);
+    }
+
+    .v3-copy {
+      position: relative;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      padding: clamp(20px, 4vw, 58px) 0;
+    }
+
+    .v3 h1 {
+      position: relative;
+      z-index: 2;
+      max-width: 960px;
+      margin: 26px 0 42px;
+      font-size: clamp(64px, 8.2vw, 136px);
+      font-weight: 850;
+      letter-spacing: -0.075em;
+      line-height: 0.79;
+      text-transform: uppercase;
+    }
+
+    .v3 h1 .word-serif {
+      padding: 0 0.08em;
+      border: 2px solid currentColor;
+      border-radius: 999px;
+      font-size: 0.8em;
+      letter-spacing: -0.04em;
+      text-transform: none;
+    }
+
+    .v3-pins {
+      display: grid;
+      grid-template-columns: repeat(5, minmax(95px, 1fr));
+      gap: 8px;
+      margin: auto 0 0;
+    }
+
+    .v3-pin {
+      position: relative;
+      min-height: 110px;
+      padding: 28px 13px 13px;
+      border: 1px solid rgba(20, 20, 20, 0.24);
+      background: var(--pin);
+      box-shadow: 4px 5px 0 rgba(20, 20, 20, 0.13);
+      font-size: 11px;
+      font-weight: 650;
+      line-height: 1.1;
+      transform: rotate(var(--rotate));
+    }
+
+    .v3-pin::before {
+      position: absolute;
+      top: 9px;
+      left: 12px;
+      width: 6px;
+      height: 6px;
+      border-radius: 50%;
+      background: #141414;
+      content: "";
+      box-shadow: 1px 1px 0 rgba(255, 255, 255, 0.7);
+    }
+
+    .v3-pin small {
+      position: absolute;
+      right: 10px;
+      bottom: 8px;
+      font-family: var(--mono);
+      font-size: 7px;
+      opacity: 0.48;
+    }
+
+    /* 04 — Modular bento */
+    .v4 {
+      color: #17131c;
+      background: #cdb8f3;
+    }
+
+    .v4::before {
+      position: absolute;
+      top: -20vw;
+      left: -10vw;
+      z-index: -1;
+      width: 58vw;
+      height: 58vw;
+      border-radius: 50%;
+      background: rgba(255, 255, 255, 0.22);
+      filter: blur(3px);
+      content: "";
+    }
+
+    .v4 .variation__inner {
+      display: grid;
+      grid-template-columns: repeat(12, 1fr);
+      grid-template-rows: minmax(220px, 1.05fr) minmax(160px, 0.72fr) minmax(120px, 0.5fr);
+      gap: 10px;
+    }
+
+    .module {
+      position: relative;
+      overflow: hidden;
+      border: 1px solid rgba(23, 19, 28, 0.22);
+      border-radius: 18px;
+      background: rgba(255, 255, 255, 0.4);
+    }
+
+    .module--headline {
+      grid-column: span 8;
+      grid-row: span 2;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      padding: clamp(22px, 3vw, 46px);
+      color: #f6f2eb;
+      background: #17131c;
+    }
+
+    .module--headline::after {
+      position: absolute;
+      right: -13%;
+      bottom: -42%;
+      width: 58%;
+      aspect-ratio: 1;
+      border: 1px solid rgba(255, 255, 255, 0.19);
+      border-radius: 50%;
+      box-shadow:
+        0 0 0 28px rgba(255, 255, 255, 0.025),
+        0 0 0 29px rgba(255, 255, 255, 0.1),
+        0 0 0 58px rgba(255, 255, 255, 0.02),
+        0 0 0 59px rgba(255, 255, 255, 0.08);
+      content: "";
+    }
+
+    .module--headline h1 {
+      position: relative;
+      z-index: 2;
+      max-width: 970px;
+      margin: 0;
+      font-size: clamp(54px, 7.3vw, 126px);
+      font-weight: 760;
+      letter-spacing: -0.075em;
+      line-height: 0.78;
+    }
+
+    .module--headline h1 .word-serif {
+      color: #d8f259;
+      letter-spacing: -0.04em;
+    }
+
+    .module--stats {
+      grid-column: span 4;
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 1px;
+      background: rgba(23, 19, 28, 0.18);
+    }
+
+    .stat {
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      padding: 22px;
+      background: #eddd83;
+    }
+
+    .stat:nth-child(2) {
+      background: #f4ebdf;
+    }
+
+    .stat strong {
+      font-size: clamp(40px, 4.2vw, 70px);
+      font-weight: 760;
+      letter-spacing: -0.07em;
+      line-height: 0.8;
+    }
+
+    .stat span {
+      max-width: 110px;
+      font-family: var(--mono);
+      font-size: 8px;
+      line-height: 1.35;
+      letter-spacing: 0.09em;
+      text-transform: uppercase;
+    }
+
+    .module--companies {
+      grid-column: span 4;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      padding: 24px;
+      background: #ee6c4d;
+    }
+
+    .module--companies p {
+      margin: 0;
+    }
+
+    .company-lockup {
+      display: grid;
+      gap: 5px;
+      font-size: clamp(21px, 2.3vw, 36px);
+      font-weight: 680;
+      letter-spacing: -0.045em;
+      line-height: 0.9;
+    }
+
+    .module--signal {
+      grid-column: span 3;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      padding: 18px;
+      transition: transform 280ms var(--ease);
+    }
+
+    .module--signal:hover {
+      transform: translateY(-7px);
+    }
+
+    .module--signal:nth-of-type(4) { background: #d9f158; }
+    .module--signal:nth-of-type(5) { background: #f3ede3; }
+    .module--signal:nth-of-type(6) { background: #aee2d6; }
+    .module--signal:nth-of-type(7) { background: #e9d7fb; }
+
+    .module--signal .number {
+      font-family: var(--mono);
+      font-size: 8px;
+      opacity: 0.5;
+    }
+
+    .module--signal strong {
+      max-width: 160px;
+      font-size: clamp(15px, 1.5vw, 22px);
+      letter-spacing: -0.04em;
+      line-height: 0.92;
+    }
+
+    /* 05 — Type runway */
+    .v5 {
+      color: #111;
+      background: #ff5d43;
+    }
+
+    .v5::before {
+      position: absolute;
+      inset: 0;
+      z-index: -1;
+      background: repeating-linear-gradient(135deg, transparent 0 19px, rgba(20, 20, 20, 0.035) 19px 20px);
+      content: "";
+    }
+
+    .v5 .variation__inner {
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+    }
+
+    .v5-topline {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 30px;
+      margin-bottom: clamp(24px, 4vh, 44px);
+      padding-bottom: 14px;
+      border-bottom: 1px solid rgba(20, 20, 20, 0.28);
+    }
+
+    .v5-topline p {
+      margin: 0;
+    }
+
+    .v5-status {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      font-family: var(--mono);
+      font-size: 9px;
+      letter-spacing: 0.09em;
+      text-transform: uppercase;
+    }
+
+    .v5-status::before {
+      width: 7px;
+      height: 7px;
+      border-radius: 50%;
+      background: #dff568;
+      box-shadow: 0 0 0 5px rgba(223, 245, 104, 0.2);
+      content: "";
+    }
+
+    .runway-title {
+      display: grid;
+      gap: 0;
+      margin: 0;
+      font-size: clamp(70px, 10.6vw, 180px);
+      font-weight: 850;
+      letter-spacing: -0.085em;
+      line-height: 0.68;
+      text-transform: uppercase;
+    }
+
+    .runway-title__line {
+      display: flex;
+      align-items: baseline;
+      justify-content: space-between;
+      gap: 20px;
+      white-space: nowrap;
+    }
+
+    .runway-title__line:nth-child(2) {
+      padding-left: 0.7em;
+    }
+
+    .runway-title__line:nth-child(3) {
+      padding-left: 0.1em;
+    }
+
+    .runway-title__line small {
+      flex: 0 0 auto;
+      margin-right: 1.2vw;
+      font-family: var(--mono);
+      font-size: clamp(8px, 0.7vw, 11px);
+      font-weight: 600;
+      letter-spacing: 0.1em;
+      line-height: 1.4;
+    }
+
+    .runway-title .invert {
+      padding: 0.02em 0.12em 0.08em;
+      color: #ff5d43;
+      background: #111;
+      line-height: 0.72;
+      transform: rotate(-1deg);
+    }
+
+    .runway-title .word-serif {
+      font-size: 0.84em;
+      letter-spacing: -0.045em;
+      text-transform: none;
+    }
+
+    .v5-bottom {
+      display: grid;
+      grid-template-columns: 0.8fr 1.2fr;
+      gap: clamp(28px, 7vw, 110px);
+      align-items: end;
+      margin-top: clamp(34px, 6vh, 68px);
+    }
+
+    .v5-bottom > p {
+      max-width: 390px;
+      margin: 0;
+      font-family: var(--serif);
+      font-size: clamp(20px, 2vw, 30px);
+      line-height: 1.05;
+    }
+
+    .v5-roster {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      margin: 0;
+      padding: 0;
+      border-top: 1px solid rgba(20, 20, 20, 0.32);
+      list-style: none;
+    }
+
+    .v5-roster li {
+      padding: 15px 10px 0;
+      border-left: 1px solid rgba(20, 20, 20, 0.32);
+    }
+
+    .v5-roster li:last-child {
+      border-right: 1px solid rgba(20, 20, 20, 0.32);
+    }
+
+    .v5-roster small,
+    .v5-roster strong {
+      display: block;
+    }
+
+    .v5-roster small {
+      margin-bottom: 10px;
+      font-family: var(--mono);
+      font-size: 7px;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      opacity: 0.55;
+    }
+
+    .v5-roster strong {
+      font-size: clamp(15px, 1.4vw, 22px);
+      letter-spacing: -0.04em;
+    }
+
+    /* 06 — Quiet confidence */
+    .v6 {
+      color: #222a24;
+      background:
+        radial-gradient(circle at 50% 36%, rgba(185, 218, 200, 0.35), transparent 25vw),
+        #f5f5ef;
+    }
+
+    .v6 .variation__inner {
+      display: grid;
+      grid-template-columns: 0.34fr 1fr 0.34fr;
+      grid-template-rows: auto 1fr auto;
+      align-items: center;
+    }
+
+    .v6-intro {
+      grid-column: 1;
+      grid-row: 1;
+      align-self: start;
+      margin: 18px 0 0;
+    }
+
+    .v6-intro p {
+      margin: 0;
+    }
+
+    .v6-intro p:last-child {
+      margin-top: 7px;
+      color: rgba(34, 42, 36, 0.52);
+      font-size: 12px;
+    }
+
+    .v6-title-wrap {
+      grid-column: 1 / -1;
+      grid-row: 2;
+      align-self: center;
+      justify-self: center;
+      width: min(1120px, 90%);
+      text-align: center;
+    }
+
+    .v6 h1 {
+      margin: 0;
+      font-family: var(--serif);
+      font-size: clamp(58px, 7.5vw, 128px);
+      font-weight: 400;
+      letter-spacing: -0.055em;
+      line-height: 0.91;
+    }
+
+    .v6 h1 .sans {
+      font-family: var(--sans);
+      font-size: 0.82em;
+      font-weight: 700;
+      letter-spacing: -0.075em;
+    }
+
+    .v6-title-wrap > p {
+      max-width: 470px;
+      margin: clamp(28px, 4vh, 48px) auto 0;
+      color: rgba(34, 42, 36, 0.58);
+      font-size: 13px;
+      line-height: 1.6;
+    }
+
+    .v6-seal {
+      grid-column: 3;
+      grid-row: 1;
+      align-self: start;
+      justify-self: end;
+      display: grid;
+      place-items: center;
+      width: 92px;
+      aspect-ratio: 1;
+      margin-top: 10px;
+      border: 1px solid rgba(34, 42, 36, 0.26);
+      border-radius: 50%;
+      font-family: var(--mono);
+      font-size: 7px;
+      line-height: 1.45;
+      letter-spacing: 0.11em;
+      text-align: center;
+      text-transform: uppercase;
+      animation: seal-breathe 4s ease-in-out infinite;
+    }
+
+    .v6-index {
+      grid-column: 1 / -1;
+      grid-row: 3;
+      display: grid;
+      grid-template-columns: repeat(5, 1fr);
+      margin: 0;
+      padding: 0;
+      border-top: 1px solid rgba(34, 42, 36, 0.2);
+      list-style: none;
+    }
+
+    .v6-index li {
+      min-height: 86px;
+      padding: 14px 14px 10px;
+      border-right: 1px solid rgba(34, 42, 36, 0.2);
+    }
+
+    .v6-index li:first-child {
+      border-left: 1px solid rgba(34, 42, 36, 0.2);
+    }
+
+    .v6-index small,
+    .v6-index strong {
+      display: block;
+    }
+
+    .v6-index small {
+      margin-bottom: 22px;
+      font-family: var(--mono);
+      font-size: 7px;
+      letter-spacing: 0.1em;
+      opacity: 0.48;
+    }
+
+    .v6-index strong {
+      font-family: var(--serif);
+      font-size: clamp(15px, 1.4vw, 21px);
+      font-weight: 500;
+      line-height: 1;
+    }
+
+    @keyframes seal-breathe {
+      50% { transform: scale(0.95) rotate(-3deg); }
+    }
+
+    @media (max-width: 1050px) {
+      .variation__inner {
+        min-height: calc(100svh - 140px);
+      }
+
+      .v1 .variation__inner {
+        grid-template-columns: 1fr;
+        align-content: center;
+      }
+
+      .v1-stack {
+        grid-template-columns: repeat(5, minmax(120px, 1fr));
+        gap: 6px;
+        overflow-x: auto;
+      }
+
+      .v1-card {
+        min-width: 142px;
+        min-height: 64px;
+      }
+
+      .v2 .variation__inner {
+        grid-template-columns: minmax(0, 0.85fr) minmax(360px, 1.15fr);
+      }
+
+      .orbit-stage {
+        width: min(54vw, 650px);
+      }
+
+      .v3 .variation__inner {
+        grid-template-columns: minmax(240px, 0.55fr) minmax(0, 1.45fr);
+      }
+
+      .module--headline {
+        grid-column: span 7;
+      }
+
+      .module--stats,
+      .module--companies {
+        grid-column: span 5;
+      }
+    }
+
+    @media (max-width: 760px) {
+      html {
+        scroll-snap-type: none;
+      }
+
+      .study-bar {
+        grid-template-columns: 1fr auto;
+        padding-left: 14px;
+      }
+
+      .study-nav {
+        display: none;
+      }
+
+      .variation {
+        min-height: 100svh;
+        padding: 88px 18px 26px;
+      }
+
+      .variation__marker {
+        top: 76px;
+        right: 18px;
+        font-size: 8px;
+      }
+
+      .variation__inner {
+        min-height: calc(100svh - 114px);
+      }
+
+      .v1 h1 {
+        margin-top: 42px;
+        font-size: clamp(54px, 16.8vw, 86px);
+        line-height: 0.79;
+      }
+
+      .v1 h1 .line-indent {
+        margin-left: 0;
+      }
+
+      .v1-meta {
+        align-items: flex-start;
+        flex-direction: column;
+      }
+
+      .v1-stack {
+        grid-template-columns: repeat(5, 145px);
+        margin: 0 -18px;
+        padding-right: 18px;
+        padding-left: 18px;
+      }
+
+      .v1-stack::before {
+        left: 18px;
+      }
+
+      .v2 .variation__inner {
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+      }
+
+      .v2 h1 {
+        margin: 28px 0;
+        font-size: clamp(66px, 20vw, 104px);
+      }
+
+      .orbit-stage {
+        position: absolute;
+        top: 52%;
+        right: -57%;
+        z-index: -1;
+        width: 110vw;
+        opacity: 0.32;
+        transform: translateY(-50%);
+      }
+
+      .orbit-pill {
+        display: none;
+      }
+
+      .v2-company-line {
+        gap: 12px;
+        overflow: hidden;
+        white-space: nowrap;
+      }
+
+      .v3 .variation__inner {
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        padding-top: 12px;
+      }
+
+      .profile-card {
+        width: 76%;
+        padding: 12px;
+        transform: rotate(-1.5deg) scale(0.88);
+        transform-origin: left center;
+      }
+
+      .profile-card__about,
+      .profile-card dl {
+        display: none;
+      }
+
+      .v3-copy {
+        padding: 0;
+      }
+
+      .v3 h1 {
+        margin: 26px 0 36px;
+        font-size: clamp(58px, 17vw, 90px);
+      }
+
+      .v3-pins {
+        grid-template-columns: repeat(5, 130px);
+        margin-right: -18px;
+        margin-left: -18px;
+        padding: 6px 18px 12px;
+        overflow-x: auto;
+      }
+
+      .v4 .variation__inner {
+        grid-template-columns: 1fr 1fr;
+        grid-template-rows: auto;
+        align-content: center;
+      }
+
+      .module--headline,
+      .module--stats,
+      .module--companies {
+        grid-column: 1 / -1;
+      }
+
+      .module--headline {
+        min-height: 360px;
+      }
+
+      .module--headline h1 {
+        font-size: clamp(54px, 16vw, 88px);
+      }
+
+      .module--stats {
+        min-height: 150px;
+      }
+
+      .module--companies {
+        display: none;
+      }
+
+      .module--signal {
+        grid-column: span 1;
+        min-height: 105px;
+      }
+
+      .runway-title {
+        font-size: clamp(60px, 18vw, 94px);
+        line-height: 0.75;
+      }
+
+      .runway-title__line {
+        flex-wrap: wrap;
+        gap: 8px;
+        white-space: normal;
+      }
+
+      .runway-title__line:nth-child(2),
+      .runway-title__line:nth-child(3) {
+        padding-left: 0;
+      }
+
+      .runway-title__line small {
+        display: none;
+      }
+
+      .v5-bottom {
+        grid-template-columns: 1fr;
+      }
+
+      .v5-roster li {
+        padding-left: 7px;
+      }
+
+      .v6 .variation__inner {
+        grid-template-columns: 1fr auto;
+        grid-template-rows: auto 1fr auto;
+      }
+
+      .v6-intro {
+        grid-column: 1;
+      }
+
+      .v6-seal {
+        grid-column: 2;
+        width: 70px;
+      }
+
+      .v6-title-wrap {
+        grid-column: 1 / -1;
+        width: 100%;
+      }
+
+      .v6 h1 {
+        font-size: clamp(50px, 15vw, 82px);
+      }
+
+      .v6-index {
+        grid-template-columns: repeat(5, 135px);
+        grid-column: 1 / -1;
+        margin-right: -18px;
+        margin-left: -18px;
+        padding: 0 18px;
+        overflow-x: auto;
+      }
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      html {
+        scroll-behavior: auto;
+      }
+
+      *,
+      *::before,
+      *::after {
+        animation-duration: 0.001ms !important;
+        animation-iteration-count: 1 !important;
+      }
+    }
+  </style>
+  <link rel="stylesheet" href="hero-variations-fun-minimal.css">
+</head>
+<body>
+  <header class="study-bar" aria-label="Hero exploration navigation">
+    <p class="study-bar__title">Hero studies</p>
+    <nav class="study-nav" aria-label="Jump to a variation">
+      <a class="is-active" href="#variation-1" aria-label="Editorial offset">01</a>
+      <a href="#variation-2" aria-label="Orbit system">02</a>
+      <a href="#variation-3" aria-label="Desk collage">03</a>
+      <a href="#variation-4" aria-label="Modular bento">04</a>
+      <a href="#variation-5" aria-label="Type runway">05</a>
+      <a href="#variation-6" aria-label="Quiet confidence">06</a>
+      <a href="#variation-7" aria-label="Soft landing">07</a>
+      <a href="#variation-8" aria-label="Proof, softly">08</a>
+      <a href="#variation-9" aria-label="Asterisk energy">09</a>
+      <a href="#variation-10" aria-label="Underline the feeling">10</a>
+      <a href="#variation-11" aria-label="Little receipt">11</a>
+      <a href="#variation-12" aria-label="Window play">12</a>
+      <a href="#variation-13" aria-label="Gentle orbit">13</a>
+      <a href="#variation-14" aria-label="Serious about play">14</a>
+    </nav>
+    <p class="study-bar__count" aria-live="polite"><span id="current-study">01</span> / 14</p>
+  </header>
+
+  <main>
+    <section class="variation v1" id="variation-1" data-study="01" aria-labelledby="title-1">
+      <p class="variation__marker">Editorial offset</p>
+      <div class="variation__inner">
+        <div class="v1-copy">
+          <p class="eyebrow"><span>Good morning —</span> I'm Atharva Chavare · Product Designer</p>
+          <h1 id="title-1">
+            Crafting <span class="word-serif">meaningful</span><br>
+            <span class="line-indent">interfaces</span><br>
+            for millions.
+          </h1>
+          <div class="v1-meta">
+            <p>Designing products used at scale across travel, fintech, and experience design.</p>
+            <a class="arrow-link" href="#variation-2">Next direction</a>
+          </div>
+        </div>
+        <aside class="v1-stack" aria-label="Design signals">
+          <div class="v1-card" style="--tilt: -2deg; --card-color: #d9ef57;"><span>Bilingual, global</span><span>01</span></div>
+          <div class="v1-card" style="--tilt: 1.2deg; --card-color: #cbb0ea;"><span>325 design patents</span><span>02</span></div>
+          <div class="v1-card" style="--tilt: -1deg; --card-color: #ffe17a;"><span>Detail obsessed</span><span>03</span></div>
+          <div class="v1-card" style="--tilt: 1.8deg; --card-color: #a8ddd2;"><span>Agent workflows</span><span>04</span></div>
+          <div class="v1-card" style="--tilt: -1.4deg; --card-color: #ff826e;"><span>Design systems nerd</span><span>05</span></div>
+        </aside>
+      </div>
+    </section>
+
+    <section class="variation v2" id="variation-2" data-study="02" aria-labelledby="title-2">
+      <p class="variation__marker">Orbit system</p>
+      <div class="variation__inner">
+        <div class="v2-copy">
+          <p class="eyebrow"><span>Atharva Chavare /</span> Product Designer</p>
+          <h1 id="title-2">Meaningful <span class="acid">at scale.</span></h1>
+          <ul class="proof-list" aria-label="Design strengths">
+            <li>Bilingual</li>
+            <li>Detail obsessed</li>
+            <li>Design systems</li>
+          </ul>
+          <a class="arrow-link" href="#variation-3">Explore another orbit</a>
+        </div>
+        <div class="orbit-stage" aria-hidden="true">
+          <div class="orbit-ring orbit-ring--two"></div>
+          <div class="orbit-ring orbit-ring--one"></div>
+          <div class="orbit-core"><span>Interfaces<br>for millions</span></div>
+          <img class="orbit-pill orbit-pill--1" src="assets/pill-bilingual.svg" alt="">
+          <img class="orbit-pill orbit-pill--2" src="assets/pill-patents.svg" alt="">
+          <img class="orbit-pill orbit-pill--3" src="assets/pill-detail.svg" alt="">
+          <img class="orbit-pill orbit-pill--4" src="assets/pill-agent.svg" alt="">
+          <img class="orbit-pill orbit-pill--5" src="assets/pill-design-systems.svg" alt="">
+        </div>
+        <div class="v2-company-line" aria-label="Companies">
+          <span>Wongdoody</span>
+          <span>MakeMyTrip</span>
+          <span>Fiserv</span>
+          <span>Travel · Fintech · Experience</span>
+        </div>
+      </div>
+    </section>
+
+    <section class="variation v3" id="variation-3" data-study="03" aria-labelledby="title-3">
+      <p class="variation__marker">Desk collage</p>
+      <div class="variation__inner">
+        <article class="profile-card" aria-label="Designer profile card">
+          <span class="profile-card__clip" aria-hidden="true"></span>
+          <div class="profile-card__top">
+            <div class="profile-card__monogram" aria-hidden="true">AC</div>
+            <div>
+              <h2>Atharva Chavare</h2>
+              <p class="profile-card__role">Product Designer</p>
+            </div>
+          </div>
+          <p class="profile-card__about">A systems thinker with a soft spot for the details people feel.</p>
+          <dl>
+            <div>
+              <dt>Scale</dt>
+              <dd>Millions of users</dd>
+            </div>
+            <div>
+              <dt>Perspective</dt>
+              <dd>Bilingual, global</dd>
+            </div>
+            <div>
+              <dt>Experience</dt>
+              <dd>3 industries</dd>
+            </div>
+            <div>
+              <dt>Practice</dt>
+              <dd>Systems + craft</dd>
+            </div>
+          </dl>
+        </article>
+        <div class="v3-copy">
+          <p class="eyebrow"><span>Good morning —</span> Ideas, systems, and tiny details</p>
+          <h1 id="title-3">I make digital things <span class="word-serif">click.</span></h1>
+          <div class="v3-pins" aria-label="Experience notes">
+            <div class="v3-pin" style="--pin: #fff8bc; --rotate: -1.5deg;">Bilingual,<br>global<small>01</small></div>
+            <div class="v3-pin" style="--pin: #d9c8f1; --rotate: 1.4deg;">325 design<br>patents<small>02</small></div>
+            <div class="v3-pin" style="--pin: #ffc2b8; --rotate: -0.8deg;">Detail<br>obsessed<small>03</small></div>
+            <div class="v3-pin" style="--pin: #bce7df; --rotate: 1deg;">Agent<br>workflows<small>04</small></div>
+            <div class="v3-pin" style="--pin: #fffdf4; --rotate: -1.2deg;">Design systems<br>nerd<small>05</small></div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="variation v4" id="variation-4" data-study="04" aria-labelledby="title-4">
+      <p class="variation__marker">Modular bento</p>
+      <div class="variation__inner">
+        <article class="module module--headline">
+          <p class="eyebrow"><span>Good morning —</span> Atharva Chavare · Product Designer</p>
+          <h1 id="title-4">Crafting <span class="word-serif">meaningful</span> interfaces for millions.</h1>
+        </article>
+        <article class="module module--stats" aria-label="Design impact">
+          <div class="stat"><strong>3</strong><span>Industries shaped at scale</span></div>
+          <div class="stat"><strong>325</strong><span>Design patents in the orbit</span></div>
+        </article>
+        <article class="module module--companies">
+          <p class="eyebrow">Where the work happened</p>
+          <div class="company-lockup">
+            <span>Wongdoody</span>
+            <span>MakeMyTrip</span>
+            <span>Fiserv</span>
+          </div>
+        </article>
+        <article class="module module--signal"><span class="number">01 / 04</span><strong>Bilingual, global</strong></article>
+        <article class="module module--signal"><span class="number">02 / 04</span><strong>Detail obsessed</strong></article>
+        <article class="module module--signal"><span class="number">03 / 04</span><strong>Agent workflows</strong></article>
+        <article class="module module--signal"><span class="number">04 / 04</span><strong>Design systems nerd</strong></article>
+      </div>
+    </section>
+
+    <section class="variation v5" id="variation-5" data-study="05" aria-labelledby="title-5">
+      <p class="variation__marker">Type runway</p>
+      <div class="variation__inner">
+        <div class="v5-topline">
+          <p class="eyebrow">Atharva Chavare · Product Designer</p>
+          <p class="v5-status">Crafting now</p>
+        </div>
+        <h1 class="runway-title" id="title-5">
+          <span class="runway-title__line"><span>Interfaces</span><small>Bilingual / Global<br>Detail obsessed</small></span>
+          <span class="runway-title__line"><span class="word-serif">with meaning,</span></span>
+          <span class="runway-title__line"><small>Agent workflows<br>Design systems</small><span class="invert">at scale.</span></span>
+        </h1>
+        <div class="v5-bottom">
+          <p>Built for millions, shaped one deliberate interaction at a time.</p>
+          <ul class="v5-roster" aria-label="Selected companies">
+            <li><small>Experience</small><strong>Wongdoody</strong></li>
+            <li><small>Travel</small><strong>MakeMyTrip</strong></li>
+            <li><small>Fintech</small><strong>Fiserv</strong></li>
+          </ul>
+        </div>
+      </div>
+    </section>
+
+    <section class="variation v6" id="variation-6" data-study="06" aria-labelledby="title-6">
+      <p class="variation__marker">Quiet confidence</p>
+      <div class="variation__inner">
+        <div class="v6-intro">
+          <p class="eyebrow">Atharva Chavare</p>
+          <p>Product Designer</p>
+        </div>
+        <div class="v6-seal" aria-hidden="true">Craft<br>×<br>Scale</div>
+        <div class="v6-title-wrap">
+          <h1 id="title-6">Meaningful interfaces,<br><span class="sans">made for millions.</span></h1>
+          <p>From Wongdoody to MakeMyTrip and Fiserv, I turn complex systems into clear, considered product experiences.</p>
+        </div>
+        <ol class="v6-index" aria-label="Design practice">
+          <li><small>01</small><strong>Bilingual, global</strong></li>
+          <li><small>02</small><strong>325 design patents</strong></li>
+          <li><small>03</small><strong>Detail obsessed</strong></li>
+          <li><small>04</small><strong>Agent workflows</strong></li>
+          <li><small>05</small><strong>Design systems nerd</strong></li>
+        </ol>
+      </div>
+    </section>
+
+    <section class="variation v7" id="variation-7" data-study="07" aria-labelledby="title-7">
+      <p class="variation__marker">Soft landing</p>
+      <div class="variation__inner">
+        <p class="v7-note v7-note--one">Systems thinker</p>
+        <p class="v7-note v7-note--two">Detail obsessed</p>
+        <p class="v7-note v7-note--three">Bilingual, global</p>
+        <p class="v7-note v7-note--four">Made for millions</p>
+        <div class="v7-copy">
+          <p class="v7-kicker">Atharva Chavare · Product Designer</p>
+          <h1 id="title-7">Complex products.<br><span class="soft-word">Clear feelings.</span></h1>
+          <p class="v7-summary">I turn dense systems into calm, useful experiences—then polish the tiny moments that make them memorable.</p>
+        </div>
+      </div>
+    </section>
+
+    <section class="variation v8" id="variation-8" data-study="08" aria-labelledby="title-8">
+      <p class="variation__marker">Proof, softly</p>
+      <div class="variation__inner">
+        <div class="v8-copy">
+          <p class="eyebrow"><span>Atharva Chavare /</span> Product Designer</p>
+          <h1 id="title-8">Useful first.<br><em>Delightful</em> always.</h1>
+          <div class="v8-rule" aria-hidden="true"></div>
+          <p>Thoughtful product design across travel, fintech, and enterprise experiences.</p>
+        </div>
+        <ol class="v8-proof" aria-label="Selected proof points">
+          <li style="--wash: rgba(130, 113, 231, 0.2);"><span class="v8-proof__number">01</span><strong>Millions reached</strong><small>Scale</small></li>
+          <li style="--wash: rgba(243, 166, 124, 0.2);"><span class="v8-proof__number">02</span><strong>325 patents</strong><small>Craft</small></li>
+          <li style="--wash: rgba(112, 176, 153, 0.2);"><span class="v8-proof__number">03</span><strong>3 industries</strong><small>Range</small></li>
+          <li style="--wash: rgba(220, 200, 88, 0.2);"><span class="v8-proof__number">04</span><strong>One curious mind</strong><small>Constant</small></li>
+        </ol>
+      </div>
+    </section>
+
+    <section class="variation v9" id="variation-9" data-study="09" aria-labelledby="title-9">
+      <p class="variation__marker">Asterisk energy</p>
+      <div class="variation__inner">
+        <div class="v9-mark-wrap" aria-hidden="true">
+          <span class="v9-mark">*</span>
+        </div>
+        <div class="v9-copy">
+          <p class="eyebrow"><span>Product design,</span> with a point of view</p>
+          <h1 id="title-9">Serious systems.<br><em>Human details.</em></h1>
+        </div>
+        <div class="v9-footer">
+          <p>Atharva Chavare<br>Product Designer</p>
+          <ul class="v9-tags" aria-label="Design strengths">
+            <li>Bilingual</li>
+            <li>At scale</li>
+            <li>Agent workflows</li>
+            <li>Design systems</li>
+          </ul>
+        </div>
+      </div>
+    </section>
+
+    <section class="variation v10" id="variation-10" data-study="10" aria-labelledby="title-10">
+      <p class="variation__marker">Underline the feeling</p>
+      <div class="variation__inner">
+        <div class="v10-top">
+          <p class="eyebrow">Atharva Chavare · Product Designer</p>
+          <p class="v10-available">Crafting now</p>
+        </div>
+        <div class="v10-copy">
+          <span class="v10-label v10-label--one">Clear, not cold</span>
+          <span class="v10-label v10-label--two">Fun, not noisy</span>
+          <span class="v10-label v10-label--three">Simple, not basic</span>
+          <h1 id="title-10">I design complexity<br>until it <span class="feels">obvious.</span></h1>
+          <p class="v10-caption">Digital products for millions of people, made with clarity, curiosity, and a healthy obsession with details.</p>
+        </div>
+        <div class="v10-bottom" aria-label="Selected companies">
+          <span>Wongdoody</span>
+          <span>MakeMyTrip</span>
+          <span>Fiserv</span>
+          <span>Travel · Fintech · Experience</span>
+        </div>
+      </div>
+    </section>
+
+    <section class="variation v11" id="variation-11" data-study="11" aria-labelledby="title-11">
+      <p class="variation__marker">Little receipt</p>
+      <div class="variation__inner">
+        <div class="v11-copy">
+          <p class="eyebrow"><span>Good design adds up —</span> Atharva Chavare</p>
+          <h1 id="title-11">Big outcomes.<br><em>Small details.</em></h1>
+          <p>From first sketch to shipped system, I make complex products easier to use and harder to forget.</p>
+        </div>
+        <article class="receipt" aria-label="A receipt for thoughtful product design">
+          <header class="receipt__head">
+            <strong>Design receipt</strong>
+            <span>No. 0325</span>
+          </header>
+          <ul class="receipt__list">
+            <li><span>Clarity</span><span>01</span></li>
+            <li><span>Systems thinking</span><span>02</span></li>
+            <li><span>Playful detail</span><span>03</span></li>
+            <li><span>Global perspective</span><span>04</span></li>
+            <li><span>Care at scale</span><span>05</span></li>
+          </ul>
+          <div class="receipt__total">
+            <span>Total</span>
+            <strong>Meaningful.</strong>
+          </div>
+          <footer class="receipt__foot">Thank you for noticing the details</footer>
+        </article>
+      </div>
+    </section>
+
+    <section class="variation v12" id="variation-12" data-study="12" aria-labelledby="title-12">
+      <p class="variation__marker">Window play</p>
+      <div class="variation__inner">
+        <article class="v12-window v12-window--one" style="--window-wash: rgba(141, 124, 231, 0.2);" aria-label="Travel experience">
+          <div class="v12-window__bar"></div>
+          <div class="v12-window__body"><strong>Travel, made lighter</strong><span>01</span></div>
+        </article>
+        <article class="v12-window v12-window--two" style="--window-wash: rgba(240, 166, 124, 0.2);" aria-label="Fintech experience">
+          <div class="v12-window__bar"></div>
+          <div class="v12-window__body"><strong>Finance, made clearer</strong><span>02</span></div>
+        </article>
+        <article class="v12-window v12-window--three" style="--window-wash: rgba(112, 176, 153, 0.2);" aria-label="Agent workflow">
+          <div class="v12-window__bar"></div>
+          <div class="v12-window__body"><strong>Agents, made useful</strong><span>03</span></div>
+        </article>
+        <article class="v12-window v12-window--four" style="--window-wash: rgba(218, 196, 81, 0.2);" aria-label="Design system">
+          <div class="v12-window__bar"></div>
+          <div class="v12-window__body"><strong>Systems, made human</strong><span>04</span></div>
+        </article>
+        <div class="v12-copy">
+          <p class="eyebrow"><span>Atharva Chavare /</span> Product Designer</p>
+          <h1 id="title-12">Many moving parts.<br><em>One clear experience.</em></h1>
+          <p>I connect product thinking, interaction craft, and scalable systems into experiences that simply work.</p>
+        </div>
+      </div>
+    </section>
+
+    <section class="variation v13" id="variation-13" data-study="13" aria-labelledby="title-13">
+      <p class="variation__marker">Gentle orbit</p>
+      <div class="variation__inner">
+        <div class="v13-orbit">
+          <span class="v13-chip v13-chip--one">Bilingual</span>
+          <span class="v13-chip v13-chip--two">Detail obsessed</span>
+          <span class="v13-chip v13-chip--three">At scale</span>
+          <span class="v13-chip v13-chip--four">Agent workflows</span>
+          <span class="v13-chip v13-chip--five">Design systems</span>
+          <div class="v13-copy">
+            <p class="eyebrow"><span>Product Designer /</span> Atharva Chavare</p>
+            <h1 id="title-13">I make digital things<br><em>feel considered.</em></h1>
+            <p>Calm interfaces, playful moments, and systems designed to hold up in the real world.</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="variation v14" id="variation-14" data-study="14" aria-labelledby="title-14">
+      <p class="variation__marker">Serious about play</p>
+      <div class="variation__inner">
+        <div class="v14-copy">
+          <p class="eyebrow"><span>Atharva Chavare —</span> Product Designer</p>
+          <h1 id="title-14">I take clarity<br><em>seriously.</em> Play too.</h1>
+        </div>
+        <div class="play-dial" aria-hidden="true">
+          <span>Craft<br>×<br>Curiosity</span>
+        </div>
+        <ol class="v14-ledger" aria-label="Selected experience">
+          <li><small>What I do</small><strong>Make complex products clear, useful, and memorable.</strong></li>
+          <li><small>Experience</small><strong>Wongdoody</strong></li>
+          <li><small>Travel</small><strong>MakeMyTrip</strong></li>
+          <li><small>Fintech</small><strong>Fiserv</strong></li>
+        </ol>
+      </div>
+    </section>
+  </main>
+
+  <script>
+    const studies = [...document.querySelectorAll("[data-study]")];
+    const navLinks = [...document.querySelectorAll(".study-nav a")];
+    const currentStudy = document.querySelector("#current-study");
+
+    const setCurrentStudy = (study) => {
+      currentStudy.textContent = study;
+      navLinks.forEach((link) => {
+        const isCurrent = link.getAttribute("href") === `#variation-${Number(study)}`;
+        link.classList.toggle("is-active", isCurrent);
+        if (isCurrent) {
+          link.setAttribute("aria-current", "true");
+        } else {
+          link.removeAttribute("aria-current");
+        }
+      });
+    };
+
+    const observer = new IntersectionObserver(
+      (entries) => {
+        const visible = entries
+          .filter((entry) => entry.isIntersecting)
+          .sort((a, b) => b.intersectionRatio - a.intersectionRatio)[0];
+
+        if (visible) setCurrentStudy(visible.target.dataset.study);
+      },
+      { threshold: [0.35, 0.55, 0.75] }
+    );
+
+    studies.forEach((study) => observer.observe(study));
+  </script>
+</body>
+</html>

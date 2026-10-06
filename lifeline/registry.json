@@ -1,0 +1,290 @@
+{
+  "$schema": "https://ui.shadcn.com/schema/registry.json",
+  "name": "evilrabbit",
+  "homepage": "https://github.com/evilrabbit/lifeline",
+  "items": [
+    {
+      "name": "lifeline",
+      "type": "registry:block",
+      "title": "Lifeline",
+      "description": "The Lifeline component system — horizontal and scroll-scrubbed on desktop, vertical on mobile, floating photo cards, hover media, a tap-to-expand lightbox, and a cinematic intro. Works as a full page or as a module inside one: mode=\"embed\" scrubs the rail with the wheel and hands scrolling back to the page at either end.",
+      "dependencies": [
+        "lucide-react",
+        "next-themes",
+        "geist"
+      ],
+      "registryDependencies": [
+        "utils"
+      ],
+      "files": [
+        {
+          "path": "components/lifeline/company-icon.tsx",
+          "type": "registry:component",
+          "target": "components/lifeline/company-icon.tsx"
+        },
+        {
+          "path": "components/lifeline/index.ts",
+          "type": "registry:component",
+          "target": "components/lifeline/index.ts"
+        },
+        {
+          "path": "components/lifeline/lifeline-desktop.tsx",
+          "type": "registry:component",
+          "target": "components/lifeline/lifeline-desktop.tsx"
+        },
+        {
+          "path": "components/lifeline/lifeline-event.tsx",
+          "type": "registry:component",
+          "target": "components/lifeline/lifeline-event.tsx"
+        },
+        {
+          "path": "components/lifeline/lifeline-fireworks.tsx",
+          "type": "registry:component",
+          "target": "components/lifeline/lifeline-fireworks.tsx"
+        },
+        {
+          "path": "components/lifeline/lifeline-hover-image.tsx",
+          "type": "registry:component",
+          "target": "components/lifeline/lifeline-hover-image.tsx"
+        },
+        {
+          "path": "components/lifeline/lifeline-intro-timing.ts",
+          "type": "registry:component",
+          "target": "components/lifeline/lifeline-intro-timing.ts"
+        },
+        {
+          "path": "components/lifeline/lifeline-labels.tsx",
+          "type": "registry:component",
+          "target": "components/lifeline/lifeline-labels.tsx"
+        },
+        {
+          "path": "components/lifeline/lifeline-layout.ts",
+          "type": "registry:component",
+          "target": "components/lifeline/lifeline-layout.ts"
+        },
+        {
+          "path": "components/lifeline/lifeline-legend.tsx",
+          "type": "registry:component",
+          "target": "components/lifeline/lifeline-legend.tsx"
+        },
+        {
+          "path": "components/lifeline/lifeline-lightbox.tsx",
+          "type": "registry:component",
+          "target": "components/lifeline/lifeline-lightbox.tsx"
+        },
+        {
+          "path": "components/lifeline/lifeline-marker.tsx",
+          "type": "registry:component",
+          "target": "components/lifeline/lifeline-marker.tsx"
+        },
+        {
+          "path": "components/lifeline/lifeline-people.tsx",
+          "type": "registry:component",
+          "target": "components/lifeline/lifeline-people.tsx"
+        },
+        {
+          "path": "components/lifeline/lifeline-photos.tsx",
+          "type": "registry:component",
+          "target": "components/lifeline/lifeline-photos.tsx"
+        },
+        {
+          "path": "components/lifeline/lifeline-utils.ts",
+          "type": "registry:component",
+          "target": "components/lifeline/lifeline-utils.ts"
+        },
+        {
+          "path": "components/lifeline/lifeline-vertical.tsx",
+          "type": "registry:component",
+          "target": "components/lifeline/lifeline-vertical.tsx"
+        },
+        {
+          "path": "components/lifeline/lifeline.tsx",
+          "type": "registry:component",
+          "target": "components/lifeline/lifeline.tsx"
+        },
+        {
+          "path": "components/lifeline/types.ts",
+          "type": "registry:component",
+          "target": "components/lifeline/types.ts"
+        },
+        {
+          "path": "components/lifeline/use-lifeline-intro.ts",
+          "type": "registry:component",
+          "target": "components/lifeline/use-lifeline-intro.ts"
+        },
+        {
+          "path": "components/lifeline/use-lifeline-scroll.ts",
+          "type": "registry:component",
+          "target": "components/lifeline/use-lifeline-scroll.ts"
+        },
+        {
+          "path": "components/lifeline/use-lifeline-vertical-scroll.ts",
+          "type": "registry:component",
+          "target": "components/lifeline/use-lifeline-vertical-scroll.ts"
+        },
+        {
+          "path": "lib/lifeline-data.ts",
+          "type": "registry:lib",
+          "target": "lib/lifeline-data.ts"
+        }
+      ],
+      "css": {
+        "@keyframes lifeline-rail-draw": {
+          "from": {
+            "transform": "scaleX(0)"
+          },
+          "to": {
+            "transform": "scaleX(1)"
+          }
+        },
+        "@keyframes lifeline-marker-in": {
+          "from": {
+            "opacity": "0",
+            "transform": "translate3d(0, 6px, 0)"
+          },
+          "to": {
+            "opacity": "1",
+            "transform": "translate3d(0, 0, 0)"
+          }
+        },
+        "@keyframes lifeline-labels-in": {
+          "from": {
+            "opacity": "0"
+          },
+          "to": {
+            "opacity": "1"
+          }
+        },
+        ".lifeline-rail-intro": {
+          "transform": "scaleX(var(--lifeline-intro-progress, 0))",
+          "transform-origin": "left center"
+        },
+        ".lifeline-rail-intro-vertical": {
+          "transform": "scaleY(var(--lifeline-intro-progress, 0))",
+          "transform-origin": "top center"
+        },
+        ".lifeline-marker-intro": {
+          "opacity": "0",
+          "animation": "lifeline-marker-in var(--lifeline-marker-fade-ms, 420ms) cubic-bezier(0.22, 1, 0.36, 1) forwards"
+        },
+        ".lifeline-labels-intro": {
+          "opacity": "0",
+          "animation": "lifeline-labels-in var(--lifeline-labels-ms, 600ms) cubic-bezier(0.22, 1, 0.36, 1) forwards"
+        },
+        ".lifeline-labels.is-pinned": {
+          "z-index": "20"
+        },
+        ".lifeline-typeset": {
+          "--lifeline-font": "var(--font-geist-sans, \"Geist\"), \"Geist Fallback\", ui-sans-serif, system-ui, sans-serif",
+          "font-family": "var(--lifeline-font)"
+        }
+      },
+      "docs": "Mount it with markers from defineLifeline (lib/lifeline-data.ts):\n\n  import { Lifeline } from \"@/components/lifeline\"\n  import { sodas } from \"@/lib/lifelines/sodas\"\n\n  export default function Page() {\n    return (\n      <main className=\"flex h-dvh flex-col\">\n        <div className=\"min-h-0 flex-1 overflow-y-auto md:overflow-hidden\">\n          <Lifeline markers={sodas.markers} birthYear={sodas.birthYear} mode=\"page\" />\n        </div>\n      </main>\n    )\n  }\n\nThe vertical (mobile) layout measures itself against the nearest ancestor whose overflow-y is auto or scroll, so give it one — the wrapper above does. Desktop scrubs sideways and wants no scroller of its own.\n\nTypography: the timeline typesets itself in Geist via .lifeline-typeset rather than inheriting font-sans. Load Geist in your root layout — import { GeistSans } from \"geist/font/sans\" and put GeistSans.variable on <html> — or set --lifeline-font to use your own face."
+    },
+    {
+      "name": "shell",
+      "type": "registry:component",
+      "title": "Lifeline shell",
+      "description": "The framing on its own, no route — a capped, marked nav the rail aligns its start and end to, plus the stage and footer. Install this when you already have a page and just want the timeline to sit inset and aligned inside it.",
+      "registryDependencies": [
+        "https://evilrabbit.com/r/lifeline.json"
+      ],
+      "files": [
+        {
+          "path": "components/lifeline-shell.tsx",
+          "type": "registry:component",
+          "target": "components/lifeline-shell.tsx"
+        }
+      ]
+    },
+    {
+      "name": "page",
+      "type": "registry:block",
+      "title": "Lifeline page",
+      "description": "A working page in one command — the shell, the personal starter data, and an example route wired together. Installs a route at app/lifeline/page.tsx; if you already have one, shadcn asks before touching it.",
+      "registryDependencies": [
+        "https://evilrabbit.com/r/personal.json"
+      ],
+      "files": [
+        {
+          "path": "components/lifeline-shell.tsx",
+          "type": "registry:component",
+          "target": "components/lifeline-shell.tsx"
+        },
+        {
+          "path": "app/lifeline/page.tsx",
+          "type": "registry:page",
+          "target": "app/lifeline/page.tsx"
+        }
+      ]
+    },
+    {
+      "name": "personal",
+      "type": "registry:block",
+      "title": "Personal timeline",
+      "description": "A life, year by year — starter data for a personal Lifeline.",
+      "registryDependencies": [
+        "https://evilrabbit.com/r/lifeline.json"
+      ],
+      "files": [
+        {
+          "path": "lib/lifeline-personal.ts",
+          "type": "registry:lib",
+          "target": "lib/lifeline-personal.ts"
+        }
+      ]
+    },
+    {
+      "name": "company",
+      "type": "registry:block",
+      "title": "Company timeline",
+      "description": "Founding to today — starter data for a company Lifeline.",
+      "registryDependencies": [
+        "https://evilrabbit.com/r/lifeline.json"
+      ],
+      "files": [
+        {
+          "path": "lib/lifeline-company.ts",
+          "type": "registry:lib",
+          "target": "lib/lifeline-company.ts"
+        }
+      ]
+    },
+    {
+      "name": "journey",
+      "type": "registry:block",
+      "title": "Journey timeline",
+      "description": "A bounded run, day by day — tournament, tour, launch. Starter data with day-based labels.",
+      "registryDependencies": [
+        "https://evilrabbit.com/r/lifeline.json"
+      ],
+      "files": [
+        {
+          "path": "lib/lifeline-journey.ts",
+          "type": "registry:lib",
+          "target": "lib/lifeline-journey.ts"
+        }
+      ]
+    },
+    {
+      "name": "theme-switcher",
+      "type": "registry:component",
+      "title": "Theme switcher",
+      "description": "A minimal sun/moon theme toggle for next-themes — the one the Lifeline demo uses.",
+      "dependencies": [
+        "lucide-react",
+        "next-themes"
+      ],
+      "registryDependencies": [
+        "utils"
+      ],
+      "files": [
+        {
+          "path": "components/theme-switcher.tsx",
+          "type": "registry:component",
+          "target": "components/theme-switcher.tsx"
+        }
+      ]
+    }
+  ]
+}
