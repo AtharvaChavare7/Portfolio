@@ -201,3 +201,29 @@
 
   window.addEventListener("resize", recenterActive);
 })();
+
+(function playDesignVideos() {
+  const videos = document.querySelectorAll(".about-designs__video");
+  if (!videos.length) return;
+
+  const tryPlay = (video) => {
+    video.muted = true;
+    const result = video.play();
+    if (result && typeof result.catch === "function") result.catch(() => {});
+  };
+
+  videos.forEach((video) => {
+    if (video.readyState >= 2) tryPlay(video);
+    video.addEventListener("loadeddata", () => tryPlay(video), { once: true });
+    video.addEventListener("canplay", () => tryPlay(video), { once: true });
+  });
+
+  // Fallback: some browsers only allow playback after a user gesture.
+  const kick = () => {
+    videos.forEach(tryPlay);
+    window.removeEventListener("pointerdown", kick);
+    window.removeEventListener("scroll", kick);
+  };
+  window.addEventListener("pointerdown", kick, { passive: true });
+  window.addEventListener("scroll", kick, { passive: true });
+})();
