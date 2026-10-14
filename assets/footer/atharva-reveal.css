@@ -92,6 +92,12 @@ html.footer-demo body {
   font-family: "Geist", system-ui, sans-serif;
   font-size: clamp(32px, 3.17vw, 54.748px);
   font-weight: 900;
+  /* The About page loads webgl/src/styles.css, which sets
+     `font-synthesis: none` on :root and inherits down to here. Geist only
+     loads real weights up to 600 there, so the 900 heading rendered thin
+     while other pages faux-bold it. Re-enable weight synthesis so the
+     heading reads at a consistent weight across all pages. */
+  font-synthesis: weight;
   line-height: 0.92;
   letter-spacing: -0.044em;
   text-transform: uppercase;
