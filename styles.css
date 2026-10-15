@@ -299,8 +299,15 @@ body {
 }
 
 .work-card {
-  /* Fixed gap between consecutive case-study cards. */
-  margin-top: 180px;
+  /* Scale each case-study card down (~90%) so the whole card — including
+     its footer title and "Read Case Study" button — fits within the
+     viewport and is easier to take in on one screen. The zoom is on the
+     whole card (not just the inner stage) so its full width scales and
+     nothing overflows horizontally. `zoom` (not `transform`) is used so
+     the card reflows to the scaled size, keeping the gap exact. */
+  zoom: 0.9;
+  /* 200px * 0.9 zoom renders as a fixed ~180px gap between cards. */
+  margin-top: 200px;
   width: 1266px;
   padding-left: 231px;
   box-sizing: content-box;
@@ -327,11 +334,6 @@ body {
   position: relative;
   z-index: 1;
   width: 100%;
-  /* Scale each case-study card down (~90%) so the whole card is easier to
-     take in on one screen rather than filling the full viewport. `zoom`
-     (not `transform`) is used so the section reflows to the scaled size,
-     keeping the 180px gap exact. */
-  zoom: 0.9;
 }
 
 .case-study--dark {
