@@ -299,7 +299,8 @@ body {
 }
 
 .work-card {
-  margin-top: 50px;
+  /* Fixed gap between consecutive case-study cards. */
+  margin-top: 180px;
   width: 1266px;
   padding-left: 231px;
   box-sizing: content-box;
@@ -310,8 +311,10 @@ body {
 }
 
 .case-study {
-  min-height: 100vh;
-  min-height: 100dvh;
+  /* Cards hug their (scaled) content instead of filling the viewport, so
+     the gap between them stays a fixed 180px rather than growing with
+     screen height. */
+  min-height: 0;
 }
 
 .case-study--viewport {
@@ -324,6 +327,11 @@ body {
   position: relative;
   z-index: 1;
   width: 100%;
+  /* Scale each case-study card down (~90%) so the whole card is easier to
+     take in on one screen rather than filling the full viewport. `zoom`
+     (not `transform`) is used so the section reflows to the scaled size,
+     keeping the 180px gap exact. */
+  zoom: 0.9;
 }
 
 .case-study--dark {
