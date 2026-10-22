@@ -4,6 +4,37 @@
  * Desktop remains unchanged. The card zoom variables preserve the existing
  * interactive canvases/animations while reducing their rendered footprint.
  */
+
+/* --- Hero, tablet → desktop ---
+   The hero is an art-directed composition with pixel-placed pills, so instead of
+   reflowing it we scale the whole piece to fit both the viewport width and height.
+   tan(atan2(a, b)) yields the unitless ratio a / b for two lengths. The 960×400
+   box is the composition's visual footprint (pills overhang the 877px stage). */
+@media (min-width: 721px) {
+  .hero__container {
+    --hero-fit-w: tan(atan2(100vw - 56px, 960px));
+    --hero-fit-h: tan(atan2(100dvh - 200px, 400px));
+    --hero-scale: clamp(0.5, min(var(--hero-fit-w), var(--hero-fit-h)), 1);
+    flex-shrink: 0;
+    max-width: none;
+    transform: translateY(calc(var(--hero-block-offset-y) * var(--hero-scale)))
+      scale(var(--hero-scale));
+    transform-origin: 50% 50%;
+  }
+
+  .hero__stage,
+  .hero__title {
+    max-width: none;
+  }
+}
+
+/* Short landscape screens: the scroll cue would collide with the composition. */
+@media (max-height: 520px) {
+  .hero-scroll {
+    display: none;
+  }
+}
+
 @media (max-width: 720px) {
   :root {
     --case-card-scale: 1;
@@ -19,29 +50,11 @@
     padding: 0 16px 48px;
   }
 
-  /* Keep the introduction readable while the artwork scales independently. */
-  .hero__container {
-    width: 100%;
-    max-width: none;
-    --hero-block-offset-y: 0px;
-  }
-
-  .hero__intro {
-    gap: 5px;
-    margin-bottom: 10px;
-  }
-
-  .hero__greeting,
-  .hero__role {
-    font-size: 10px;
-    line-height: 15px;
-    letter-spacing: 1.4px;
-  }
-
-  /* --- Reflow the fixed absolute composition into a stacked mobile layout ---
-     Desktop keeps the scaled artwork; on phones the title breaks into short
-     lines and the chips flow into a grid below, so nothing shrinks to nothing
-     and the top/bottom whitespace is reclaimed. */
+  /* --- Hero, phones ---
+     The composition reflows: the title wraps into short editorial lines and the
+     pills become a sticker cluster underneath. All pills share one grid cell and
+     are placed with % margins, which resolve against the cell's width, so the
+     cluster scales as one unit and its height stays in normal flow. */
   .hero-screen {
     height: auto;
     min-height: 100dvh;
@@ -49,43 +62,58 @@
   }
 
   .hero {
-    align-items: flex-start;
+    align-items: center;
     justify-content: flex-start;
     min-height: 100dvh;
     height: auto;
-    padding: 88px 0 48px;
+    padding: 104px 0 128px;
   }
 
-  /* Stage stacks: full-width title, then a scatter field for the hero pills. */
+  .hero__container {
+    width: 100%;
+    max-width: none;
+    --hero-block-offset-y: 0px;
+    transform: none;
+  }
+
+  .hero__intro {
+    gap: 6px;
+    margin-bottom: 22px;
+  }
+
+  .hero__greeting,
+  .hero__role {
+    font-size: 10px;
+    line-height: 15px;
+    letter-spacing: 0.14em;
+    white-space: normal;
+  }
+
   .hero__stage {
-    position: relative;
-    display: flex;
-    flex-direction: column;
-    align-items: stretch;
-    gap: 28px;
+    display: grid;
+    grid-template-columns: minmax(0, 480px) 1fr;
+    row-gap: clamp(32px, 9vw, 48px);
     width: 100%;
     max-width: none;
     height: auto;
-    padding-bottom: 88vw;
-    font-size: initial;
   }
 
-  /* Flatten line wrappers so words wrap naturally on narrow viewports. */
   .hero__title {
     position: static;
+    grid-column: 1 / -1;
     display: flex;
-    flex-direction: row; /* base title is column; must be row to wrap into lines */
+    flex-direction: row;
     flex-wrap: wrap;
     align-items: baseline;
-    column-gap: 0.14em;
-    row-gap: 0.12em;
+    column-gap: 0.16em;
+    row-gap: 0.14em;
     width: 100%;
     max-width: 100%;
     height: auto;
-    margin: 0 0 26px;
-    font-size: clamp(28px, 9.2vw, 60px); /* master title size; sized so the widest
-                                            pair ("Crafting meaningful") always fits */
-    /* neutralise the desktop per-word micro-gaps */
+    margin: 0;
+    /* Proportional to the column width so the rag is identical at every phone
+       width, ending on a full "Makemytrip & fiserv" line with no widow. */
+    font-size: calc((100vw - 32px) * 0.09);
     --hero-gap-crafting-meaningful: 0;
     --hero-gap-interfaces-for: 0;
     --hero-gap-for-millions: 0;
@@ -93,66 +121,77 @@
     --hero-gap-amp-fiserv: 0;
   }
 
-  /* Specificity must beat `.hero__title > .hero__line { display:flex }`. */
+  /* Flatten line wrappers so words wrap naturally. Specificity must beat
+     `.hero__title > .hero__line { display:flex }`. */
   .hero__title > .hero__line,
   .hero__title .hero__line--employer {
     display: contents;
   }
 
-  /* Words size off the title master; letter-spacing/line-height scale with the
-     title’s clamp (desktop styles.css uses px on upstream). */
+  /* Desktop tracking is in px; em keeps the same optical tightness at any size. */
   .hero__word--sans {
     font-size: 1em;
-    line-height: 1.0427;
+    line-height: 1.04;
+    letter-spacing: -0.055em;
   }
 
   .hero__word--serif {
-    font-size: 0.882em; /* keeps the desktop 60/68 sans:serif ratio */
-    line-height: 1.0427;
+    font-size: 0.882em;
+    line-height: 1.04;
+    letter-spacing: -0.03em;
   }
 
   .hero__pill {
-    position: absolute;
-    width: auto;
-    height: 12vw;
-    max-width: none;
-    transform-origin: 50% 50%;
+    position: relative;
+    grid-row: 2;
+    grid-column: 1;
+    align-self: start;
+    justify-self: start;
     left: auto;
     top: auto;
+    width: var(--pill-w);
+    height: auto;
+    margin: var(--pill-y) 0 0 var(--pill-x);
+    transform: rotate(var(--pill-r));
   }
 
   .hero__pill--animations {
-    left: 3%;
-    bottom: 86%;
-    transform: rotate(-4deg);
+    --pill-x: 0%;
+    --pill-y: 0%;
+    --pill-w: 57%;
+    --pill-r: -5deg;
   }
+
   .hero__pill--shipping {
-    left: 54%;
-    bottom: 78%;
-    transform: rotate(5deg);
+    --pill-x: 57%;
+    --pill-y: 8%;
+    --pill-w: 42%;
+    --pill-r: 6deg;
   }
-  .hero__pill--detail {
-    left: 6%;
-    bottom: 50%;
-    transform: rotate(-3deg);
-  }
+
   .hero__pill--agent {
-    left: 50%;
-    bottom: 42%;
-    transform: rotate(4deg);
+    --pill-x: 23%;
+    --pill-y: 24%;
+    --pill-w: 51%;
+    --pill-r: -2deg;
   }
+
+  .hero__pill--detail {
+    --pill-x: 0%;
+    --pill-y: 42%;
+    --pill-w: 49%;
+    --pill-r: 3deg;
+  }
+
   .hero__pill--design-systems {
-    left: 5%;
-    bottom: 15%;
-    transform: rotate(-2deg);
+    --pill-x: 45%;
+    --pill-y: 44%;
+    --pill-w: 54%;
+    --pill-r: -3deg;
   }
 
   .hero-scroll {
-    bottom: 28px;
-  }
-
-  .hero-scroll__label {
-    font-size: 10px;
+    bottom: 32px;
   }
 
   /* The desktop side rail is too intrusive at phone widths. */
