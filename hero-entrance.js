@@ -263,63 +263,18 @@
     addTextAnimation(preview, mode);
   };
 
+  // Geometry is relative to the matching final pill at its desktop width (its
+  // `width` attribute): the initial pill's centre offset and rendered width.
   const initialSpecs = [
-    {
-      src: "PURPLEinitail.svg",
-      alt: "Crafting animations",
-      nativeWidth: 157,
-      nativeHeight: 40,
-      targetLeft: 388.228,
-      targetTop: -0.849,
-      targetWidth: 198.403,
-      targetHeight: 49.835,
-    },
-    {
-      src: "GREENinitial.svg",
-      alt: "Shipping PRs",
-      nativeWidth: 103,
-      nativeHeight: 37,
-      targetLeft: 657.153,
-      targetTop: 66,
-      targetWidth: 128.499,
-      targetHeight: 46.171,
-    },
-    {
-      src: "YELLOWinitial.svg",
-      alt: "Detail obsessed",
-      nativeWidth: 126,
-      nativeHeight: 43,
-      targetLeft: 710.267,
-      targetTop: 218.978,
-      targetWidth: 158.435,
-      targetHeight: 52.87,
-    },
-    {
-      src: "BLUEinitial.svg",
-      alt: "Agent workflow",
-      nativeWidth: 136,
-      nativeHeight: 43,
-      targetLeft: 0,
-      targetTop: 287.201,
-      targetWidth: 172.406,
-      targetHeight: 54.231,
-    },
-    {
-      src: "REDinitial.svg",
-      alt: "Design system nerd",
-      nativeWidth: 149,
-      nativeHeight: 40,
-      targetLeft: 475.529,
-      targetTop: 288.675,
-      targetWidth: 187.418,
-      targetHeight: 49.259,
-    },
+    { src: "PURPLEinitail.svg", nativeWidth: 157, nativeHeight: 40, offsetX: -2.65, offsetY: -5.73, targetWidth: 198.403 },
+    { src: "GREENinitial.svg", nativeWidth: 103, nativeHeight: 37, offsetX: 2.3, offsetY: -10.83, targetWidth: 128.499 },
+    { src: "YELLOWinitial.svg", nativeWidth: 126, nativeHeight: 43, offsetX: 3.48, offsetY: -11.69, targetWidth: 158.435 },
+    { src: "BLUEinitial.svg", nativeWidth: 136, nativeHeight: 43, offsetX: 2.41, offsetY: -11.18, targetWidth: 172.406 },
+    { src: "REDinitial.svg", nativeWidth: 149, nativeHeight: 40, offsetX: -1.26, offsetY: -7.1, targetWidth: 187.418 },
   ];
 
   const initialPills = initialSpecs.map((spec) => {
     const image = document.createElement("img");
-    const centerX = spec.targetLeft + spec.targetWidth / 2;
-    const centerY = spec.targetTop + spec.targetHeight / 2;
 
     image.className = "hero__pill-initial";
     image.src = spec.src;
@@ -327,13 +282,35 @@
     image.setAttribute("aria-hidden", "true");
     image.width = spec.nativeWidth;
     image.height = spec.nativeHeight;
-    image.style.left = `${centerX - spec.nativeWidth / 2}px`;
-    image.style.top = `${centerY - spec.nativeHeight / 2}px`;
     image.style.width = `${spec.nativeWidth}px`;
     stage.append(image);
 
     return image;
   });
+
+  const targetScales = initialSpecs.map(() => 1);
+
+  // Measures live layout so the morph lands on the final pill whether the hero is
+  // scaled (tablet) or reflowed (phone). Stage-local coords undo any CSS scale.
+  function placeInitialPills() {
+    const stageRect = stage.getBoundingClientRect();
+    const stageScale = stageRect.width / stage.offsetWidth || 1;
+
+    initialSpecs.forEach((spec, index) => {
+      const finalPill = pills[index];
+      const rect = finalPill.getBoundingClientRect();
+      const ratio = finalPill.offsetWidth / Number(finalPill.getAttribute("width"));
+      const centerX = (rect.left + rect.width / 2 - stageRect.left) / stageScale + spec.offsetX * ratio;
+      const centerY = (rect.top + rect.height / 2 - stageRect.top) / stageScale + spec.offsetY * ratio;
+
+      initialPills[index].style.left = `${centerX - spec.nativeWidth / 2}px`;
+      initialPills[index].style.top = `${centerY - spec.nativeHeight / 2}px`;
+      targetScales[index] = (spec.targetWidth * ratio) / spec.nativeWidth;
+    });
+  }
+
+  placeInitialPills();
+  document.fonts?.ready.then(placeInitialPills);
 
   hero.classList.add("hero--animating");
 
@@ -388,8 +365,6 @@
 
       initialPills.forEach((initialPill, index) => {
         const finalPill = pills[index];
-        const targetScale =
-          initialSpecs[index].targetWidth / initialSpecs[index].nativeWidth;
         const start =
           (getTextMode() === "grid-blocks" ? 0.92 : 0.08) + index * 0.1;
 
@@ -407,7 +382,7 @@
           .to(
             initialPill,
             {
-              scale: targetScale * 1.045,
+              scale: () => targetScales[index] * 1.045,
               duration: 0.32,
               ease: "power3.inOut",
             },
@@ -416,7 +391,7 @@
           .to(
             initialPill,
             {
-              scale: targetScale,
+              scale: () => targetScales[index],
               duration: 0.16,
               ease: "sine.inOut",
             },
