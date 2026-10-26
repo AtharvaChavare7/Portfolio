@@ -28,6 +28,50 @@
   }
 }
 
+/* --- Case-study cards, tablet → laptop ---
+   Each card is a 1266px canvas shown at 90%, behind a 231px gutter for the side
+   rail, so below ~1350px it overflowed sideways. The card now scales to fit what
+   is left after a fixed 208px rail gutter (= 231px at 90%, so ≥1440px is
+   unchanged). The gutter is divided by the zoom because it sits inside it.
+   64px of slack covers page padding and classic (non-overlay) scrollbars. */
+@media (min-width: 1280px) and (max-width: 1520px) {
+  .work-card {
+    --card-zoom: min(0.9, tan(atan2(100vw - 64px - 208px, 1266px)));
+    zoom: var(--card-zoom);
+  }
+
+  .work-card:not(.case-study--dark),
+  .case-study--dark .case-study__stage {
+    padding-left: calc(208px / var(--card-zoom));
+  }
+}
+
+/* Below 1280px the rail would squeeze the card too small: drop the rail and
+   centre the card between symmetric page margins. */
+@media (min-width: 721px) and (max-width: 1279px) {
+  .page {
+    padding-left: 24px;
+  }
+
+  .work-nav {
+    display: none;
+  }
+
+  .work-card {
+    zoom: min(0.9, tan(atan2(100vw - 64px, 1266px)));
+    margin-inline: auto;
+  }
+
+  .work-card:not(.case-study--dark) {
+    padding-left: 0;
+  }
+
+  .case-study--dark .case-study__stage {
+    margin-inline: auto;
+    padding-left: 0;
+  }
+}
+
 /* Short landscape screens: the scroll cue would collide with the composition. */
 @media (max-height: 520px) {
   .hero-scroll {

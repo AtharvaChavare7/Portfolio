@@ -442,13 +442,6 @@
       box-shadow: 0 12px 26px rgba(0,0,0,.08);
     }
 
-    .launcher-app__icon.app-icon.exported > img,
-    .flight-icon.app-icon.exported > img {
-      left: -16.62px;
-      top: -16.62px;
-      width: 669.18px;
-      height: 124.7px;
-    }
 
     .launcher-app__name {
       display: flex;
@@ -653,13 +646,15 @@
       border-radius: 4.283px;
     }
 
+    /* The exported icon art is cropped out of a wider SVG; percentages keep the
+       crop identical at any icon size (launcher, sidebar, tab, flight). */
     .app-icon.exported > img {
       position: absolute;
-      left: -3.272px;
-      top: -3.272px;
+      left: -18.35%;
+      top: -18.35%;
       display: block;
-      width: 131.698px;
-      height: 24.54px;
+      width: 738.55%;
+      height: 137.62%;
       max-width: none;
     }
 
@@ -889,13 +884,6 @@
       border-radius: 5.236px;
     }
 
-    .tab .app-icon.exported > img {
-      left: -4px;
-      top: -4px;
-      width: 161px;
-      height: 30px;
-    }
-
     .tab .app-icon.blue::after {
       width: 3.85px;
       height: 3.85px;
@@ -1055,6 +1043,230 @@
       letter-spacing: .6525px;
       line-height: normal;
       transform: translateY(-50%);
+    }
+
+    /* Hero, phones: the 720px composition stacks into four lines sized off the
+       column width. Offsets that were px at 60px type become em so the rules and
+       annotations track the text; spec labels keep a readable fixed size. */
+    @media (max-width: 767px) {
+      .explorations-page {
+        gap: 44px;
+        padding-top: 132px;
+      }
+
+      .explorations-page .hero {
+        --hero-fs: min(60px, calc((100vw - 48px) * 0.118));
+        width: calc(100vw - 48px);
+        max-width: none;
+        height: auto;
+        flex: none;
+      }
+
+      .hero-line,
+      .hero-sandbox {
+        font-size: var(--hero-fs);
+        line-height: 1;
+        letter-spacing: -0.025em;
+      }
+
+      .hero-line--measured {
+        height: auto;
+      }
+
+      .hero-x-rule--top { top: 0.317em; }
+      .hero-x-rule--bottom { bottom: 0.1em; }
+
+      .hero-lower {
+        display: flex;
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 0.16em;
+        height: auto;
+        margin-top: 0.16em;
+      }
+
+      .hero-through,
+      .hero-selection,
+      .hero-sandbox {
+        position: relative;
+        left: auto;
+        top: auto;
+      }
+
+      /* Clears the selection box's bottom handles. */
+      .hero-sandbox {
+        margin-top: 0.14em;
+      }
+
+      .spec-pin--font {
+        left: calc(100% + 10px);
+        top: calc(0.53em - 4.5px);
+      }
+
+      .spec-connector--font {
+        left: calc(100% + 10px);
+        top: 0.53em;
+        width: 19px;
+      }
+
+      .spec-font {
+        left: calc(100% + 29px);
+        top: calc(var(--hero-fs) * 0.53 - 12px);
+      }
+    }
+
+    /* Workspace, tablet → small laptop: the launcher row is 1107px and the main
+       pane had an 867px floor, so both clipped. The window fills the width at a
+       usable height and the launcher becomes a centred grid. */
+    /* The decorative marks sit 759px right of centre: only fully on-screen ≥1536px. */
+    @media (max-width: 1559px) {
+      .figma-artifact {
+        display: none;
+      }
+    }
+
+    @media (max-width: 1199px) {
+      .workspace-shell {
+        --sidebar-fixed: 200px;
+        width: calc(100vw - 48px);
+        min-width: 0;
+        height: clamp(520px, 78vh, 760px);
+        aspect-ratio: auto;
+      }
+
+      .launcher-grid {
+        inset: 0;
+        display: grid;
+        width: auto;
+        height: auto;
+        grid-template-columns: repeat(3, minmax(0, 1fr));
+        align-content: center;
+        justify-items: center;
+        row-gap: 44px;
+        padding: 24px;
+        transform: none;
+      }
+
+      .launcher-grid > .launcher-app:nth-child(n) {
+        position: relative;
+        left: auto;
+        top: auto;
+        width: auto;
+      }
+
+      .main {
+        min-width: 0;
+      }
+
+      .address {
+        display: block;
+        overflow: hidden;
+        line-height: 17.6px;
+        text-overflow: ellipsis;
+      }
+    }
+
+    /* Workspace, phones: 2-up launcher; once a project is open the sidebar
+       becomes a dock of project icons above the browser and replaces the tabs. */
+    @media (max-width: 767px) {
+      .workspace-shell {
+        height: clamp(540px, 80vh, 720px);
+      }
+
+      .titlebar {
+        padding-right: 12px;
+      }
+
+      .window-title {
+        position: static;
+        min-width: 0;
+        margin-left: 14px;
+        overflow: hidden;
+        text-overflow: ellipsis;
+        transform: none;
+      }
+
+      .launcher-grid {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+        row-gap: 28px;
+        padding: 16px;
+      }
+
+      .launcher-app {
+        gap: 12px;
+      }
+
+      .launcher-app .launcher-app__icon {
+        width: 64px;
+        height: 64px;
+        flex-basis: 64px;
+        border-radius: 15.4px;
+      }
+
+      .launcher-app__name {
+        height: 32px;
+        padding: 8px 14px;
+        font-size: 12px;
+      }
+
+      .body {
+        flex-direction: column;
+      }
+
+      .sidebar {
+        width: 100%;
+        min-width: 0;
+        max-width: none;
+        height: auto;
+        flex: 0 0 auto;
+        border-right: 0;
+        border-bottom: 1px solid var(--border);
+      }
+
+      .sidebar-heading,
+      .folder,
+      .tabs,
+      .nav {
+        display: none;
+      }
+
+      .tree {
+        padding: 6px 8px;
+      }
+
+      .project-list,
+      .project-list.is-open {
+        display: flex;
+        gap: 4px;
+        max-height: none;
+        opacity: 1;
+        pointer-events: auto;
+        transform: none;
+      }
+
+      .project {
+        height: 40px;
+        flex: 1 1 0;
+        justify-content: center;
+        padding: 8px;
+      }
+
+      .project .app-icon {
+        width: 24px;
+        height: 24px;
+        flex-basis: 24px;
+        border-radius: 5.8px;
+      }
+
+      /* Filename stays available to screen readers. */
+      .project-main > span:last-child {
+        position: absolute;
+        width: 1px;
+        height: 1px;
+        overflow: hidden;
+        clip-path: inset(50%);
+        white-space: nowrap;
+      }
     }
 
   </style>
@@ -1711,7 +1923,10 @@
 
       const selectedTabIcon = tabs.querySelector(`.tab-wrap[data-project="${selectedId}"] .app-icon`);
       const selectedRowIcon = document.querySelector(`.project[data-project="${selectedId}"] .app-icon`);
-      flyTo(flights.get(selectedId), selectedTabIcon, 100, 520, 0, () => {
+      // Tabs are hidden on phones, where the project dock stands in for them.
+      const selectedTarget = selectedTabIcon.getClientRects().length ? selectedTabIcon : selectedRowIcon;
+      flyTo(flights.get(selectedId), selectedTarget, 100, 520, 0, () => {
+        selectedTabIcon.classList.remove("awaiting-flight");
         selectedRowIcon.classList.remove("awaiting-flight");
       });
 
