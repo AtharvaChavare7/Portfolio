@@ -31,6 +31,8 @@
   let selectedMode = "threshold";
   let selectedAnimate = "iris";
   let ticking = false;
+  // Phones keep the page light throughout; the dark sweep reads as a flash at that size.
+  const phoneQuery = window.matchMedia("(max-width: 720px)");
 
   function clamp(value, min, max) {
     return Math.min(max, Math.max(min, value));
@@ -138,11 +140,15 @@
     const wongRect = wongdoodySection.getBoundingClientRect();
     const fiservRect = fiservSection?.getBoundingClientRect() ?? null;
     const mmtRect = makemytripSection?.getBoundingClientRect() ?? null;
-    const reveal = computeReveal(selectedMode, wongRect, fiservRect, mmtRect, viewportHeight);
+    const isPhone = phoneQuery.matches;
+    const reveal = isPhone
+      ? 0
+      : computeReveal(selectedMode, wongRect, fiservRect, mmtRect, viewportHeight);
     const isDark =
-      selectedMode === "content"
+      !isPhone &&
+      (selectedMode === "content"
         ? getSectionActive(wongRect, viewportHeight)
-        : reveal > 0.72;
+        : reveal > 0.72);
 
     root.style.setProperty("--site-bg-reveal", reveal.toFixed(3));
     root.dataset.siteTone = isDark ? "dark" : "light";

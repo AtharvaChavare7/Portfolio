@@ -554,6 +554,70 @@ body {
   }
 }
 
+.hint__touch {
+  display: none;
+}
+
+@media (hover: none) and (pointer: coarse) {
+  .hint__pointer {
+    display: none;
+  }
+
+  .hint__touch {
+    display: inline;
+  }
+}
+
+/* Tablets: desktop rhythm compressed so sections don't float in white space. */
+@media (max-width: 900px) {
+  .about {
+    --about-page-top: 112px;
+    --space-after-hero: 128px;
+    --space-after-photos: 72px;
+    --experience-padding-top: 32px;
+    --space-after-experience: 120px;
+    --space-after-designs: 80px;
+    --work-scale: 0.66;
+  }
+}
+
+/* Phones: a 4:5 hero card instead of a full-screen-tall one, a photo strip
+   that shows a second photo peeking in, and a half-height design strip. */
+@media (max-width: 720px) {
+  .about {
+    --about-page-top: 96px;
+    --space-after-hero: 72px;
+    --space-after-photos: 48px;
+    --experience-padding-top: 16px;
+    --space-after-experience: 88px;
+    --space-after-designs: 64px;
+    --photo-width: 58vw;
+    --photo-gap: 14px;
+    --photo-radius: 12px;
+    --work-scale: 0.5;
+    --work-gap: 16px;
+    --fade-width: 48px;
+  }
+
+  .about-hero .shader-card {
+    height: auto;
+    min-height: 420px;
+    max-height: none;
+    aspect-ratio: 4 / 5;
+  }
+
+  /* The canvas fills most of the screen here; let vertical swipes scroll the
+     page while horizontal drags still bend the light. */
+  .about-hero .shader-canvas {
+    touch-action: pan-y;
+  }
+
+  .about-designs__motion,
+  .about-designs__motion iframe {
+    border-radius: 14px;
+  }
+}
+
 @media (prefers-reduced-motion: reduce) {
   .about-photos__track,
   .about-designs__track {
