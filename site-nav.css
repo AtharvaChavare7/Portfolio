@@ -1,8 +1,16 @@
-/* Reserve the scrollbar gutter so locking page scroll when the menu opens
-   (body.is-site-nav-open { overflow: hidden }) can't remove the scrollbar and
-   widen the viewport — which otherwise shifts the whole layout sideways. */
-html {
-  scrollbar-gutter: stable;
+/* Hide the browser scrollbar entirely (scrolling stays fully functional).
+   With no scrollbar in either state, locking page scroll when the menu opens
+   (body.is-site-nav-open { overflow: hidden }) can no longer remove a scrollbar
+   and shift the layout sideways. */
+html,
+body {
+  scrollbar-width: none; /* Firefox */
+  -ms-overflow-style: none; /* legacy Edge/IE */
+}
+
+html::-webkit-scrollbar,
+body::-webkit-scrollbar {
+  display: none; /* Chrome, Safari, other WebKit/Blink */
 }
 
 /* Smooth-scroll the document so in-page anchors (e.g. the menu "contact" link)
