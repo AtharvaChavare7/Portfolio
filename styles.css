@@ -615,7 +615,11 @@ html[data-site-tone="dark"] .work-nav__button.is-active {
 
 .phone-search__frame {
   position: absolute;
-  inset: 0;
+  /* Overfill the panel by 1px so the artwork's own antialiased export edge is
+     pushed past the panel's rounded clip and cut off. Otherwise that off-white
+     edge — spread into a hairline by the fractional `zoom` scaling on
+     .work-card — reads as a grey/dark stroke along the rounded corners. */
+  inset: -1px;
   background: #f9f9f9;
   overflow: clip;
 }
