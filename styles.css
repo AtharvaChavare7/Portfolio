@@ -1500,6 +1500,7 @@ html[data-site-tone="dark"] .work-nav__button.is-active {
   line-height: 20px;
   letter-spacing: -0.1504px;
   white-space: nowrap;
+  text-decoration: none;
   cursor: pointer;
   transform: translate3d(var(--mag-x), var(--mag-y), 0);
   transition:
