@@ -1,3 +1,19 @@
+/* Reserve the scrollbar gutter so locking page scroll when the menu opens
+   (body.is-site-nav-open { overflow: hidden }) can't remove the scrollbar and
+   widen the viewport — which otherwise shifts the whole layout sideways. */
+html {
+  scrollbar-gutter: stable;
+}
+
+/* Smooth-scroll the document so in-page anchors (e.g. the menu "contact" link)
+   glide to their target on every page — including about, whose
+   `body { overflow-x: hidden }` makes <body> the scroll container, and the
+   interaction library, which doesn't load the main stylesheet. */
+html,
+body {
+  scroll-behavior: smooth;
+}
+
 .site-nav {
   --site-nav-motion-duration: 670ms;
   --site-nav-close-lead-duration: 670ms;
