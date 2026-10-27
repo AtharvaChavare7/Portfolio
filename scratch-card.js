@@ -361,21 +361,30 @@
     let estimatedCoverage = 0;
     let hasInteracted = false;
 
+    // Rendered CSS size of the scratch surface, in the same coordinate space
+    // that pointer events (getPoint) report. The canvas stays sized by CSS
+    // (width/height: 100% of the stage) so it always overlays the back layer
+    // exactly — even while an ancestor .work-card is `zoom`-scaled. Reading the
+    // canvas's own rect (already post-zoom) and never writing an inline px size
+    // avoids applying the zoom twice, which previously shrank the top layer.
+    let surfaceW = 0;
+    let surfaceH = 0;
+
     function setCanvasSize() {
-      const rect = wrap.getBoundingClientRect();
+      const rect = canvas.getBoundingClientRect();
       const dpr = window.devicePixelRatio || 1;
-      canvas.width = Math.round(rect.width * dpr);
-      canvas.height = Math.round(rect.height * dpr);
-      canvas.style.width = `${rect.width}px`;
-      canvas.style.height = `${rect.height}px`;
+      surfaceW = rect.width;
+      surfaceH = rect.height;
+      canvas.width = Math.max(1, Math.round(surfaceW * dpr));
+      canvas.height = Math.max(1, Math.round(surfaceH * dpr));
       ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
     }
 
     function drawFront() {
       setCanvasSize();
       ctx.globalCompositeOperation = "source-over";
-      ctx.clearRect(0, 0, wrap.clientWidth, wrap.clientHeight);
-      ctx.drawImage(frontImage, 0, 0, wrap.clientWidth, wrap.clientHeight);
+      ctx.clearRect(0, 0, surfaceW, surfaceH);
+      ctx.drawImage(frontImage, 0, 0, surfaceW, surfaceH);
     }
 
     function getPoint(event) {
@@ -396,7 +405,7 @@
         ctx.beginPath();
         ctx.arc(x, y, 20, 0, Math.PI * 2);
         ctx.fill();
-        estimatedCoverage += ((Math.PI * 20 * 20) / (wrap.clientWidth * wrap.clientHeight)) * 100 * 0.45;
+        estimatedCoverage += ((Math.PI * 20 * 20) / (surfaceW * surfaceH)) * 100 * 0.45;
         return;
       }
 
@@ -414,7 +423,7 @@
       ctx.drawImage(brushImage, -width / 2, -height / 2, width, height);
       ctx.restore();
 
-      estimatedCoverage += ((width * height) / (wrap.clientWidth * wrap.clientHeight)) * 100 * 0.5;
+      estimatedCoverage += ((width * height) / (surfaceW * surfaceH)) * 100 * 0.5;
     }
 
     function scratchAt(x, y, angle = lastAngle) {
@@ -521,8 +530,8 @@
         return;
       }
 
-      const width = wrap.clientWidth || 1;
-      const height = wrap.clientHeight || 1;
+      const width = surfaceW || wrap.clientWidth || 1;
+      const height = surfaceH || wrap.clientHeight || 1;
       const nx = (point.x / width) * 2 - 1;
       const ny = (point.y / height) * 2 - 1;
       const rotateX = -ny * TILT_MAX_X;
@@ -560,7 +569,7 @@
       }
       wrap.classList.remove("is-scratching", "is-attention");
       wrap.classList.add("is-hint-hidden");
-      ctx.clearRect(0, 0, wrap.clientWidth, wrap.clientHeight);
+      ctx.clearRect(0, 0, surfaceW, surfaceH);
       wrap.setAttribute("aria-label", "Coupon revealed: Flat 15% off on stays");
       launchConfetti();
     }
