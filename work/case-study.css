@@ -24,3 +24,37 @@ body {
 .case-study-page .case-study-deck::-webkit-scrollbar {
   display: none; /* Chrome, Safari, Blink */
 }
+
+/* Inline live-text SVG slides (exported from Figma with selectable text).
+   The deck slide is a flex row that centres its child; each SVG is shown at a
+   width that reproduces the Figma frame composition (normal slides sit at
+   ~82% like the 1920px artboards inside the 2335px frame; full-bleed "infuse"
+   slides are set to 100% via the per-slide --cs-w). */
+.cs-svg-slide > svg {
+  display: block;
+  height: auto;
+  width: var(--cs-w, 82.2%);
+}
+
+/* Slide 4 (Research Plan) is now a full-width inline SVG; its two pop-up
+   trigger pills ("View the Screener Criteria" / "Discussion Guide") sit near
+   the bottom. Re-anchor the transparent overlay buttons to the SVG and place
+   them over those pills (positions measured from the live SVG text). */
+.cs-svg-slide {
+  position: relative;
+}
+.cs-svg-slide .research-plan-actions {
+  inset: 0;
+}
+.cs-svg-slide .research-plan-action {
+  top: 90.2%;
+  height: 3.6%;
+}
+.cs-svg-slide .research-plan-action--screener {
+  left: 20.6%;
+  width: 16.3%;
+}
+.cs-svg-slide .research-plan-action--discussion {
+  left: 66.2%;
+  width: 16.3%;
+}
