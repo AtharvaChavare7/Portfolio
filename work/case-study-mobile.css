@@ -335,9 +335,33 @@
     margin: 0 -20px;
   }
 
+  /* The bottom-sheet mock's left phone has a blank sheet: the gift
+     animation plays over that screen. Positions are relative to the
+     1000x836 crop. */
+  .cs-m-step__media {
+    position: relative;
+    width: calc(100% + 40px);
+    margin: 0 -20px;
+  }
+
+  .cs-m-step__media img {
+    width: 100%;
+    margin: 0;
+  }
+
+  .cs-m-bottom-sheet-video {
+    position: absolute;
+    top: 10.29%;
+    left: 9.2%;
+    width: 30.5%;
+    height: 78.71%;
+    object-fit: cover;
+    border-radius: 13% / 6%;
+  }
+
   /* Learnings */
   .cs-m-learn {
-    margin: 16px 0 0;
+    margin: 16px 0 24px;
     padding: 0;
     list-style: none;
     counter-reset: learn;
@@ -360,53 +384,6 @@
     font-size: 12px;
     font-weight: 700;
     color: var(--cs-m-blue);
-  }
-
-  /* End card */
-  .cs-m-end {
-    margin: 8px var(--cs-m-gutter) 40px;
-    padding: 28px 22px;
-    border-radius: 22px;
-    background: var(--cs-m-ink);
-    color: #ffffff;
-  }
-
-  .cs-m-end__title {
-    margin: 0;
-    font-size: 22px;
-    font-weight: 700;
-    letter-spacing: -0.02em;
-  }
-
-  .cs-m-end__body {
-    margin: 10px 0 0;
-    font-size: 15px;
-    line-height: 1.5;
-    color: rgba(255, 255, 255, 0.7);
-  }
-
-  .cs-m-end__actions {
-    display: flex;
-    gap: 10px;
-    margin-top: 22px;
-  }
-
-  .cs-m-btn {
-    flex: 1;
-    padding: 13px 16px;
-    border: 1px solid rgba(255, 255, 255, 0.24);
-    border-radius: 999px;
-    background: transparent;
-    font: 600 15px/1 "Plus Jakarta Sans", system-ui, sans-serif;
-    text-align: center;
-    text-decoration: none;
-    color: #ffffff;
-    cursor: pointer;
-  }
-
-  .cs-m-btn--primary {
-    border-color: var(--cs-m-blue);
-    background: var(--cs-m-blue);
   }
 
   /* Scroll reveal (only once the script has armed it) */
