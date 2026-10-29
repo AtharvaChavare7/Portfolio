@@ -117,4 +117,30 @@
         video.addEventListener("loadeddata", play, { once: true });
       }
     });
+  /* --- Phone-only short version (.cs-mobile) --- */
+  const mobile = document.querySelector(".cs-mobile");
+  if (mobile && window.matchMedia("(max-width: 720px)").matches) {
+    mobile.querySelectorAll("[data-cs-m-video]").forEach((video) => {
+      video.muted = true;
+      video.preload = "auto";
+      video.play().catch(() => {});
+    });
+
+    const reveals = mobile.querySelectorAll("[data-cs-m-reveal]");
+    if ("IntersectionObserver" in window && reveals.length) {
+      mobile.classList.add("is-armed");
+      const observer = new IntersectionObserver(
+        (entries) => {
+          entries.forEach((entry) => {
+            if (entry.isIntersecting) {
+              entry.target.classList.add("is-in");
+              observer.unobserve(entry.target);
+            }
+          });
+        },
+        { rootMargin: "0px 0px -10% 0px" }
+      );
+      reveals.forEach((element) => observer.observe(element));
+    }
+  }
 })();
