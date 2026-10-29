@@ -16,11 +16,12 @@
   <title>Hotel Cross Sell — Atharva Chavare</title>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,800&family=Geist+Mono:wght@400;600&family=JetBrains+Mono:wght@400&family=Libre+Baskerville:ital,wght@0,500;1,500&family=Plus+Jakarta+Sans:wght@300;400;500;600&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,800&family=Geist+Mono:wght@400;600&family=JetBrains+Mono:wght@400&family=Libre+Baskerville:ital,wght@0,500;1,500&family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/geist@1.3.1/dist/font.css">
   <link rel="stylesheet" href="../../styles.css">
   <link rel="stylesheet" href="../../site-nav.css">
   <link rel="stylesheet" href="../case-study.css">
+  <link rel="stylesheet" href="../case-study-mobile.css">
 </head>
 <body>
   <header class="site-nav" data-state="closed" aria-label="Site navigation">
@@ -223,6 +224,117 @@
           </section>
         </div>
   </main>
+
+  <!-- Phone-only short version. The full deck above is hidden below 720px. -->
+  <article class="cs-mobile" aria-label="Hotel Cross Sell case study, short version">
+    <header class="cs-m-hero">
+      <div class="cs-m-phone">
+        <video data-cs-m-video muted loop playsinline preload="none" aria-hidden="true" tabindex="-1">
+          <source src="../../assets/case-study-cross-sell/mobile/hero-phone.mp4" type="video/mp4">
+        </video>
+      </div>
+      <p class="cs-m-eyebrow">Graduation project · 2024–25</p>
+      <h1 class="cs-m-title">Hotel Cross Sell</h1>
+      <p class="cs-m-lede">Getting flight bookers on MakeMyTrip to book their stay too.</p>
+      <p class="cs-m-notice">
+        <svg viewBox="0 0 20 20" aria-hidden="true"><rect x="2" y="3" width="16" height="11" rx="2"/><path d="M7 17h6M10 14v3"/></svg>
+        <span>You’re reading the short version. Open on a desktop for the full case study.</span>
+      </p>
+      <dl class="cs-m-meta">
+        <div><dt>Role</dt><dd>Product Designer &amp; Researcher</dd></div>
+        <div><dt>Team</dt><dd>CPO, PMs, Data Analysts, User Researchers</dd></div>
+        <div><dt>Tools</dt><dd>Figma, Adobe AE, Optimal Workshop</dd></div>
+        <div><dt>Focus</dt><dd>Cross-selling</dd></div>
+      </dl>
+    </header>
+
+    <section class="cs-m-section" data-cs-m-reveal>
+      <p class="cs-m-kicker">The problem</p>
+      <h2 class="cs-m-h2">Lots of people book flights. Very few book a stay with them.</h2>
+      <div class="cs-m-funnel" role="img" aria-label="Of flight bookers, 30% browse stays and only 5 to 6% book one.">
+        <div class="cs-m-funnel__row"><span class="cs-m-funnel__bar" style="--w:100%"></span><span class="cs-m-funnel__label"><b>100%</b> book a flight</span></div>
+        <div class="cs-m-funnel__row"><span class="cs-m-funnel__bar" style="--w:30%"></span><span class="cs-m-funnel__label"><b>30%</b> browse stays</span></div>
+        <div class="cs-m-funnel__row"><span class="cs-m-funnel__bar cs-m-funnel__bar--hot" style="--w:6%"></span><span class="cs-m-funnel__label"><b>5–6%</b> book a stay</span></div>
+      </div>
+    </section>
+
+    <section class="cs-m-section cs-m-section--blue" data-cs-m-reveal>
+      <p class="cs-m-kicker">Impact</p>
+      <h2 class="cs-m-h2">Hotel offers at the right moments in the flight journey.</h2>
+      <div class="cs-m-stats">
+        <div class="cs-m-stat"><span class="cs-m-stat__num">+4%</span><span class="cs-m-stat__txt">hotel attach rate among flight bookers</span></div>
+        <div class="cs-m-stat"><span class="cs-m-stat__num">+22%</span><span class="cs-m-stat__txt">click-through on cross-sell offers</span></div>
+      </div>
+      <img class="cs-m-impact-phone" src="../../assets/case-study-cross-sell/mobile/solution-phone.webp" alt="Gift pop-up on the MakeMyTrip home screen offering an exclusive deal to flight bookers" width="600" height="1152" loading="lazy" decoding="async">
+    </section>
+
+    <section class="cs-m-section" data-cs-m-reveal>
+      <p class="cs-m-kicker">What research told us</p>
+      <h2 class="cs-m-h2">The offers existed. People just didn’t see them, or didn’t trust them.</h2>
+      <ul class="cs-m-insights">
+        <li><b>71%</b><span>didn’t see any hotel offer after booking a flight, even though offers were there.</span></li>
+        <li><b>91%</b><span>said yes or maybe to flight and hotel offers together.</span></li>
+        <li><b>Trust</b><span>broke when the price went up at checkout.</span></li>
+      </ul>
+      <blockquote class="cs-m-hmw">How might we make hotel offers visible, easy to understand, and worth acting on at the right moments?</blockquote>
+    </section>
+
+    <section class="cs-m-section cs-m-section--tint">
+      <p class="cs-m-kicker" data-cs-m-reveal>The solution</p>
+      <h2 class="cs-m-h2" data-cs-m-reveal>One offer, shown at five moments.</h2>
+      <ol class="cs-m-steps">
+        <li class="cs-m-step" data-cs-m-reveal>
+          <span class="cs-m-step__n">01</span>
+          <h3>During flight booking</h3>
+          <p>A light “15% off your next hotel” strip plants the idea without interrupting the booking.</p>
+          <img src="../../assets/case-study-cross-sell/mobile/during-booking.webp" alt="Discount strip on the flight booking review screen" width="900" height="888" loading="lazy" decoding="async">
+        </li>
+        <li class="cs-m-step" data-cs-m-reveal>
+          <span class="cs-m-step__n">02</span>
+          <h3>Thank you screen</h3>
+          <p>The hotel card sits above the booking details, made for a 3–4 second glance.</p>
+          <img src="../../assets/case-study-cross-sell/mobile/thank-you.webp" alt="Thank you screen with a hotel offer card above the booking confirmation" width="1000" height="746" loading="lazy" decoding="async">
+        </li>
+        <li class="cs-m-step" data-cs-m-reveal>
+          <span class="cs-m-step__n">03</span>
+          <h3>Bottom sheet</h3>
+          <p>A gift that opens frames the offer as a reward, not an ad.</p>
+          <img src="../../assets/case-study-cross-sell/mobile/bottom-sheet.webp" alt="Gift-box bottom sheet revealing 15% off stays" width="1000" height="836" loading="lazy" decoding="async">
+        </li>
+        <li class="cs-m-step" data-cs-m-reveal>
+          <span class="cs-m-step__n">04</span>
+          <h3>Home screen</h3>
+          <p>The code is pre-applied and the button is tied to the trip: “Explore stays in Goa”.</p>
+          <img src="../../assets/case-study-cross-sell/mobile/home-screen.webp" alt="Home screen card offering 15% off stays in Goa" width="800" height="1144" loading="lazy" decoding="async">
+        </li>
+        <li class="cs-m-step" data-cs-m-reveal>
+          <span class="cs-m-step__n">05</span>
+          <h3>Search to checkout</h3>
+          <p>The offer follows you through every screen, with savings shown upfront and no coupon to apply.</p>
+          <img src="../../assets/case-study-cross-sell/mobile/other-touchpoints.webp" alt="Search, details and review screens carrying the hotel offer" width="1400" height="627" loading="lazy" decoding="async">
+        </li>
+      </ol>
+    </section>
+
+    <section class="cs-m-section" data-cs-m-reveal>
+      <p class="cs-m-kicker">What I learned</p>
+      <ul class="cs-m-learn">
+        <li>Explaining design decisions to a wide group of stakeholders</li>
+        <li>Using business metrics to guide design</li>
+        <li>Designing within engineering and timeline constraints</li>
+        <li>Making decisions and owning the trade-offs</li>
+      </ul>
+    </section>
+
+    <footer class="cs-m-end" data-cs-m-reveal>
+      <p class="cs-m-end__title">That was the short version.</p>
+      <p class="cs-m-end__body">The full case study covers the research plan, funnel analytics, usability testing and ideation. Open this page on a laptop or desktop to see it all.</p>
+      <div class="cs-m-end__actions">
+        <button class="cs-m-btn cs-m-btn--primary" type="button" data-cs-m-copy>Share link</button>
+        <a class="cs-m-btn" href="../../index.html#work">More work</a>
+      </div>
+    </footer>
+  </article>
 
   <script src="../../site-nav.js"></script>
   <script src="../case-study.js"></script>

@@ -117,4 +117,48 @@
         video.addEventListener("loadeddata", play, { once: true });
       }
     });
+  /* --- Phone-only short version (.cs-mobile) --- */
+  const mobile = document.querySelector(".cs-mobile");
+  if (mobile && window.matchMedia("(max-width: 720px)").matches) {
+    const heroVideo = mobile.querySelector("[data-cs-m-video]");
+    if (heroVideo) {
+      heroVideo.muted = true;
+      heroVideo.preload = "auto";
+      heroVideo.play().catch(() => {});
+    }
+
+    const reveals = mobile.querySelectorAll("[data-cs-m-reveal]");
+    if ("IntersectionObserver" in window && reveals.length) {
+      mobile.classList.add("is-armed");
+      const observer = new IntersectionObserver(
+        (entries) => {
+          entries.forEach((entry) => {
+            if (entry.isIntersecting) {
+              entry.target.classList.add("is-in");
+              observer.unobserve(entry.target);
+            }
+          });
+        },
+        { rootMargin: "0px 0px -10% 0px" }
+      );
+      reveals.forEach((element) => observer.observe(element));
+    }
+
+    const copyButton = mobile.querySelector("[data-cs-m-copy]");
+    if (copyButton) {
+      copyButton.addEventListener("click", async () => {
+        const url = window.location.href.split("#")[0];
+        try {
+          if (navigator.share) {
+            await navigator.share({ title: document.title, url });
+            return;
+          }
+          await navigator.clipboard.writeText(url);
+          copyButton.textContent = "Link copied";
+        } catch (error) {
+          /* Share sheet dismissed or clipboard blocked: leave the label as is. */
+        }
+      });
+    }
+  }
 })();
