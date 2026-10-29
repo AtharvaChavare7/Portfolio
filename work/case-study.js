@@ -120,11 +120,33 @@
   /* --- Phone-only short version (.cs-mobile) --- */
   const mobile = document.querySelector(".cs-mobile");
   if (mobile && window.matchMedia("(max-width: 720px)").matches) {
-    mobile.querySelectorAll("[data-cs-m-video]").forEach((video) => {
-      video.muted = true;
-      video.preload = "auto";
-      video.play().catch(() => {});
+    /* Muted inline videos may autoplay, but a browser can still refuse
+       (e.g. iOS Low Power Mode), so retry when a video scrolls into view
+       and on the first touch. */
+    const videos = [...mobile.querySelectorAll("[data-cs-m-video]")];
+    const playAll = () => {
+      videos.forEach((video) => {
+        video.muted = true;
+        if (video.paused) {
+          video.play().catch(() => {});
+        }
+      });
+    };
+    playAll();
+    videos.forEach((video) => {
+      video.addEventListener("loadeddata", playAll, { once: true });
     });
+    ["touchstart", "click", "scroll"].forEach((name) => {
+      window.addEventListener(name, playAll, { passive: true });
+    });
+    if ("IntersectionObserver" in window) {
+      const videoObserver = new IntersectionObserver((entries) => {
+        if (entries.some((entry) => entry.isIntersecting)) {
+          playAll();
+        }
+      });
+      videos.forEach((video) => videoObserver.observe(video));
+    }
 
     const reveals = mobile.querySelectorAll("[data-cs-m-reveal]");
     if ("IntersectionObserver" in window && reveals.length) {
