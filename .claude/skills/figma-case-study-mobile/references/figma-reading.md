@@ -52,4 +52,14 @@ def walk(n, d, ox, oy):
 
 ## Writing mobile frames
 
-Load the `figma-use` skill before `use_figma`. Use `search_design_system` and `get_variable_defs` to reuse the deck's colour/text styles and components. Place the mobile frames to the right of the deck (e.g. x = deck right edge + 400), named `Mobile / <section>`. Reuse images by cloning the existing image fills/nodes from the deck rather than re-uploading. Check results with `get_screenshot`.
+Load the `figma-use` skill (and `figma-generate-design` for visible changes) before `use_figma`. Use `search_design_system` and `get_variable_defs` to reuse the deck's colour/text styles and components; decks often have none, in which case read fonts and colours straight off the deck's text nodes (`getStyledTextSegments(['fontName','fontSize','fills'])`, tallied by character count) and the brand colour off the wordmark.
+
+Place one wrapper (horizontal auto-layout, 80 gap) to the right of the deck (x = deck right edge + 400, same y) holding one 390-wide vertical auto-layout frame per section, named `01 Hero`, `02 The problem`… Check nothing else on the page occupies that space first.
+
+Things that bit us:
+- **The deck's fonts may not load in the plugin runtime.** Licensed desktop fonts installed on the designer's machine (Gilroy, GT Super trial…) fail `loadFontAsync`. Test each one first; if it fails, pick the closest available stand-in from `listAvailableFontsAsync()` (GT Super → Fraunces Bold, Gilroy → Urbanist), and tell the person which stand-ins you used so they can swap them back locally.
+- **Mockups: export, don't rescale clones.** Cloning a phone and calling `rescale()` touches text in fonts that may not be loadable. Instead `exportAsync({format:'PNG', constraint:{type:'SCALE', value:2}})` the node, `figma.createImage(bytes)`, and use the hash as an `IMAGE` fill (`scaleMode: 'FIT'`) on a rectangle sized to the slot. This matches how it will be built in code ([img]).
+- **Export the innermost phone node.** Deck "MOCKUP" frames usually also contain callout dots and lines, and shadow wrappers add transparent margin that makes the phone render tiny. Walk 2 levels into the mockup and export the node that is just the phone/screen; if that loses the bezel, add `cornerRadius` + a dark `OUTSIDE` stroke to the rectangle.
+- Name every element with its build method (`Cover phone [img]`, `Wordmark [svg]`, `Timeline [code]`) so phase 4 is mechanical.
+
+Take one screenshot of the wrapper after building (`get_screenshot` with `maxDimension: 3000`, then download and crop to inspect sections), fix specific problems, screenshot once more, then show the person.
