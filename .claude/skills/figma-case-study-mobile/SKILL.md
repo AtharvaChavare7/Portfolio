@@ -9,6 +9,8 @@ A desktop case-study deck shrunk onto a phone is unreadable: 1920px slides scale
 
 The result is a *short version*. Someone on a phone should get the whole story — problem, what was found, what was designed, what changed — in about a minute of scrolling, and know the full case study is on desktop.
 
+**The non-negotiable: the mobile version is made of the deck, not inspired by it.** Its headlines, highlight colours, illustrations, cards, numbered steps, callout pills, decorative shapes, logos, mockups and copy are the deck's own elements, cut and re-stacked for a narrow screen. Do not invent new UI — no generic stat cards, chips, pills, buttons, gradients, shadows or "kicker" labels that the deck doesn't have, and no rewritten copy in a new voice. The person designed the deck with care; a mobile version built from fresh generic components reads as AI slop even when it's tidy (that was the verdict on our first SnakeSafe attempt). When in doubt, ask "where in the deck does this come from?" — if there's no answer, it doesn't belong.
+
 The work has four phases. Do them in order, because each one is cheaper to change than the next:
 
 1. **Understand the deck** — read every slide, its text and its visuals.
@@ -40,18 +42,27 @@ This is the most important judgement in the whole job. A desktop deck is written
 - **Choose insights by consequence, not by order.** Of five insights, keep the ones that (a) have a hard number, (b) directly justify a design decision shown later, or (c) are surprising. Drop ones that restate another, or are generic ("users want it simple").
 - **Choose screens by flow.** Keep final, shipped designs of the main flow, one representative screen per step. Drop wireframes, explorations, discarded concepts, component sheets and near-duplicate states — unless the before/after *is* the point.
 - **Cut process detail**: research plans, screener criteria, discussion guides, methodology diagrams, stakeholder maps, tool logos. Mention method in one line if at all.
-- **Rewrite, don't truncate.** Shorter sentences, plain words, same facts. Never round, invent or "improve" a metric — copy numbers exactly as the deck states them.
+- **Cut by choosing, not by rewriting.** Shorten by picking which of the deck's own paragraphs, cards and screens to keep. Keep the author's wording; only trim a sentence when a kept block is genuinely too long for a phone, and then edit it lightly in the same voice. Never round, invent or "improve" a metric.
 - One visible note near the top: it's the short version and the full one is on desktop. Don't add an end card repeating it (people find it redundant).
 
 Deliverable: a mobile outline — numbered sections, each with its kept copy (rewritten), which visuals it uses, and what was dropped. Show it to the person briefly before designing; a 30-second "does this cut look right?" saves a redesign.
 
 ## Phase 3 — Design the mobile frames in Figma
 
-Work *in the same Figma file*, on frames placed beside the desktop deck, so the person can compare and edit. Load the `figma-use` skill before calling `use_figma` (the Figma MCP requires it), and `search_design_system` / `get_variable_defs` first so you reuse the deck's colour styles, text styles and components instead of inventing new ones.
+Work *in the same Figma file*, on frames placed beside the desktop deck, so the person can compare and edit. Load the `figma-use` skill (and `figma-generate-design`) before calling `use_figma`.
 
-- Frame: 390 wide (iPhone 12–15 logical width), one tall frame per section or one long frame for the page — whichever the person prefers; default to one frame per section, stacked, so options are easy to compare.
-- Keep the deck's identity: same brand colours, type families and weights, corner radii, card styles, illustration and mockup style. The layout changes; the look doesn't.
-- Mobile type scale (logical px): display 40–52, section heading 26–30, card heading 18–20, body 15–17, captions/labels 11–13 (labels uppercase, tracked). Nothing a reader needs below 13. Side gutters 20.
+**Build every frame by cloning the deck's nodes**, not by drawing new ones. For each kept block, find its node id in the metadata and `clone()` it into a 390-wide vertical auto-layout section:
+- **Visual blocks** (phone mockups, illustrations, cards, numbered step markers, callout pills, logo columns, buttons, wordmark/title groups): clone and `rescale(targetWidth / node.width)`. `rescale` works even when the deck's fonts can't be loaded, and it keeps the block pixel-identical. Choose the target width so text inside stays ≥ ~12px.
+- **Text that must re-wrap** (headlines and paragraphs written for a 1300–1900px line): clone the text node, swap only the unloadable font families for the closest available ones (keeping weights, per-range colours such as highlighted words, line height and spacing), set a mobile font size if needed (headline ~28–34, body ~15–17), then `textAutoResize = 'HEIGHT'` and fill the column width. Load every font already in the node before calling `setRangeFontName`, or it throws. Details in `references/figma-reading.md`.
+- **Decorations** (blobs, leaves, waves, textures): clone them as absolutely-positioned children behind content, pushed into corners or behind phones — never under text.
+- **Section backgrounds**: copy the deck section's fill (e.g. the dark Home Screen band), don't pick new colours.
+- **Rows** (meta row, phone pairs, 2×2 phone grids): horizontal auto-layout of clones. If a row's labels collide at phone width, rebuild it from the deck's own label/value text nodes in narrower columns.
+
+Then:
+- Frame: 390 wide (iPhone 12–15 logical width), one auto-layout frame per section, side by side in a wrapper next to the deck. Use auto-layout for stacking — manual y-positioning of clones overlaps because clones' visual bounds (shadows, overflowing text) differ from their frames.
+- The layout changes; the look doesn't. If a deck slide is 4 phones in a row, the mobile version is the same 4 phones as a 2×2 grid with the same title and caption — not a new card design.
+- Keep text legible: body ≥ 15px, labels ≥ 12px, side gutters 20. If rescaling a block would push its text below that, re-flow its text instead (clone texts individually into a vertical stack).
+- If the deck's fonts aren't available to the plugin (licensed local fonts), say which stand-ins you used so the person can swap them back on their machine; the code build uses the real fonts or the agreed web equivalent.
 - **For each slide whose layout doesn't stack trivially, sketch 2–3 options** and pick one using the criteria in `references/layouts.md` (one idea per screen-height, phone mocks ≥ ~60% of width, no text over busy images, reading order top-to-bottom). That file lists the proven desktop→mobile transformations: side-by-side → stacked, annotated phone with callouts → phone + numbered list, card grids → stack or snap carousel, stat rows → 2-up grid, funnels → horizontal bars, before/after → stacked pair or slider.
 - Mark every element with how it will be built (see Phase 4 table): name layers with a suffix like `[img]`, `[svg]`, `[code]` or note it in the frame. This removes guesswork during the build.
 - `get_screenshot` the frames and show them. Iterate here — moving rectangles in Figma is far cheaper than rewriting CSS.

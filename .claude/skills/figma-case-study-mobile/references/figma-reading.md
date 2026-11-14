@@ -57,9 +57,29 @@ Load the `figma-use` skill (and `figma-generate-design` for visible changes) bef
 Place one wrapper (horizontal auto-layout, 80 gap) to the right of the deck (x = deck right edge + 400, same y) holding one 390-wide vertical auto-layout frame per section, named `01 Hero`, `02 The problem`… Check nothing else on the page occupies that space first.
 
 Things that bit us:
-- **The deck's fonts may not load in the plugin runtime.** Licensed desktop fonts installed on the designer's machine (Gilroy, GT Super trial…) fail `loadFontAsync`. Test each one first; if it fails, pick the closest available stand-in from `listAvailableFontsAsync()` (GT Super → Fraunces Bold, Gilroy → Urbanist), and tell the person which stand-ins you used so they can swap them back locally.
-- **Mockups: export, don't rescale clones.** Cloning a phone and calling `rescale()` touches text in fonts that may not be loadable. Instead `exportAsync({format:'PNG', constraint:{type:'SCALE', value:2}})` the node, `figma.createImage(bytes)`, and use the hash as an `IMAGE` fill (`scaleMode: 'FIT'`) on a rectangle sized to the slot. This matches how it will be built in code ([img]).
-- **Export the innermost phone node.** Deck "MOCKUP" frames usually also contain callout dots and lines, and shadow wrappers add transparent margin that makes the phone render tiny. Walk 2 levels into the mockup and export the node that is just the phone/screen; if that loses the bezel, add `cornerRadius` + a dark `OUTSIDE` stroke to the rectangle.
-- Name every element with its build method (`Cover phone [img]`, `Wordmark [svg]`, `Timeline [code]`) so phase 4 is mechanical.
+- **The deck's fonts may not load in the plugin runtime.** Licensed desktop fonts installed on the designer's machine (Gilroy, GT Super trial…) fail `loadFontAsync`. You can still `clone()` and `rescale()` nodes that use them (they render correctly), but you can't change their text, size or wrapping. For text that must re-wrap, swap just those families for the closest available ones (GT Super → Fraunces Bold, Gilroy → Urbanist) and tell the person which stand-ins you used.
+- **Swapping fonts on a clone keeps its styling.** `setRangeFontName` per styled segment preserves per-range colours (e.g. red highlight words), line height and letter spacing. First `loadFontAsync` every font already in the node (e.g. a Poppins range mixed into a GT Super headline) or the call throws "unloaded font".
+
+```js
+const SUB = {'Gilroy':'Urbanist','GT Super Ds Trial':'Fraunces'};
+const STY = s => ({'Semibold':'SemiBold','Bd':'Bold','Bold':'Bold','Medium':'Medium','Regular':'Regular'}[s] || 'Medium');
+async function swapFonts(t) {
+  const segs = t.getStyledTextSegments(['fontName']);
+  for (const s of segs) if (!SUB[s.fontName.family]) await figma.loadFontAsync(s.fontName);
+  for (const s of segs) {
+    const f0 = s.fontName; if (!SUB[f0.family]) continue;
+    const f = {family: SUB[f0.family], style: f0.family.startsWith('GT') ? 'Bold' : STY(f0.style)};
+    await figma.loadFontAsync(f); t.setRangeFontName(s.start, s.end, f);
+  }
+}
+// re-flowing deck text into a mobile column
+const t = (await figma.getNodeByIdAsync(id)).clone(); await swapFonts(t);
+t.fontSize = 28;                      // only for headlines; keep body at its deck size if it's already 15-17px
+column.appendChild(t); t.textAutoResize = 'HEIGHT'; t.layoutSizingHorizontal = 'FILL';
+```
+- **Visual blocks: clone + `rescale`.** Mockups, illustrations, cards, step markers and pills keep their exact look this way. Don't swap fonts inside phone mockups (they use SF Pro etc., which may not load, and don't need re-wrapping).
+- **Export the innermost phone node when a mockup frame carries callouts.** Deck "MOCKUP" frames often also contain callout dots/lines and shadow wrappers. Walk 2 levels in and clone the node that is just the phone; put the deck's callout pills underneath as a wrapped row instead.
+- **Use auto-layout sections, not manual y-positions.** Clones' visual bounds (shadows, overflowing text) differ from their frames, so hand-stacking overlaps. Decorations go in as `layoutPositioning = 'ABSOLUTE'` children inserted at index 0, placed in corners or behind phones, never under text.
+- Name sections `01 Hero`, `02 The problem`… and keep the deck's layer names on clones, so the person can trace every element back to its slide.
 
 Take one screenshot of the wrapper after building (`get_screenshot` with `maxDimension: 3000`, then download and crop to inspect sections), fix specific problems, screenshot once more, then show the person.

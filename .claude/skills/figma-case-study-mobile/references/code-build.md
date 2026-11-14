@@ -25,7 +25,7 @@ Keep one URL per case study. The desktop deck stays exactly as it is; the mobile
 
 `display: none` also hides the inactive version from screen readers, so the content isn't read twice.
 
-Start from `assets/case-study-mobile.css` (copy it into the site once, e.g. `work/case-study-mobile.css`, and link it from every case-study page). Retheme it through its custom properties (`--cs-m-blue`, `--cs-m-ink`, `--cs-m-tint`, …) and the font-family to match the deck. Components it provides:
+Style it from the deck, not from a template: the deck's fonts (or the agreed web equivalent), its exact colours, its card/border/radius treatment, its illustrations and decorative shapes exported as SVG/WebP, and its own copy. Match the approved Figma frames. `assets/case-study-mobile.css` is only a structural starting point (copy it into the site once, e.g. `work/case-study-mobile.css`, and link it from every case-study page). Retheme it through its custom properties (`--cs-m-blue`, `--cs-m-ink`, `--cs-m-tint`, …) and the font-family to match the deck. Components it provides:
 
 | Class | Use |
 |---|---|

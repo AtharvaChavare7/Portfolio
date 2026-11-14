@@ -1,6 +1,6 @@
 # Desktop → mobile layouts
 
-A 1920×1080 slide is landscape and wide; a phone is a narrow column read top to bottom. Most slides can't keep their arrangement — they need a different one that keeps the same visual language.
+A 1920×1080 slide is landscape and wide; a phone is a narrow column read top to bottom. Most slides can't keep their arrangement — they need a different arrangement **of the same elements**. Every transformation below re-stacks the deck's own pieces (its cards, step markers, pills, phones, logos, headings); none of them introduces a new component. If the deck has no quote card, a quote stays as the deck styled it.
 
 ## Choosing between options
 
