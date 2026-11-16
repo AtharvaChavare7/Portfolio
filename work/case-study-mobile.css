@@ -1,0 +1,420 @@
+/* Phone-only short version of a case study.
+   Below 720px the full slide deck is hidden and a short, natively laid-out
+   summary (.cs-mobile) takes its place; above 720px it never renders. */
+
+.cs-mobile {
+  display: none;
+}
+
+@media (max-width: 720px) {
+  .case-study-page,
+  .research-popup {
+    display: none !important;
+  }
+
+  .cs-mobile {
+    --cs-m-blue: #2f6bf0;
+    --cs-m-blue-deep: #1f4fd6;
+    --cs-m-ink: #10183a;
+    --cs-m-muted: #5d6685;
+    --cs-m-line: rgba(47, 107, 240, 0.14);
+    --cs-m-tint: #f3f6ff;
+    --cs-m-gutter: 20px;
+    display: block;
+    overflow-x: clip;
+    background: #ffffff;
+    color: var(--cs-m-ink);
+    font-family: "Plus Jakarta Sans", "Geist", system-ui, sans-serif;
+    -webkit-text-size-adjust: 100%;
+  }
+
+  .cs-mobile * {
+    box-sizing: border-box;
+  }
+
+  .cs-mobile img {
+    display: block;
+    max-width: 100%;
+    height: auto;
+  }
+
+  /* --- Hero --- */
+  .cs-m-hero {
+    padding: 84px var(--cs-m-gutter) 40px;
+    text-align: center;
+    background: linear-gradient(180deg, #eef3ff 0%, #ffffff 62%);
+  }
+
+  .cs-m-phone {
+    position: relative;
+    width: 172px;
+    aspect-ratio: 500 / 1082;
+    margin: 0 auto 32px;
+    overflow: hidden;
+    border: 6px solid #0d0d0f;
+    border-radius: 34px;
+    background: #0d0d0f;
+    box-shadow:
+      0 2px 6px rgba(16, 24, 58, 0.06),
+      0 18px 40px rgba(31, 79, 214, 0.18);
+  }
+
+  .cs-m-phone video {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    border-radius: 28px;
+  }
+
+  .cs-m-eyebrow,
+  .cs-m-kicker {
+    margin: 0 0 10px;
+    font-size: 12px;
+    font-weight: 600;
+    letter-spacing: 0.16em;
+    text-transform: uppercase;
+    color: var(--cs-m-blue);
+  }
+
+  .cs-m-title {
+    margin: 0;
+    font-size: clamp(40px, 12vw, 52px);
+    font-weight: 800;
+    line-height: 1;
+    letter-spacing: -0.035em;
+    color: var(--cs-m-blue);
+  }
+
+  .cs-m-lede {
+    max-width: 30ch;
+    margin: 14px auto 0;
+    font-size: 17px;
+    line-height: 1.45;
+    color: var(--cs-m-muted);
+  }
+
+  .cs-m-notice {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    margin: 24px 0 0;
+    padding: 12px 14px;
+    border: 1px solid var(--cs-m-line);
+    border-radius: 14px;
+    background: #ffffff;
+    font-size: 13px;
+    line-height: 1.4;
+    text-align: left;
+    color: var(--cs-m-ink);
+  }
+
+  .cs-m-notice svg {
+    flex: none;
+    width: 20px;
+    height: 20px;
+    fill: none;
+    stroke: var(--cs-m-blue);
+    stroke-width: 1.6;
+    stroke-linecap: round;
+  }
+
+  .cs-m-meta {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 18px 16px;
+    margin: 28px 0 0;
+    text-align: left;
+  }
+
+  .cs-m-meta dt {
+    margin: 0 0 4px;
+    font-size: 11px;
+    font-weight: 600;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    color: #8b93ad;
+  }
+
+  .cs-m-meta dd {
+    margin: 0;
+    font-size: 14px;
+    font-weight: 600;
+    line-height: 1.35;
+  }
+
+  /* --- Sections --- */
+  .cs-m-section {
+    padding: 56px var(--cs-m-gutter);
+  }
+
+  .cs-m-section--tint {
+    background: var(--cs-m-tint);
+  }
+
+  .cs-m-section--blue {
+    overflow: hidden;
+    padding-bottom: 0;
+    background: linear-gradient(180deg, #4f86f7 0%, var(--cs-m-blue-deep) 100%);
+    color: #ffffff;
+  }
+
+  .cs-m-section--blue .cs-m-kicker {
+    color: rgba(255, 255, 255, 0.72);
+  }
+
+  .cs-m-h2 {
+    margin: 0;
+    font-size: 27px;
+    font-weight: 700;
+    line-height: 1.18;
+    letter-spacing: -0.025em;
+  }
+
+  /* Funnel */
+  .cs-m-funnel {
+    display: grid;
+    gap: 14px;
+    margin-top: 28px;
+  }
+
+  .cs-m-funnel__row {
+    display: grid;
+    gap: 6px;
+  }
+
+  .cs-m-funnel__bar {
+    display: block;
+    width: max(var(--w), 10px);
+    height: 14px;
+    border-radius: 999px;
+    background: linear-gradient(90deg, #8fb0fb, var(--cs-m-blue));
+    transform-origin: left center;
+  }
+
+  .cs-m-funnel__bar--hot {
+    background: linear-gradient(90deg, #c04ce6, #7b3fe4);
+  }
+
+  .cs-m-funnel__label {
+    font-size: 15px;
+    color: var(--cs-m-muted);
+  }
+
+  .cs-m-funnel__label b {
+    color: var(--cs-m-ink);
+  }
+
+  /* Impact */
+  .cs-m-stats {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 12px;
+    margin-top: 28px;
+  }
+
+  .cs-m-stat {
+    display: grid;
+    gap: 6px;
+    padding: 18px 16px;
+    border-radius: 18px;
+    background: #ffffff;
+    color: var(--cs-m-ink);
+    box-shadow: 0 10px 30px rgba(10, 30, 110, 0.18);
+  }
+
+  .cs-m-stat__num {
+    font-size: 36px;
+    font-weight: 800;
+    line-height: 1;
+    letter-spacing: -0.03em;
+    color: var(--cs-m-blue);
+  }
+
+  .cs-m-stat__txt {
+    font-size: 13px;
+    line-height: 1.35;
+    color: var(--cs-m-muted);
+  }
+
+  .cs-m-impact-phone {
+    width: 64%;
+    margin: 36px auto 0;
+  }
+
+  /* Insights */
+  .cs-m-insights {
+    display: grid;
+    gap: 12px;
+    margin: 28px 0 0;
+    padding: 0;
+    list-style: none;
+  }
+
+  .cs-m-insights li {
+    display: grid;
+    grid-template-columns: 72px 1fr;
+    align-items: baseline;
+    gap: 12px;
+    padding: 16px;
+    border: 1px solid var(--cs-m-line);
+    border-radius: 16px;
+  }
+
+  .cs-m-insights b {
+    font-size: 24px;
+    font-weight: 800;
+    letter-spacing: -0.03em;
+    color: var(--cs-m-blue);
+  }
+
+  .cs-m-insights li:last-child b {
+    font-size: 18px;
+  }
+
+  .cs-m-insights span {
+    font-size: 15px;
+    line-height: 1.45;
+    color: var(--cs-m-muted);
+  }
+
+  .cs-m-hmw {
+    margin: 28px 0 0;
+    padding: 22px 20px;
+    border-radius: 18px;
+    background: var(--cs-m-blue);
+    font-size: 19px;
+    font-weight: 600;
+    line-height: 1.4;
+    letter-spacing: -0.01em;
+    color: #ffffff;
+  }
+
+  /* Solution steps */
+  .cs-m-steps {
+    display: grid;
+    gap: 20px;
+    margin: 28px 0 0;
+    padding: 0;
+    list-style: none;
+  }
+
+  .cs-m-step {
+    overflow: hidden;
+    padding: 22px 20px 0;
+    border-radius: 20px;
+    background: #ffffff;
+    box-shadow:
+      0 1px 2px rgba(16, 24, 58, 0.04),
+      0 10px 28px rgba(31, 79, 214, 0.08);
+  }
+
+  .cs-m-step__n {
+    font-size: 12px;
+    font-weight: 700;
+    letter-spacing: 0.12em;
+    color: var(--cs-m-blue);
+  }
+
+  .cs-m-step h3 {
+    margin: 6px 0 6px;
+    font-size: 20px;
+    font-weight: 700;
+    letter-spacing: -0.02em;
+  }
+
+  .cs-m-step p {
+    margin: 0 0 18px;
+    font-size: 15px;
+    line-height: 1.45;
+    color: var(--cs-m-muted);
+  }
+
+  .cs-m-step img {
+    width: calc(100% + 40px);
+    max-width: none;
+    margin: 0 -20px;
+  }
+
+  /* The bottom-sheet mock's left phone has a blank sheet: the gift
+     animation plays over that screen. Positions are relative to the
+     1000x836 crop. */
+  .cs-m-step__media {
+    position: relative;
+    width: calc(100% + 40px);
+    margin: 0 -20px;
+  }
+
+  .cs-m-step__media img {
+    width: 100%;
+    margin: 0;
+  }
+
+  .cs-m-bottom-sheet-video {
+    position: absolute;
+    top: 10.29%;
+    left: 9.2%;
+    width: 30.5%;
+    height: 78.71%;
+    object-fit: cover;
+    border-radius: 13% / 6%;
+  }
+
+  /* Learnings */
+  .cs-m-learn {
+    margin: 16px 0 24px;
+    padding: 0;
+    list-style: none;
+    counter-reset: learn;
+  }
+
+  .cs-m-learn li {
+    padding: 14px 0 14px 36px;
+    border-bottom: 1px solid var(--cs-m-line);
+    font-size: 16px;
+    line-height: 1.4;
+    position: relative;
+    counter-increment: learn;
+  }
+
+  .cs-m-learn li::before {
+    content: counter(learn, decimal-leading-zero);
+    position: absolute;
+    top: 16px;
+    left: 0;
+    font-size: 12px;
+    font-weight: 700;
+    color: var(--cs-m-blue);
+  }
+
+  /* Scroll reveal (only once the script has armed it) */
+  .cs-mobile.is-armed [data-cs-m-reveal] {
+    opacity: 0;
+    transform: translateY(18px);
+    transition:
+      opacity 0.7s cubic-bezier(0.16, 1, 0.3, 1),
+      transform 0.7s cubic-bezier(0.16, 1, 0.3, 1);
+  }
+
+  .cs-mobile.is-armed [data-cs-m-reveal].is-in {
+    opacity: 1;
+    transform: none;
+  }
+
+  .cs-mobile.is-armed .cs-m-funnel__bar {
+    transform: scaleX(0);
+    transition: transform 1.1s cubic-bezier(0.16, 1, 0.3, 1) 0.2s;
+  }
+
+  .cs-mobile.is-armed .is-in .cs-m-funnel__bar {
+    transform: none;
+  }
+}
+
+@media (max-width: 720px) and (prefers-reduced-motion: reduce) {
+  .cs-mobile.is-armed [data-cs-m-reveal],
+  .cs-mobile.is-armed .cs-m-funnel__bar {
+    opacity: 1;
+    transform: none;
+    transition: none;
+  }
+}

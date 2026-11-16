@@ -1,0 +1,26 @@
+/* Dedicated case-study pages.
+   Each page reuses the home page's case-study embed + deck styling (from
+   styles.css) rendered inline as a full-viewport page instead of inside the
+   modal dialog. Only the handful of overrides below are page-specific. */
+
+body {
+  margin: 0;
+  background: #ffffff;
+}
+
+/* The embed box is the full viewport; the deck inside it is the scroll area.
+   (styles.css already sizes .case-study-embed to 100vw/100dvh and pins the
+   deck to inset: 0 with overflow-y: auto.) */
+.case-study-page {
+  position: relative;
+}
+
+/* Hide the deck's own scrollbar to match the site-wide no-scrollbar treatment,
+   while keeping it fully scrollable. */
+.case-study-page .case-study-deck {
+  scrollbar-width: none; /* Firefox */
+}
+
+.case-study-page .case-study-deck::-webkit-scrollbar {
+  display: none; /* Chrome, Safari, Blink */
+}
