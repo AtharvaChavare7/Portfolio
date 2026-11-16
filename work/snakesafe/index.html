@@ -21,6 +21,9 @@
   <link rel="stylesheet" href="../../styles.css">
   <link rel="stylesheet" href="../../site-nav.css">
   <link rel="stylesheet" href="../case-study.css">
+  <link rel="stylesheet" href="../case-study-mobile.css?v=2">
+  <link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=Fraunces:opsz,wght,SOFT,WONK@9..144,700,0,1&family=Poppins:wght@600&family=Urbanist:wght@500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="mobile.css">
 </head>
 <body>
   <header class="site-nav" data-state="closed" aria-label="Site navigation">
@@ -104,6 +107,231 @@
         </div>
     </div>
   </main>
+
+  <!-- Phone-only version, built from the Figma "Mobile / SnakeSafe" frames. The full deck
+       above is hidden below 720px. -->
+  <article class="cs-mobile ssm-page" aria-label="SnakeSafe case study, phone version">
+    <section class="ssm ssm-hero" aria-label="SnakeSafe overview">
+      <div class="ssm-hero__cover">
+        <img src="../../assets/case-study-snakesafe/mobile/cover-phone.webp" alt="SnakeSafe WhatsApp chat asking for the snake's location, with a Don't Panic first-aid card" width="350" height="463" fetchpriority="high" decoding="async">
+      </div>
+      <div class="ssm-hero__title">
+        <div class="ssm-hero__title-inner">
+          <p class="ssm-hero__tagline">A snake encounter assistant</p>
+          <h1 class="ssm-hero__wordmark">
+            <img src="../../assets/case-study-snakesafe/mobile/wordmark.png" alt="SnakeSafe" width="336" height="53" decoding="async">
+          </h1>
+        </div>
+      </div>
+      <h3 class="ssm-subhead">Problem</h3>
+      <p class="ssm-lead">People often panic when they see a snake in their neighborhood, and most don’t know what to do. They also face delays in getting help because the rescue process is disorganized.</p>
+      <h3 class="ssm-subhead">Solution</h3>
+      <p class="ssm-lead">The solution is a mobile app integrated with WhatsApp chatbot that quickly connects people with nearby snake rescuers. It organizes the rescue process, gives guidance on what to do when a snake is spotted, and offers first-aid tips for snakebites.</p>
+      <dl class="ssm-meta">
+        <div class="ssm-meta__item">
+          <dt>Project Type</dt>
+          <dd>Classroom project</dd>
+        </div>
+        <div class="ssm-meta__item">
+          <dt>Project Duration</dt>
+          <dd>5 weeks</dd>
+        </div>
+        <div class="ssm-meta__item">
+          <dt>Time</dt>
+          <dd>May 2022</dd>
+        </div>
+      </dl>
+      <div class="ssm-hero__action">
+        <a class="ssm-button" href="https://medium.com/@chavareatharva" target="_blank" rel="noreferrer">Read detailed medium article</a>
+      </div>
+    </section>
+    <section class="ssm ssm-problem" aria-label="The problem">
+      <p class="ssm-statement">People <span class="ssm-accent">panic</span> during snake encounters, <span class="ssm-accent">don't know</span> what to do, at the same time <span class="ssm-accent">face delays</span> in getting help due to unorganized rescue processes and lack of immediate resources.</p>
+      <img class="ssm-problem__illustration" src="../../assets/case-study-snakesafe/mobile/problem-illustration.webp" alt="Illustration: Arpita is watering her plants in her backyard. While suddenly she spots a snake!" width="350" height="257" loading="lazy" decoding="async">
+      <ol class="ssm-steps">
+        <li class="ssm-step">
+          <span class="ssm-step__marker" aria-hidden="true"><span class="ssm-step__number">01</span></span>
+          <div class="ssm-step__body">
+            <p class="ssm-step__word">panicking</p>
+            <p class="ssm-step__text">the first response people have is panic and anxiety when they encounter a snake nearby.</p>
+          </div>
+        </li>
+        <li class="ssm-step">
+          <span class="ssm-step__marker" aria-hidden="true"><span class="ssm-step__number">02</span></span>
+          <div class="ssm-step__body">
+            <p class="ssm-step__word">confusion</p>
+            <p class="ssm-step__text">usually panic follows with confusion by them not knowing what exactly they should do.</p>
+          </div>
+        </li>
+        <li class="ssm-step">
+          <span class="ssm-step__marker" aria-hidden="true"><span class="ssm-step__number">03</span></span>
+          <div class="ssm-step__body">
+            <p class="ssm-step__word">googling</p>
+            <p class="ssm-step__text">Not knowing what to do first response is to open the phone and google for help available.</p>
+          </div>
+        </li>
+        <li class="ssm-step ssm-step--large">
+          <span class="ssm-step__marker" aria-hidden="true"><span class="ssm-step__number">04</span></span>
+          <div class="ssm-step__body">
+            <p class="ssm-step__word">finding</p>
+            <p class="ssm-step__text">finding snake rescuer contacts found on google, some don't pick up, some pick up but aren't available.</p>
+          </div>
+        </li>
+        <li class="ssm-step ssm-step--large">
+          <span class="ssm-step__marker" aria-hidden="true"><span class="ssm-step__number">05</span></span>
+          <div class="ssm-step__body">
+            <p class="ssm-step__word">calling</p>
+            <p class="ssm-step__text">after alot of time and efforts, calling the right person available to come to your location.</p>
+          </div>
+        </li>
+        <li class="ssm-step ssm-step--large">
+          <span class="ssm-step__marker" aria-hidden="true"><span class="ssm-step__number">06</span></span>
+          <div class="ssm-step__body">
+            <p class="ssm-step__word">waiting</p>
+            <p class="ssm-step__text">Waiting patiently while rescue assistance arrives. Maintain vigilance to ensure safety until the snake is successfully rescued.</p>
+          </div>
+        </li>
+      </ol>
+      <div class="ssm-problem__outcome">
+        <img src="../../assets/case-study-snakesafe/mobile/outcome.png" alt="safely rescued or escaped?!" width="176" height="116" loading="lazy" decoding="async">
+      </div>
+    </section>
+    <section class="ssm ssm-insights" aria-label="Major insights">
+      <img class="ssm-blob ssm-insights__blob" src="../../assets/case-study-snakesafe/mobile/blob-insights.svg" alt="" width="234" height="234" loading="lazy" decoding="async">
+      <h2 class="ssm-title">Major insights</h2>
+      <article class="ssm-insight">
+        <div class="ssm-insight__head">
+          <h3 class="ssm-insight__title">Delayed response due call transfer</h3>
+          <p class="ssm-insight__text">Snake rescuers often transfer the emergency call, when they are preoccupied to other rescuers which may result in the delay to reach and handle situation quickly.</p>
+        </div>
+        <div class="ssm-insight__stat">
+          <p class="ssm-insight__value">20-30 mins</p>
+          <p class="ssm-insight__text">Around 52.4% of people we interviewd stated that it takes about 30 mins for help to arrive.</p>
+        </div>
+      </article>
+      <article class="ssm-insight">
+        <div class="ssm-insight__head">
+          <h3 class="ssm-insight__title">Lack of awareness</h3>
+          <p class="ssm-insight__text">People living in tier 2 and tier 3 cities often have limited awareness about common snake species, leading to unnecessary anxiety and fear in situations.</p>
+        </div>
+        <div class="ssm-insight__stat">
+          <p class="ssm-insight__value">83.6 %</p>
+          <p class="ssm-insight__text">83.6% people were unable to identify the snake as venomous / non-venomous or it’s type.</p>
+        </div>
+        <div class="ssm-insight__stat">
+          <p class="ssm-insight__value">61.9 %</p>
+          <p class="ssm-insight__text">Around 62% of the survey candidates were unknown to the fact that killing a snake is held unlawful.</p>
+        </div>
+      </article>
+      <article class="ssm-insight">
+        <div class="ssm-insight__head">
+          <h3 class="ssm-insight__title">Inadequate first-aid information</h3>
+          <p class="ssm-insight__text">Everyone is not adequately informed about the first aid or treatment for a snakebite.</p>
+        </div>
+        <div class="ssm-insight__stat">
+          <p class="ssm-insight__value">72.6 %</p>
+          <p class="ssm-insight__text">About 73% of our survey candidates stated that they do not know proper first aid steps to follow after a snakebite.</p>
+        </div>
+      </article>
+    </section>
+    <section class="ssm ssm-intro" aria-label="Introducing SnakeSafe">
+      <div class="ssm-intro__row">
+        <img class="ssm-intro__wave" src="../../assets/case-study-snakesafe/mobile/wave.svg" alt="" width="43" height="7" loading="lazy" decoding="async">
+        <h2 class="ssm-intro__title">
+          <span class="ssm-intro__kicker">Introducing</span>
+          <span class="ssm-intro__name">SnakeSafe</span>
+        </h2>
+        <img class="ssm-intro__wave" src="../../assets/case-study-snakesafe/mobile/wave.svg" alt="" width="43" height="7" loading="lazy" decoding="async">
+      </div>
+    </section>
+    <section class="ssm ssm-home" aria-label="Home screen">
+      <img class="ssm-home__wall" src="../../assets/case-study-snakesafe/mobile/home-wall.webp" alt="" width="390" height="147" loading="lazy" decoding="async">
+      <h2 class="ssm-title ssm-title--home">Home Screen</h2>
+      <p class="ssm-home__kicker">design details</p>
+      <img class="ssm-home__phone" src="../../assets/case-study-snakesafe/mobile/home-phone.webp" alt="SnakeSafe home screen with Snake Facts, AI Snake Scanner, Bite Aid and Find Rescuer cards above a list of recent alerts" width="350" height="495" loading="lazy" decoding="async">
+      <ul class="ssm-pills">
+        <li>learn about herpetology</li>
+        <li>notify snake encounters</li>
+        <li>finding nearby rescuers</li>
+        <li>first aid guidance</li>
+        <li>snake identification</li>
+      </ul>
+      <p class="ssm-home__body">Call a rescuer, educate yourself about snakes, and snake-bite first aid identify a spotted snake from the home page.</p>
+    </section>
+    <section class="ssm ssm-rescuer" aria-label="Call a rescuer">
+      <img class="ssm-blob ssm-rescuer__blob" src="../../assets/case-study-snakesafe/mobile/blob-lime.svg" alt="" width="272" height="288" loading="lazy" decoding="async">
+      <h2 class="ssm-title">Call a Rescuer</h2>
+      <img class="ssm-screens" src="../../assets/case-study-snakesafe/mobile/rescuer-screens-1.webp" alt="Location screen with a Confirm Location button, and a Finding rescuers nearby screen with Don't Panic guidance" width="350" height="367" loading="lazy" decoding="async">
+      <img class="ssm-screens" src="../../assets/case-study-snakesafe/mobile/rescuer-screens-2.webp" alt="Request Accepted confirmation, and the assigned rescuer Vikram Parasnis with call PIN and rescue status" width="350" height="367" loading="lazy" decoding="async">
+      <p class="ssm-body">To request a rescuer, enter your desired location where you need assistance. Once confirmed, wait for your nearby rescuer to be assigned. After the rescuer is appointed, you can review their details and contact them via call or message based on your needs and urgency.</p>
+    </section>
+    <section class="ssm ssm-other" aria-label="Other screens">
+      <img class="ssm-blob ssm-other__blob-bottom" src="../../assets/case-study-snakesafe/mobile/blob-other-bottom.svg" alt="" width="231" height="245" loading="lazy" decoding="async">
+      <img class="ssm-blob ssm-other__blob-top" src="../../assets/case-study-snakesafe/mobile/blob-lime.svg" alt="" width="272" height="288" loading="lazy" decoding="async">
+      <h2 class="ssm-title">Other screens</h2>
+      <h3 class="ssm-path">/ai snake scanner</h3>
+      <img class="ssm-screens" src="../../assets/case-study-snakesafe/mobile/ai-scanner.webp" alt="AI snake scanner camera view, and the result identifying a Green Vine Snake with moderate venom" width="350" height="367" loading="lazy" decoding="async">
+      <h3 class="ssm-path">/snake facts</h3>
+      <img class="ssm-screens" src="../../assets/case-study-snakesafe/mobile/snake-facts.webp" alt="Snake facts screens with videos, blogs and an article titled Snake have friends too" width="350" height="367" loading="lazy" decoding="async">
+      <div class="ssm-body">
+        <p>Based on our research, we discovered that most spotted snakes are non-venomous, alleviating the need for immediate rescue or panic as these snakes are not harmful. Our Snake Identifier feature utilizes AI to swiftly identify the snake species.</p>
+        <p>Promoting awareness encourages maintaining a calm mindset to handle the situation effectively. We introduced a feature section to educate users on snake-related dos and don'ts, dispelling any false beliefs and demystifying common misconceptions.</p>
+      </div>
+    </section>
+    <section class="ssm ssm-why" aria-label="Why not an app">
+      <img class="ssm-blob ssm-why__blob" src="../../assets/case-study-snakesafe/mobile/blob-why.svg" alt="" width="82" height="87" loading="lazy" decoding="async">
+      <h2 class="ssm-title ssm-title--center">Why would I install your app, which would take up my phone storage for an occurrence that is rare.</h2>
+      <p class="ssm-why__lead">Integrating the solution, on a digital platform that users use in their day-to-day life, to minimize inconvenience and avoid hassle of downloading an app.</p>
+      <div class="ssm-entries">
+        <article class="ssm-entry">
+          <img src="../../assets/case-study-snakesafe/mobile/logo-whatsapp.png" alt="" width="52" height="51" loading="lazy" decoding="async">
+          <h3 class="ssm-entry__name">WhatsApp</h3>
+          <div class="ssm-entry__text">
+            <p>We discovered that users to aware people nearby in the society sent the pictures of the snake through WhatsApp and also ask for a rescuer’s contact details there.</p>
+            <p>Thus, WhatsApp seemed to be the most accessible entry point for us.</p>
+          </div>
+        </article>
+        <article class="ssm-entry">
+          <img src="../../assets/case-study-snakesafe/mobile/logo-justdial.png" alt="" width="61" height="51" loading="lazy" decoding="async">
+          <h3 class="ssm-entry__name">Just Dial</h3>
+          <div class="ssm-entry__text">
+            <p>We understood from the users that what they do first is they google for help and get prompted by various snake rescuers available on Justdial.</p>
+            <p>However, we dk we cancelled it out.</p>
+          </div>
+        </article>
+        <article class="ssm-entry">
+          <img src="../../assets/case-study-snakesafe/mobile/logo-urban-company.png" alt="" width="51" height="51" loading="lazy" decoding="async">
+          <h3 class="ssm-entry__name">Urban Company</h3>
+          <div class="ssm-entry__text">
+            <p>Urban company has professionals from various domains thus thought that it would be relevant to add the snake rescue work here.</p>
+            <p>However, it would probably not be able to cater the other features we wanted to present.</p>
+          </div>
+        </article>
+        <article class="ssm-entry">
+          <img src="../../assets/case-study-snakesafe/mobile/logo-google-maps.png" alt="" width="51" height="51" loading="lazy" decoding="async">
+          <h3 class="ssm-entry__name">Google Maps</h3>
+          <div class="ssm-entry__text">
+            <p>Google maps seemed to be an option as there could be layer added over maps that could help find rescuers and google maps has its solutions such as google lens and search engine which could also be utilised.</p>
+            <p>However, it was not the common entry point by users when they encounter snakes.</p>
+          </div>
+        </article>
+      </div>
+    </section>
+    <section class="ssm ssm-chatbot" aria-label="WhatsApp chatbot">
+      <img class="ssm-blob ssm-chatbot__blob-right" src="../../assets/case-study-snakesafe/mobile/blob-lime.svg" alt="" width="272" height="288" loading="lazy" decoding="async">
+      <img class="ssm-blob ssm-chatbot__blob-left" src="../../assets/case-study-snakesafe/mobile/blob-lime.svg" alt="" width="272" height="288" loading="lazy" decoding="async">
+      <h2 class="ssm-title ssm-title--chatbot">Why not <span class="ssm-green">WhatsApp</span><span class="ssm-green ssm-chatbot__mark">?</span></h2>
+      <p class="ssm-label">Validating with users.</p>
+      <blockquote class="ssm-quote">“WhatsApp would be really easy for me as a <strong>medium to reach out quickly</strong>”</blockquote>
+      <blockquote class="ssm-quote">I <strong>wouldn't even need to spend time</strong> in downloading the app during emergency”</blockquote>
+      <blockquote class="ssm-quote">For us snake rescuers <strong>communicating</strong> and contact <strong>becomes much easier</strong> if it’s on WhatsApp”</blockquote>
+      <blockquote class="ssm-quote">You can even <strong>raise awareness</strong> using WhatsApp, as forwarding is what people do all the time”</blockquote>
+      <p class="ssm-label ssm-chatbot__intro">Introducing SnakeSafe as a</p>
+      <h3 class="ssm-chatbot__title">WhatsApp Assistance Chatbot</h3>
+      <p class="ssm-body">We decided to keep the application open for users and added a WhatsApp business account integrating a Chatbot which also has the same features and functionalities as the application. And would be a convenient option for users during emergency.</p>
+      <img class="ssm-screens" src="../../assets/case-study-snakesafe/mobile/chat-screens.webp" alt="SnakeSafe WhatsApp business chatbot offering to connect you with a rescuer, identify a snake, get post-bite protocols or learn about snakes" width="350" height="357" loading="lazy" decoding="async">
+    </section>
+  </article>
 
   <script src="../../site-nav.js"></script>
   <script src="../case-study.js"></script>
