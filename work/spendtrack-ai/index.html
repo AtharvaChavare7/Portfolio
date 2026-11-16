@@ -21,6 +21,10 @@
   <link rel="stylesheet" href="../../styles.css">
   <link rel="stylesheet" href="../../site-nav.css">
   <link rel="stylesheet" href="../case-study.css">
+  <link rel="stylesheet" href="../case-study-mobile.css?v=2">
+  <link rel="stylesheet" href="https://api.fontshare.com/v2/css?f[]=general-sans@400,500&display=swap">
+  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:opsz,wght@9..40,400;9..40,500&family=Inter:wght@500&family=Montserrat:wght@500&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="mobile.css">
 </head>
 <body>
   <header class="site-nav" data-state="closed" aria-label="Site navigation">
@@ -101,6 +105,135 @@
         </div>
     </div>
   </main>
+
+  <!-- Phone-only version, built from the Figma "Mobile / SpendTrack AI" frames. The full deck
+       above is hidden below 720px. -->
+  <article class="cs-mobile stm-page" aria-label="SpendTrack AI case study, phone version">
+    <section class="stm stm-hero" aria-label="SpendTrack AI overview">
+      <img class="stm-hero__cover" src="../../assets/case-study-spendtrack/mobile/cover.webp" alt="SpendTrack, with the SpendTrack AI app on a phone between the letters" width="350" height="197" fetchpriority="high" decoding="async">
+      <h1 class="stm-hero__headline"><span class="stm-orange">Fiserv</span> is one of the global leaders in the fintech industry.</h1>
+      <p class="stm-label stm-hero__note">Short version · full case study on desktop</p>
+      <div class="stm-hero__intro">
+        <p>They acquired a company spendtrack on which I worked on in my internship. SpendTrack provides small business and commercial credit card clients with a tool that consolidates administrative activities and tasks into an all-in-one card-management solution.</p>
+        <p>To leverage Generative AI capabilities and design a solution addressing the top priority of usability and user concerns.</p>
+      </div>
+      <dl class="stm-meta">
+        <div class="stm-meta__item">
+          <dt class="stm-label">My role</dt>
+          <dd>I led the integration of AI-based smart search to simplify the user experience by helping users quickly find features or complete tasks directly through AI assistance.</dd>
+        </div>
+        <div class="stm-meta__item">
+          <dt class="stm-label">The team</dt>
+          <dd>Solo designer, collaborating with PM and the wider Generative AI team of engineers.</dd>
+        </div>
+        <div class="stm-meta__item">
+          <dt class="stm-label">Timeline</dt>
+          <dd>May 2024 — Jul 2024</dd>
+        </div>
+      </dl>
+    </section>
+    <section class="stm stm-wrong" aria-label="So what went wrong?">
+      <p class="stm-kicker">Problem breakdown</p>
+      <h2 class="stm-title">So what went wrong?</h2>
+      <p class="stm-body">Difficulties in discovery and navigation of primary features and data, were uncovered amongst the users by analyzing the in-app user feedback data. The reason being was because of the design debt accumulated as well as the quick on the go fixes made throughout the journey.</p>
+      <ul class="stm-questions" aria-label="What users said">
+        <li>How to pay off my card?</li>
+        <li>Where do I find my statements?</li>
+        <li>How to issue a new card?</li>
+        <li>This has a learning curve</li>
+        <li>No way I can find my transactions</li>
+        <li>Very Clunky</li>
+      </ul>
+      <div class="stm-problems">
+        <article class="stm-problem">
+          <img src="../../assets/case-study-spendtrack/mobile/icon-primary-tasks.png" alt="" width="27" height="27" loading="lazy" decoding="async">
+          <h3>Unable to achieve primary tasks</h3>
+          <p>This issue is rooted in the complexity of key features, preventing users from fulfilling their core goals efficiently.</p>
+        </article>
+        <article class="stm-problem">
+          <img src="../../assets/case-study-spendtrack/mobile/icon-navigate.png" alt="" width="27" height="27" loading="lazy" decoding="async">
+          <h3>Difficult to navigate</h3>
+          <p>The app’s navigation is confusing and not intuitive, forcing users to spend excessive time searching for essential features.</p>
+        </article>
+        <article class="stm-problem">
+          <img src="../../assets/case-study-spendtrack/mobile/icon-frustration.png" alt="" width="27" height="27" loading="lazy" decoding="async">
+          <h3>Increased frustration</h3>
+          <p>The complexity and lack of user-friendly design leave users feeling discontent, affecting their overall trust and confidence in the app.</p>
+        </article>
+      </div>
+    </section>
+    <section class="stm stm-pareto" aria-label="Pareto chart">
+      <p class="stm-kicker">Pareto chart</p>
+      <h2 class="stm-title">Focus on the Few, Fix the Most!</h2>
+      <p class="stm-body">I analyzed <strong>1800+</strong> user feedbacks given on our product from the months of March, April, May and June. We have a feature wherein users can give in-app feedback or they will get a push notification twice a year</p>
+      <img src="../../assets/case-study-spendtrack/mobile/pareto-vital-few.webp" alt="Pareto chart of user feedback: payment issues, usability, statement visibility and card management are the vital few" width="350" height="323" loading="lazy" decoding="async">
+    </section>
+    <section class="stm stm-solution" aria-label="Solution">
+      <div class="stm-solution__badge">
+        <img src="../../assets/case-study-spendtrack/mobile/icon-solution.png" alt="" width="56" height="56" loading="lazy" decoding="async">
+        <p class="stm-label">Solution</p>
+      </div>
+      <p class="stm-statement">A dynamic, generative AI-powered search bar that directly guides users to the desired functionality or assists in completing their tasks efficiently.</p>
+      <img src="../../assets/case-study-spendtrack/mobile/solution-phones.webp" alt="SpendTrack AI welcome screen: your smart assistant for effortless expense management and quick navigation" width="350" height="476" loading="lazy" decoding="async">
+    </section>
+    <section class="stm stm-opportunity" aria-label="Opportunity">
+      <p class="stm-kicker">Opportunity</p>
+      <h2 class="stm-title">Initiate than wait</h2>
+      <p class="stm-body">During my internship period, I learnt about the<strong> Generative AI team</strong> in our company working on few internal products. I approached them with the idea if we can integrate Generative AI into our product to resolve users issues, if we can make navigation easier for them</p>
+      <div class="stm-quote">
+        <img src="../../assets/case-study-spendtrack/mobile/icon-opportunity.png" alt="" width="56" height="56" loading="lazy" decoding="async">
+        <p class="stm-quote__label">Better I in AI Makes Better X in UX</p>
+        <blockquote>I collaborated with AI engineers to feed the right data, ensuring that the intelligence in AI reflected human needs identified from the Pareto chart.</blockquote>
+      </div>
+      <ol class="stm-steps" aria-label="How the AI was fed">
+        <li class="stm-step">
+          <span class="stm-step__box">Page Analysis</span>
+          <ul><li>Reviewed every page in the product</li><li>Identified key features and functions</li></ul>
+        </li>
+        <li class="stm-step">
+          <span class="stm-step__box">Matching description with user pain points</span>
+          <ul><li>Wrote a brief description for every page</li><li>Focusing on main features and functions</li></ul>
+        </li>
+        <li class="stm-step">
+          <span class="stm-step__box">URL Identification</span>
+          <ul><li>Identified and recorded the specific URL for each page</li></ul>
+        </li>
+        <li class="stm-step">
+          <span class="stm-step__box">Feeding Data into AI</span>
+          <ul><li>Compiled all the data into Excel</li><li>Fed the data into AI</li></ul>
+        </li>
+      </ol>
+    </section>
+    <section class="stm stm-breakdown" aria-label="Solution breakdown">
+      <h2 class="stm-title">Solution breakdown</h2>
+      <p class="stm-body">It starts as a dynamic smart search bar, allowing users to enter queries or tasks they need assistance with. Users can search for common tasks like "How much is my payment due?" or access recent queries for quick access to frequently needed information.</p>
+      <img src="../../assets/case-study-spendtrack/mobile/search-bar.webp" alt="Smart search bar with Ask SpendTrack AI suggestions and recent queries" width="350" height="438" loading="lazy" decoding="async">
+      <p class="stm-body">Based on the input, the AI suggests relevant actions or helps in redirecting to specific task. For more complex queries, the search bar transforms into a conversational chatbot that processes requests and performs tasks like bill payments. The AI does this without the user needing to switch to a different interface, creating a unified interaction.</p>
+      <img src="../../assets/case-study-spendtrack/mobile/flow-search-suggestions.webp" alt="Step 1 and 2: searching, then getting suggestions for payments and account management" width="350" height="404" loading="lazy" decoding="async">
+      <img src="../../assets/case-study-spendtrack/mobile/flow-processing-result.webp" alt="Step 3 and 4: the AI processing the question, then the result showing a $219 payment due with a Pay now button" width="350" height="404" loading="lazy" decoding="async">
+      <p class="stm-body">The AI's dual functionality as both a smart search bar and a chatbot ensures that the entry point is quick and efficient and the users can either search for specific tasks or interact with the AI conversationally to complete more complex tasks, streamlining the overall experience. This adaptability caters to diverse user needs, reducing friction and making task completion more intuitive.</p>
+    </section>
+    <section class="stm stm-learn" aria-label="Key learnings">
+      <h2 class="stm-title">Key Learnings:</h2>
+      <div class="stm-learnings">
+        <article class="stm-learning">
+          <img src="../../assets/case-study-spendtrack/mobile/icon-collaborating.png" alt="" width="36" height="36" loading="lazy" decoding="async">
+          <h3>Collaborating from Day One</h3>
+          <p>I learned the value of working closely with AI engineers and developers from the start, asking questions, and staying aligned throughout the project to deliver meaningful, human-centered solutions.</p>
+        </article>
+        <article class="stm-learning">
+          <img src="../../assets/case-study-spendtrack/mobile/icon-initiative.png" alt="" width="36" height="36" loading="lazy" decoding="async">
+          <h3>Taking Initiative Early</h3>
+          <p>Instead of waiting for instructions, I proactively started tasks on my own, which allowed me to stay ahead and adapt quickly. This shift in mindset helped me build confidence and move projects forward more efficiently.</p>
+        </article>
+        <article class="stm-learning">
+          <img src="../../assets/case-study-spendtrack/mobile/icon-ambiguity.png" alt="" width="36" height="36" loading="lazy" decoding="async">
+          <h3>Navigating Ambiguity with Flexibility</h3>
+          <p>When tasks weren’t fully defined, I learned to embrace ambiguity by experimenting with different design solutions, focusing on user-centered outcomes rather than perfect answers.</p>
+        </article>
+      </div>
+    </section>
+  </article>
 
   <script src="../../site-nav.js"></script>
   <script src="../case-study.js"></script>
