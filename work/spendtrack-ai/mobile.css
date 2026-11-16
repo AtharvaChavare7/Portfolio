@@ -1,0 +1,342 @@
+/* SpendTrack AI — phone version (Figma "Mobile / SpendTrack AI — built from deck elements").
+   Only renders inside .cs-mobile, which case-study-mobile.css shows at 720px and below.
+   Type, colours and spacing come from the deck; Circular Std (licensed) is replaced by
+   Plus Jakarta Sans Light. */
+
+.stm-page {
+  --stm-bg: #101010;
+  --stm-text: #f2f2f2;
+  --stm-body: #969696;
+  --stm-strong: #e8e8e8;
+  --stm-line: #252525;
+  --stm-orange: #ff6600;
+  background: var(--stm-bg);
+}
+
+.stm {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+  padding: 56px 20px;
+  background: var(--stm-bg);
+  color: var(--stm-body);
+  font-family: "General Sans", "DM Sans", sans-serif;
+  font-size: 16px;
+  font-weight: 400;
+  line-height: 1.5;
+}
+
+.stm :where(h1, h2, h3, p, ul, ol, li, dl, dt, dd, blockquote, figure) {
+  margin: 0;
+  padding: 0;
+}
+
+.stm :where(ul, ol) {
+  list-style: none;
+}
+
+.stm img {
+  display: block;
+  max-width: 100%;
+  height: auto;
+}
+
+/* Shared type */
+
+.stm-kicker {
+  color: #eaeaea;
+  font-family: "General Sans", sans-serif;
+  font-size: 14px;
+  font-weight: 500;
+  letter-spacing: 0.5px;
+  line-height: normal;
+  text-transform: uppercase;
+}
+
+.stm-label {
+  color: var(--stm-text);
+  font-family: "General Sans", sans-serif;
+  font-size: 12px;
+  font-weight: 500;
+  letter-spacing: 2px;
+  line-height: normal;
+  text-transform: uppercase;
+}
+
+.stm-title {
+  color: var(--stm-text);
+  font-family: "DM Sans", sans-serif;
+  font-size: 26px;
+  font-weight: 500;
+  line-height: 1.25;
+}
+
+.stm-body strong {
+  color: var(--stm-strong);
+  font-weight: 500;
+}
+
+/* 01 Hero */
+
+.stm-hero {
+  padding-top: 40px;
+}
+
+.stm-hero__cover {
+  width: 100%;
+}
+
+.stm-hero__headline {
+  color: #f4f4f4;
+  font-family: "DM Sans", sans-serif;
+  font-size: 26px;
+  font-weight: 400;
+  line-height: normal;
+}
+
+.stm-orange {
+  color: var(--stm-orange);
+}
+
+.stm-hero__note {
+  color: #eaeaea;
+  line-height: 1.5;
+}
+
+.stm-hero__intro {
+  display: flex;
+  flex-direction: column;
+  gap: 1.5em;
+  color: #f4f4f4;
+  font-family: "DM Sans", sans-serif;
+}
+
+.stm-meta {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+.stm-meta__item {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.stm-meta dd {
+  color: var(--stm-body);
+  font-family: "DM Sans", sans-serif;
+}
+
+/* 02 So what went wrong? */
+
+.stm-questions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+
+.stm-questions li {
+  padding: 25px 20px;
+  border: 1.24px solid rgba(244, 244, 244, 0.05);
+  border-radius: 22px;
+  background: rgba(33, 33, 33, 0.54);
+  color: #b9b9b9;
+  font-family: "Plus Jakarta Sans", sans-serif;
+  font-size: 14.9px;
+  font-weight: 300;
+  line-height: 1.55;
+}
+
+.stm-problems {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+.stm-problem {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  padding: 24px;
+  border: 0.76px solid var(--stm-line);
+  border-radius: 18px;
+  background: var(--stm-bg);
+  color: #fbfbfb;
+  font-family: "Plus Jakarta Sans", sans-serif;
+  font-weight: 300;
+}
+
+.stm-problem img {
+  width: 27px;
+  height: 27px;
+}
+
+.stm-problem h3 {
+  margin-top: 4px;
+  font-size: 18.2px;
+  font-weight: 300;
+  line-height: 1.3;
+}
+
+.stm-problem p {
+  font-size: 13px;
+  line-height: 1.55;
+  opacity: 0.7;
+}
+
+/* 04 Solution */
+
+.stm-solution {
+  align-items: center;
+  text-align: center;
+}
+
+.stm-solution__badge {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 25px;
+}
+
+.stm-solution__badge img {
+  width: 56px;
+  height: 56px;
+}
+
+.stm-statement {
+  color: var(--stm-text);
+  font-family: "DM Sans", sans-serif;
+  font-size: 22px;
+  font-weight: 500;
+  letter-spacing: 0.2px;
+  line-height: 1.25;
+}
+
+/* 05 Opportunity */
+
+.stm-quote {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 10px;
+  padding: 22px;
+  border-radius: 32px;
+  background: rgba(242, 242, 242, 0.04);
+  color: var(--stm-text);
+  font-family: "Inter", sans-serif;
+  font-weight: 500;
+  text-align: center;
+}
+
+.stm-quote img {
+  width: 56px;
+  height: 56px;
+}
+
+.stm-quote__label {
+  font-size: 13px;
+  letter-spacing: 2px;
+  line-height: 1.5;
+  text-transform: uppercase;
+}
+
+.stm-quote blockquote {
+  font-size: 20px;
+  letter-spacing: 0.2px;
+  line-height: 1.25;
+}
+
+.stm-steps {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+.stm-step {
+  display: grid;
+  grid-template-columns: 150px 1fr;
+  align-items: start;
+  gap: 14px;
+}
+
+.stm-step__box {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 82px;
+  padding: 8px 12px;
+  border: 0.6px solid rgba(255, 255, 255, 0.2);
+  border-radius: 8px;
+  background: #000000;
+  color: #ffffff;
+  font-family: "Montserrat", sans-serif;
+  font-size: 11.9px;
+  font-weight: 500;
+  letter-spacing: 0.03em;
+  line-height: 1.3;
+  text-align: center;
+}
+
+.stm-step ul {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  color: #747474;
+  font-family: "Montserrat", sans-serif;
+  font-size: 14px;
+  font-weight: 500;
+  letter-spacing: 0.03em;
+  line-height: 1.5;
+}
+
+.stm-step li {
+  position: relative;
+  padding-left: 12px;
+}
+
+.stm-step li::before {
+  content: "";
+  position: absolute;
+  top: 0.68em;
+  left: 0;
+  width: 3px;
+  height: 3px;
+  border-radius: 50%;
+  background: currentColor;
+}
+
+/* 07 Key learnings */
+
+.stm-learnings {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+.stm-learning {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  padding: 22px;
+  border: 1px solid var(--stm-line);
+  border-radius: 24px;
+  background: var(--stm-bg);
+}
+
+.stm-learning img {
+  width: 36px;
+  height: 36px;
+}
+
+.stm-learning h3 {
+  color: var(--stm-text);
+  font-family: "DM Sans", sans-serif;
+  font-size: 20px;
+  font-weight: 500;
+  line-height: 1.25;
+}
+
+.stm-learning p {
+  font-size: 15px;
+}
