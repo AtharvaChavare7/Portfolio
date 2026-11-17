@@ -1,8 +1,12 @@
-/* Home page: the light page turns dark while the SpendTrack (Fiserv) card is in view,
-   and light again for the next card. Several reveal styles are available behind a
-   small switcher (bottom-left) so they can be compared; the choice is remembered.
-   Every style is driven by the same scroll progress, smoothed with a lerp so the
-   reveal glides instead of tracking the wheel 1:1. */
+/* Home page: the light page turns dark while the SpendTrack card is in view, and
+   light again for the next card. The reveal is "Dusk": a soft horizon with a 35vh
+   feather that drifts up the page on the way in and recedes upward on the way out.
+   Progress is smoothed with a lerp so the horizon glides instead of tracking the
+   wheel 1:1.
+
+   Light cards that the horizon passes over (the first case study on the way in,
+   the next one on the way out) have their footer text eased to white at exactly
+   the darkness the backdrop has behind it, so it stays readable mid-transition. */
 (() => {
   const root = document.documentElement;
   const darkSection = document.getElementById("case-wongdoody");
@@ -13,26 +17,18 @@
     return;
   }
 
-  const darkCard = darkSection.querySelector(".work-card__grid") || darkSection;
-  const anchor = darkSection.querySelector(".work-card__column--wongdoody + *") || darkCard;
+  // Keep in sync with the dusk mask in styles.css: the horizon travels 135% of the
+  // viewport and fades over the last 35%.
+  const TRAVEL = 1.35;
+  const FEATHER = 0.35;
 
-  const VARIANTS = [
-    { id: "bloom", label: "Card bloom" },
-    { id: "tide", label: "Tide" },
-    { id: "dusk", label: "Dusk" },
-    { id: "depth", label: "Depth" },
-    { id: "columns", label: "Columns" },
-    { id: "aperture", label: "Aperture" },
-    { id: "iris", label: "Original" },
-  ];
-  const variantIds = new Set(VARIANTS.map((v) => v.id));
-  const STORAGE_KEY = "home-bg-transition";
-  const COLUMN_COUNT = 7;
+  const inkTargets = ["case-makemytrip", "case-fiserv"]
+    .map((id) => document.querySelector(`#${id} .work-card__title`))
+    .filter(Boolean);
 
   const phoneQuery = window.matchMedia("(max-width: 720px)");
   const reducedMotion = window.matchMedia("(prefers-reduced-motion: reduce)");
 
-  let variant = "bloom";
   let shown = 0; // smoothed progress actually rendered
   let target = 0;
   let phase = "in";
@@ -40,15 +36,6 @@
 
   const clamp = (v, a, b) => Math.min(b, Math.max(a, v));
   const easeInOut = (t) => (t < 0.5 ? 4 * t * t * t : 1 - (-2 * t + 2) ** 3 / 2);
-
-  // Columns need their own strips inside the overlay.
-  const columns = [];
-  for (let i = 0; i < COLUMN_COUNT; i += 1) {
-    const strip = document.createElement("span");
-    strip.className = "site-bg-transition__column";
-    overlay.appendChild(strip);
-    columns.push(strip);
-  }
 
   // Progress 0 -> 1 as `el`'s top travels from `from` to `to` (fractions of the viewport).
   function travel(el, vh, from, to) {
@@ -62,17 +49,13 @@
     const leave = nextSection ? travel(nextSection, vh, 0.92, 0.2) : 0;
     phase = leave > 0 ? "out" : "in";
     target = phase === "in" ? enter : 1 - leave;
+  }
 
-    // Geometry used by the card-anchored styles.
-    const vw = window.innerWidth;
-    const card = darkCard.getBoundingClientRect();
-    root.style.setProperty("--bg-card-t", `${clamp(card.top, 0, vh)}px`);
-    root.style.setProperty("--bg-card-b", `${clamp(vh - card.bottom, 0, vh)}px`);
-    root.style.setProperty("--bg-card-l", `${clamp(card.left, 0, vw)}px`);
-    root.style.setProperty("--bg-card-r", `${clamp(vw - card.right, 0, vw)}px`);
-    const a = anchor.getBoundingClientRect();
-    root.style.setProperty("--bg-anchor-x", `${a.left + a.width / 2}px`);
-    root.style.setProperty("--bg-anchor-y", `${a.top + a.height / 2}px`);
+  // How dark the backdrop is (0..1) at viewport y for eased progress p.
+  function darknessAt(y, vh, p) {
+    // Distance from the edge the horizon starts at, as a fraction of the viewport.
+    const f = phase === "in" ? (vh - y) / vh : y / vh;
+    return clamp((p * TRAVEL - f) / FEATHER, 0, 1);
   }
 
   function render() {
@@ -82,14 +65,12 @@
     root.dataset.bgPhase = phase;
     root.dataset.siteTone = p > 0.55 ? "dark" : "light";
 
-    if (variant === "columns") {
-      columns.forEach((strip, i) => {
-        // Strips start one after another; on the way out they leave in the same order.
-        const delay = (i / (COLUMN_COUNT - 1)) * 0.45;
-        const s = clamp((p - delay) / 0.55, 0, 1);
-        strip.style.transform = `scaleY(${easeInOut(s).toFixed(4)})`;
-      });
-    }
+    const vh = window.innerHeight;
+    inkTargets.forEach((el) => {
+      const r = el.getBoundingClientRect();
+      const ink = p > 0 && r.bottom > 0 && r.top < vh ? darknessAt(r.top + r.height / 2, vh, p) : 0;
+      el.style.setProperty("--dusk-ink", ink.toFixed(3));
+    });
   }
 
   function tick() {
@@ -118,55 +99,7 @@
     }
   }
 
-  // ---- switcher ----
-  function select(id, { save = true } = {}) {
-    if (!variantIds.has(id)) {
-      return;
-    }
-    variant = id;
-    root.dataset.bgVariant = id;
-    switcher?.querySelectorAll("button").forEach((b) => {
-      const on = b.dataset.bgVariant === id;
-      b.classList.toggle("is-active", on);
-      b.setAttribute("aria-pressed", String(on));
-    });
-    if (save) {
-      try {
-        localStorage.setItem(STORAGE_KEY, id);
-      } catch {
-        // The choice still applies for this visit.
-      }
-    }
-    render();
-    queue();
-  }
-
-  const switcher = document.createElement("div");
-  switcher.className = "bg-variant-switch";
-  switcher.setAttribute("role", "group");
-  switcher.setAttribute("aria-label", "Background transition style");
-  switcher.innerHTML =
-    '<span class="bg-variant-switch__label">Transition</span>' +
-    VARIANTS.map(
-      (v, i) =>
-        `<button type="button" data-bg-variant="${v.id}" aria-pressed="false"><span class="bg-variant-switch__num">${i + 1}</span>${v.label}</button>`
-    ).join("");
-  switcher.addEventListener("click", (e) => {
-    const b = e.target.closest("button[data-bg-variant]");
-    if (b) {
-      select(b.dataset.bgVariant);
-    }
-  });
-  document.body.appendChild(switcher);
-
-  const fromUrl = new URLSearchParams(location.search).get("bg");
-  let saved = null;
-  try {
-    saved = localStorage.getItem(STORAGE_KEY);
-  } catch {
-    saved = null;
-  }
-  select(variantIds.has(fromUrl) ? fromUrl : variantIds.has(saved) ? saved : variant, { save: false });
+  root.dataset.bgVariant = "dusk";
 
   window.addEventListener("scroll", queue, { passive: true });
   window.addEventListener("resize", queue);
