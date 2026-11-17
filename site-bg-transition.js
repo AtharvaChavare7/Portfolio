@@ -1,242 +1,177 @@
+/* Home page: the light page turns dark while the SpendTrack (Fiserv) card is in view,
+   and light again for the next card. Several reveal styles are available behind a
+   small switcher (bottom-left) so they can be compared; the choice is remembered.
+   Every style is driven by the same scroll progress, smoothed with a lerp so the
+   reveal glides instead of tracking the wheel 1:1. */
 (() => {
   const root = document.documentElement;
-  const wongdoodySection = document.getElementById("case-wongdoody");
-  const fiservSection = document.getElementById("case-fiserv");
-  const makemytripSection = document.getElementById("case-makemytrip");
-  const modeOptions = [...document.querySelectorAll("[data-bg-mode-option]")];
-  const animateOptions = [...document.querySelectorAll("[data-bg-animate-option]")];
-  const hasLabControls = modeOptions.length > 0;
+  const darkSection = document.getElementById("case-wongdoody");
+  const nextSection = document.getElementById("case-fiserv");
+  const overlay = document.querySelector(".site-bg-transition");
 
-  if (!wongdoodySection) {
+  if (!darkSection || !overlay) {
     return;
   }
 
-  const modeNames = new Set([
-    "section",
-    "backdrop",
-    "threshold",
-    "snap",
-    "masked",
-    "content",
-  ]);
-  const animateNames = new Set([
-    "fade",
-    "rise",
-    "wipe",
-    "iris",
-    "curtain",
-    "dissolve",
-  ]);
+  const darkCard = darkSection.querySelector(".work-card__grid") || darkSection;
+  const anchor = darkSection.querySelector(".work-card__column--wongdoody + *") || darkCard;
 
-  let selectedMode = "threshold";
-  let selectedAnimate = "iris";
-  let ticking = false;
-  // Phones keep the page light throughout; the dark sweep reads as a flash at that size.
+  const VARIANTS = [
+    { id: "bloom", label: "Card bloom" },
+    { id: "tide", label: "Tide" },
+    { id: "dusk", label: "Dusk" },
+    { id: "depth", label: "Depth" },
+    { id: "columns", label: "Columns" },
+    { id: "aperture", label: "Aperture" },
+    { id: "iris", label: "Original" },
+  ];
+  const variantIds = new Set(VARIANTS.map((v) => v.id));
+  const STORAGE_KEY = "home-bg-transition";
+  const COLUMN_COUNT = 7;
+
   const phoneQuery = window.matchMedia("(max-width: 720px)");
+  const reducedMotion = window.matchMedia("(prefers-reduced-motion: reduce)");
 
-  function clamp(value, min, max) {
-    return Math.min(max, Math.max(min, value));
+  let variant = "bloom";
+  let shown = 0; // smoothed progress actually rendered
+  let target = 0;
+  let phase = "in";
+  let rafId = 0;
+
+  const clamp = (v, a, b) => Math.min(b, Math.max(a, v));
+  const easeInOut = (t) => (t < 0.5 ? 4 * t * t * t : 1 - (-2 * t + 2) ** 3 / 2);
+
+  // Columns need their own strips inside the overlay.
+  const columns = [];
+  for (let i = 0; i < COLUMN_COUNT; i += 1) {
+    const strip = document.createElement("span");
+    strip.className = "site-bg-transition__column";
+    overlay.appendChild(strip);
+    columns.push(strip);
   }
 
-  function easeOutCubic(value) {
-    return 1 - (1 - value) ** 3;
+  // Progress 0 -> 1 as `el`'s top travels from `from` to `to` (fractions of the viewport).
+  function travel(el, vh, from, to) {
+    const top = el.getBoundingClientRect().top;
+    return clamp((vh * from - top) / (vh * (from - to)), 0, 1);
   }
 
-  function getEntryReveal(rect, viewportHeight) {
-    const start = viewportHeight * 0.94;
-    const end = viewportHeight * 0.06;
-    return easeOutCubic(clamp((start - rect.top) / (start - end), 0, 1));
+  function measure() {
+    const vh = window.innerHeight;
+    const enter = travel(darkSection, vh, 0.92, 0.18);
+    const leave = nextSection ? travel(nextSection, vh, 0.92, 0.2) : 0;
+    phase = leave > 0 ? "out" : "in";
+    target = phase === "in" ? enter : 1 - leave;
+
+    // Geometry used by the card-anchored styles.
+    const vw = window.innerWidth;
+    const card = darkCard.getBoundingClientRect();
+    root.style.setProperty("--bg-card-t", `${clamp(card.top, 0, vh)}px`);
+    root.style.setProperty("--bg-card-b", `${clamp(vh - card.bottom, 0, vh)}px`);
+    root.style.setProperty("--bg-card-l", `${clamp(card.left, 0, vw)}px`);
+    root.style.setProperty("--bg-card-r", `${clamp(vw - card.right, 0, vw)}px`);
+    const a = anchor.getBoundingClientRect();
+    root.style.setProperty("--bg-anchor-x", `${a.left + a.width / 2}px`);
+    root.style.setProperty("--bg-anchor-y", `${a.top + a.height / 2}px`);
   }
 
-  function getThresholdReveal(rect, viewportHeight) {
-    const start = viewportHeight * 0.94;
-    const end = viewportHeight * 0.06;
+  function render() {
+    const p = easeInOut(clamp(shown, 0, 1));
+    root.style.setProperty("--bg-p", p.toFixed(4));
+    root.style.setProperty("--site-bg-reveal", p.toFixed(4));
+    root.dataset.bgPhase = phase;
+    root.dataset.siteTone = p > 0.55 ? "dark" : "light";
 
-    if (rect.top >= start) {
-      return 0;
-    }
-
-    if (rect.top <= end) {
-      return 1;
-    }
-
-    return easeOutCubic((start - rect.top) / (start - end));
-  }
-
-  function getMmtHoldback(rect, viewportHeight) {
-    const start = viewportHeight * 0.94;
-    const end = viewportHeight * 0.06;
-
-    if (rect.bottom >= start) {
-      return 1;
-    }
-
-    if (rect.bottom <= end) {
-      return 0;
-    }
-
-    return easeOutCubic((rect.bottom - end) / (start - end));
-  }
-
-  function getExitReveal(rect, viewportHeight) {
-    const start = viewportHeight * 0.94;
-    const end = viewportHeight * 0.06;
-    return easeOutCubic(clamp((start - rect.top) / (start - end), 0, 1));
-  }
-
-  function getSectionActive(rect, viewportHeight) {
-    const centerY = rect.top + rect.height / 2;
-    return centerY > viewportHeight * 0.22 && centerY < viewportHeight * 0.78;
-  }
-
-  function getMaskedReveal(rect, viewportHeight) {
-    const visibleTop = clamp(rect.top, 0, viewportHeight);
-    const visibleBottom = clamp(rect.bottom, 0, viewportHeight);
-    const visibleHeight = Math.max(0, visibleBottom - visibleTop);
-    const ratio = visibleHeight / Math.min(rect.height, viewportHeight);
-    return easeOutCubic(clamp(ratio * 1.35, 0, 1));
-  }
-
-  function computeReveal(mode, wongRect, fiservRect, mmtRect, viewportHeight) {
-    const entryReveal =
-      mode === "threshold" || mode === "backdrop" || mode === "snap"
-        ? getThresholdReveal(wongRect, viewportHeight)
-        : mode === "masked"
-          ? getMaskedReveal(wongRect, viewportHeight)
-          : getEntryReveal(wongRect, viewportHeight);
-
-    const exitReveal =
-      fiservRect && fiservRect.top < viewportHeight * 0.92
-        ? getExitReveal(fiservRect, viewportHeight)
-        : 0;
-
-    const mmtHoldback =
-      mmtRect && (mode === "threshold" || mode === "backdrop" || mode === "snap")
-        ? getMmtHoldback(mmtRect, viewportHeight)
-        : 0;
-
-    if (mode === "content") {
-      return 0;
-    }
-
-    if (mode === "snap") {
-      return getSectionActive(wongRect, viewportHeight) && exitReveal < 0.42 && mmtHoldback < 0.42
-        ? 1
-        : 0;
-    }
-
-    if (mode === "backdrop") {
-      const dominant = entryReveal > 0.58 ? easeOutCubic((entryReveal - 0.58) / 0.42) : 0;
-      return dominant * (1 - exitReveal) * (1 - mmtHoldback);
-    }
-
-    return entryReveal * (1 - exitReveal) * (1 - mmtHoldback);
-  }
-
-  function updateSiteBackground() {
-    ticking = false;
-
-    const viewportHeight = window.innerHeight;
-    const wongRect = wongdoodySection.getBoundingClientRect();
-    const fiservRect = fiservSection?.getBoundingClientRect() ?? null;
-    const mmtRect = makemytripSection?.getBoundingClientRect() ?? null;
-    const isPhone = phoneQuery.matches;
-    const reveal = isPhone
-      ? 0
-      : computeReveal(selectedMode, wongRect, fiservRect, mmtRect, viewportHeight);
-    const isDark =
-      !isPhone &&
-      (selectedMode === "content"
-        ? getSectionActive(wongRect, viewportHeight)
-        : reveal > 0.72);
-
-    root.style.setProperty("--site-bg-reveal", reveal.toFixed(3));
-    root.dataset.siteTone = isDark ? "dark" : "light";
-    wongdoodySection.dataset.bgActive = reveal > 0.08 ? "true" : "false";
-  }
-
-  function queueSiteBackgroundUpdate() {
-    if (!ticking) {
-      ticking = true;
-      requestAnimationFrame(updateSiteBackground);
+    if (variant === "columns") {
+      columns.forEach((strip, i) => {
+        // Strips start one after another; on the way out they leave in the same order.
+        const delay = (i / (COLUMN_COUNT - 1)) * 0.45;
+        const s = clamp((p - delay) / 0.55, 0, 1);
+        strip.style.transform = `scaleY(${easeInOut(s).toFixed(4)})`;
+      });
     }
   }
 
-  function setActiveOption(options, value, dataKey) {
-    options.forEach((option) => {
-      const isActive = option.dataset[dataKey] === value;
-      option.classList.toggle("is-active", isActive);
-      option.setAttribute("aria-pressed", String(isActive));
-    });
-  }
-
-  function selectMode(mode) {
-    if (!modeNames.has(mode)) {
+  function tick() {
+    rafId = 0;
+    if (phoneQuery.matches) {
+      shown = 0;
+      target = 0;
+      render();
       return;
     }
-
-    selectedMode = mode;
-    root.dataset.bgTransitionMode = mode;
-    setActiveOption(modeOptions, mode, "bgModeOption");
-
-    try {
-      localStorage.setItem("site-bg-transition-mode", mode);
-    } catch {
-      // Keep the selection for this page view if storage is unavailable.
+    measure();
+    const smoothing = reducedMotion.matches ? 1 : 0.14;
+    shown += (target - shown) * smoothing;
+    if (Math.abs(target - shown) < 0.0008) {
+      shown = target;
     }
-
-    queueSiteBackgroundUpdate();
+    render();
+    if (shown !== target) {
+      rafId = requestAnimationFrame(tick);
+    }
   }
 
-  function selectAnimate(animation) {
-    if (!animateNames.has(animation)) {
+  function queue() {
+    if (!rafId) {
+      rafId = requestAnimationFrame(tick);
+    }
+  }
+
+  // ---- switcher ----
+  function select(id, { save = true } = {}) {
+    if (!variantIds.has(id)) {
       return;
     }
-
-    selectedAnimate = animation;
-    root.dataset.bgTransitionAnimate = animation;
-    setActiveOption(animateOptions, animation, "bgAnimateOption");
-
-    try {
-      localStorage.setItem("site-bg-transition-animate", animation);
-    } catch {
-      // Keep the selection for this page view if storage is unavailable.
+    variant = id;
+    root.dataset.bgVariant = id;
+    switcher?.querySelectorAll("button").forEach((b) => {
+      const on = b.dataset.bgVariant === id;
+      b.classList.toggle("is-active", on);
+      b.setAttribute("aria-pressed", String(on));
+    });
+    if (save) {
+      try {
+        localStorage.setItem(STORAGE_KEY, id);
+      } catch {
+        // The choice still applies for this visit.
+      }
     }
+    render();
+    queue();
   }
 
-  if (hasLabControls) {
-    try {
-      const savedMode = localStorage.getItem("site-bg-transition-mode");
-      const savedAnimate = localStorage.getItem("site-bg-transition-animate");
-
-      if (modeNames.has(savedMode)) {
-        selectedMode = savedMode;
-      }
-
-      if (animateNames.has(savedAnimate)) {
-        selectedAnimate = savedAnimate;
-      }
-    } catch {
-      // Preview still works when browser storage is unavailable.
+  const switcher = document.createElement("div");
+  switcher.className = "bg-variant-switch";
+  switcher.setAttribute("role", "group");
+  switcher.setAttribute("aria-label", "Background transition style");
+  switcher.innerHTML =
+    '<span class="bg-variant-switch__label">Transition</span>' +
+    VARIANTS.map(
+      (v, i) =>
+        `<button type="button" data-bg-variant="${v.id}" aria-pressed="false"><span class="bg-variant-switch__num">${i + 1}</span>${v.label}</button>`
+    ).join("");
+  switcher.addEventListener("click", (e) => {
+    const b = e.target.closest("button[data-bg-variant]");
+    if (b) {
+      select(b.dataset.bgVariant);
     }
+  });
+  document.body.appendChild(switcher);
 
-    modeOptions.forEach((option) => {
-      option.addEventListener("click", () => {
-        selectMode(option.dataset.bgModeOption);
-      });
-    });
-
-    animateOptions.forEach((option) => {
-      option.addEventListener("click", () => {
-        selectAnimate(option.dataset.bgAnimateOption);
-      });
-    });
+  const fromUrl = new URLSearchParams(location.search).get("bg");
+  let saved = null;
+  try {
+    saved = localStorage.getItem(STORAGE_KEY);
+  } catch {
+    saved = null;
   }
+  select(variantIds.has(fromUrl) ? fromUrl : variantIds.has(saved) ? saved : variant, { save: false });
 
-  selectMode(selectedMode);
-  selectAnimate(selectedAnimate);
-
-  window.addEventListener("scroll", queueSiteBackgroundUpdate, { passive: true });
-  window.addEventListener("resize", queueSiteBackgroundUpdate);
-  queueSiteBackgroundUpdate();
+  window.addEventListener("scroll", queue, { passive: true });
+  window.addEventListener("resize", queue);
+  phoneQuery.addEventListener?.("change", queue);
+  measure();
+  shown = target;
+  render();
 })();
