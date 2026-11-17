@@ -227,3 +227,133 @@
   window.addEventListener("pointerdown", kick, { passive: true });
   window.addEventListener("scroll", kick, { passive: true });
 })();
+
+/* The photo and design strips loop on their own, and can be dragged left or right
+   with the mouse (or a sideways swipe on touch). The loop runs here instead of as a
+   CSS animation so a drag can move it; the speed matches the CSS durations. */
+(function draggableStrips() {
+  const reduceMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+  const strips = [
+    { section: ".about-photos", track: ".about-photos__track", duration: "--photos-scroll-duration" },
+    { section: ".about-designs", track: ".about-designs__track", duration: "--work-scroll-duration" },
+  ];
+
+  strips.forEach(({ section, track, duration }) => {
+    const sectionEl = document.querySelector(section);
+    const trackEl = sectionEl?.querySelector(track);
+    const viewport = trackEl?.parentElement;
+    const firstGroup = trackEl?.firstElementChild;
+    if (!sectionEl || !trackEl || !viewport || !firstGroup) return;
+
+    sectionEl.classList.add("is-draggable-strip");
+    trackEl.querySelectorAll("img").forEach((img) => {
+      img.draggable = false;
+    });
+
+    const seconds = () => {
+      const raw = getComputedStyle(trackEl).getPropertyValue(duration).trim() || "15s";
+      const n = parseFloat(raw);
+      return raw.endsWith("ms") ? n / 1000 : n || 15;
+    };
+
+    let loop = firstGroup.offsetWidth; // one group = one full cycle
+    let speed = reduceMotion ? 0 : loop / seconds();
+    let x = 0;
+    let velocity = 0;
+    let hovering = false;
+    let dragging = false;
+    let pointerId = null;
+    let lastX = 0;
+    let lastT = 0;
+    let moved = 0;
+    let prev = performance.now();
+
+    const wrap = (value) => {
+      if (!loop) return 0;
+      let v = value % loop;
+      if (v > 0) v -= loop;
+      return v;
+    };
+
+    function frame(now) {
+      const dt = Math.min(0.05, (now - prev) / 1000);
+      prev = now;
+      if (!dragging) {
+        if (Math.abs(velocity) > 2) {
+          x += velocity * dt;
+          velocity *= Math.pow(0.04, dt); // momentum fades out over ~1s
+        } else {
+          velocity = 0;
+          if (!hovering) x -= speed * dt;
+        }
+      }
+      x = wrap(x);
+      trackEl.style.transform = `translate3d(${x.toFixed(2)}px, 0, 0)`;
+      requestAnimationFrame(frame);
+    }
+    requestAnimationFrame(frame);
+
+    viewport.addEventListener("pointerenter", (e) => {
+      if (e.pointerType === "mouse") hovering = true;
+    });
+    viewport.addEventListener("pointerleave", (e) => {
+      if (e.pointerType === "mouse" && !dragging) hovering = false;
+    });
+
+    viewport.addEventListener("pointerdown", (e) => {
+      if (e.pointerType === "mouse" && e.button !== 0) return;
+      dragging = true;
+      pointerId = e.pointerId;
+      lastX = e.clientX;
+      lastT = performance.now();
+      moved = 0;
+      velocity = 0;
+      viewport.setPointerCapture(e.pointerId);
+      sectionEl.classList.add("is-dragging");
+    });
+
+    viewport.addEventListener("pointermove", (e) => {
+      if (!dragging || e.pointerId !== pointerId) return;
+      const now = performance.now();
+      const dx = e.clientX - lastX;
+      x += dx;
+      moved += Math.abs(dx);
+      const dt = Math.max(1, now - lastT) / 1000;
+      velocity = 0.8 * (dx / dt) + 0.2 * velocity;
+      lastX = e.clientX;
+      lastT = now;
+    });
+
+    const end = (e) => {
+      if (!dragging || e.pointerId !== pointerId) return;
+      dragging = false;
+      pointerId = null;
+      sectionEl.classList.remove("is-dragging");
+      if (performance.now() - lastT > 80) velocity = 0; // held still before letting go
+      if (e.type === "pointercancel" || (e.pointerType === "mouse" && !viewport.matches(":hover"))) hovering = false;
+    };
+    viewport.addEventListener("pointerup", end);
+    viewport.addEventListener("pointercancel", end);
+
+    // A drag shouldn't also count as a click on whatever was under the pointer.
+    viewport.addEventListener(
+      "click",
+      (e) => {
+        if (moved > 6) {
+          e.preventDefault();
+          e.stopPropagation();
+        }
+      },
+      true
+    );
+
+    window.addEventListener("resize", () => {
+      loop = firstGroup.offsetWidth;
+      speed = reduceMotion ? 0 : loop / seconds();
+    });
+    window.addEventListener("load", () => {
+      loop = firstGroup.offsetWidth;
+      speed = reduceMotion ? 0 : loop / seconds();
+    });
+  });
+})();

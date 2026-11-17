@@ -629,3 +629,34 @@ body {
     overflow-x: auto;
   }
 }
+
+/* Draggable strips (about.js): the loop is driven by script, so the CSS animation
+   steps aside, and the strips get grab cursors. Vertical swipes still scroll the page. */
+.is-draggable-strip .about-photos__track,
+.is-draggable-strip .about-designs__track {
+  animation: none;
+  will-change: transform;
+}
+
+.is-draggable-strip .about-photos__viewport,
+.is-draggable-strip .about-designs__viewport {
+  overflow: hidden;
+  cursor: grab;
+  touch-action: pan-y;
+  user-select: none;
+  -webkit-user-select: none;
+}
+
+.is-draggable-strip.is-dragging .about-photos__viewport,
+.is-draggable-strip.is-dragging .about-designs__viewport {
+  cursor: grabbing;
+}
+
+.is-draggable-strip img {
+  -webkit-user-drag: none;
+}
+
+/* The motion reel is an embedded page; let drags pass over it to the strip. */
+.is-draggable-strip .about-designs__motion iframe {
+  pointer-events: none;
+}
